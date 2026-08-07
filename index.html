@@ -11001,14 +11001,7 @@ ${messageText}`;
             try {
                 const saved = localStorage.getItem('math_master_analytics_data');
                 if (saved) {
-                    analyticsLog = JSON.parse(saved);
-                    // Filter out old seed data if present (seeded entries had id starting with 'evt_' + Math.random without timestamp prefix or dummy date fill)
-                    // Ensure we only keep authentic recorded usage or start clean if it was purely dummy seeded
-                    if (localStorage.getItem('math_master_analytics_seeded') === 'true') {
-                        analyticsLog = [];
-                        localStorage.removeItem('math_master_analytics_seeded');
-                        localStorage.setItem('math_master_analytics_data', JSON.stringify([]));
-                    }
+                    analyticsLog = JSON.parse(saved) || [];
                 } else {
                     analyticsLog = [];
                 }
