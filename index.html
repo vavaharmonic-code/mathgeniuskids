@@ -1977,10 +1977,7 @@
             </div>
 
             <!-- Modal Footer -->
-            <div class="pt-3 border-t border-slate-100 flex items-center justify-between shrink-0">
-                <button onclick="clearAnalyticsLog()" class="text-xs font-bold text-rose-600 hover:text-rose-800 hover:underline flex items-center gap-1 cursor-pointer">
-                    <i class="fas fa-trash-alt"></i> Reset Analytics Data
-                </button>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-end shrink-0">
                 <button onclick="closeAnalyticsModal()" class="py-2 px-5 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-xl transition-all shadow-sm cursor-pointer">
                     Close Report
                 </button>
@@ -11250,14 +11247,6 @@ ${messageText}`;
             link.href = URL.createObjectURL(blob);
             link.download = `Math_Master_Usage_Analytics_Report_${new Date().toISOString().split('T')[0]}.xlsx`;
             link.click();
-        }
-
-        function clearAnalyticsLog() {
-            if (confirm("Are you sure you want to reset all recorded application usage analytics?")) {
-                analyticsLog = [];
-                saveAnalyticsData();
-                renderAnalyticsDashboard();
-            }
         }
 
         // --- Sound Synthesizer ---
