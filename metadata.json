@@ -1,0 +1,11 @@
+{
+  "name": "Math Master",
+  "description": "Math practice worksheet generator with handwriting digit recognition and AI companion.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
