@@ -1,6 +1,6 @@
 {
   "name": "Math Master",
-  "description": "Math practice worksheet generator with handwriting digit recognition and AI companion.",
+  "description": "Math practice worksheet for MathGenius Kids.",
   "requestFramePermissions": [
     "camera",
     "microphone"
