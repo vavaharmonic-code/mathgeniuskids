@@ -1,6 +1,6 @@
 {
-  "name": "Math Master",
-  "description": "Math practice worksheet for MathGenius Kids.",
+  "name": "EduMatrix Master",
+  "description": "EduMatrix worksheet for MathGenius Kids.",
   "requestFramePermissions": [
     "camera",
     "microphone"
