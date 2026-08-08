@@ -438,14 +438,9 @@
             <div class="absolute -top-24 -right-24 w-80 h-80 bg-gradient-to-br from-blue-300/20 to-sky-300/15 rounded-full blur-3xl pointer-events-none"></div>
             <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-gradient-to-tr from-indigo-300/15 to-blue-300/10 rounded-full blur-2xl pointer-events-none"></div>
 
-            <!-- Top Action Bar: Edit School & Feedback Buttons -->
+            <!-- Top Action Bar: Edit School Button -->
             <div class="flex items-center justify-end w-full flex-wrap gap-2 relative z-10">
                 <div class="flex items-center gap-2">
-                    <button id="top-feedback-btn" onclick="openFeedbackModal()" class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white px-3.5 py-2 rounded-xl font-extrabold text-xs sm:text-sm transition-all duration-200 active:scale-95 flex items-center gap-2 shrink-0 cursor-pointer shadow-sm border border-emerald-400">
-                        <i class="fab fa-whatsapp text-emerald-100 text-sm"></i>
-                        <span data-i18n="userFeedbackBtn">User Feedback</span>
-                    </button>
-
                     <button id="edit-school-btn" onclick="openBrandingModal()" class="btn-bevel-glass-white text-slate-800 hover:text-violet-700 px-4 py-2 rounded-xl font-extrabold text-xs sm:text-sm transition-all duration-200 active:scale-95 flex items-center gap-2 shrink-0 cursor-pointer">
                         <i class="fas fa-edit text-violet-600"></i> <span data-i18n="editSchool">Edit School</span>
                     </button>
@@ -476,7 +471,13 @@
             </div>
 
             <!-- Profile Details Inputs (Placed Underneath Main School Name) -->
-            <div class="pt-5 border-t border-blue-100 bg-white/95 backdrop-blur-md p-5 sm:p-6 rounded-2xl border border-blue-200/60 shadow-md flex flex-col gap-5 relative z-10">
+            <div class="pt-5 border-t border-blue-100 bg-white/95 backdrop-blur-md p-5 sm:p-6 rounded-2xl border border-blue-200/60 shadow-md flex flex-col gap-4 relative z-10">
+                
+                <!-- Primary Grade Guidance Notice Banner -->
+                <div class="bg-amber-50/90 border-l-4 border-amber-500 rounded-2xl p-3 sm:p-3.5 shadow-xs flex items-center gap-3 text-xs sm:text-sm text-amber-950 font-bold w-full relative z-10">
+                    <i class="fas fa-info-circle text-amber-600 text-lg shrink-0"></i>
+                    <span data-i18n="primaryGradeGuidanceNotice">1st to 5th grade students need Teacher or Parents guidance to work on this math quiz to avoid any interruption.</span>
+                </div>
                 
                 <!-- Role Selector Tabs / Active Logged-in Badge -->
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3.5 flex-wrap gap-2.5">
@@ -1639,25 +1640,25 @@
                 <div class="bg-gradient-to-br from-slate-50 to-emerald-50/50 p-5 rounded-2xl border-2 border-emerald-200 hover:border-emerald-400 transition-all shadow-sm flex flex-col justify-between">
                     <div>
                         <div class="flex items-center gap-2 mb-3">
-                            <span class="px-2.5 py-1 bg-emerald-600 text-white font-extrabold text-[10px] rounded-lg tracking-wider uppercase">🇮🇳 Indian UPI / GPay</span>
+                            <span class="px-2.5 py-1 bg-emerald-600 text-white font-extrabold text-[10px] rounded-lg tracking-wider uppercase" data-i18n="donateUpiBadge">🇮🇳 Indian UPI / GPay</span>
                             <i class="fas fa-mobile-alt text-emerald-600 text-base ml-auto"></i>
                         </div>
                         
-                        <h3 class="font-extrabold text-slate-800 text-sm mb-1">Google Pay & UPI Payment</h3>
-                        <p class="text-[11px] text-slate-500 font-medium mb-3">Donate via Google Pay, PhonePe, Paytm or BHIM using Mobile No or UPI ID.</p>
+                        <h3 class="font-extrabold text-slate-800 text-sm mb-1" data-i18n="donateUpiTitle">Google Pay & UPI Payment</h3>
+                        <p class="text-[11px] text-slate-500 font-medium mb-3" data-i18n="donateUpiDesc">Donate via Google Pay, PhonePe, Paytm or BHIM using Mobile No or UPI ID.</p>
                         
                         <!-- Name, Phone Number & UPI ID Card -->
                         <div class="bg-white p-3 rounded-xl border border-emerald-200 mb-3 space-y-2 text-xs">
                             <div class="flex items-center justify-between">
-                                <span class="font-bold text-slate-500">👤 Name:</span>
-                                <span class="font-black text-slate-800">Sakthivel Ganesan</span>
+                                <span class="font-bold text-slate-500" data-i18n="donateNameLabel">👤 Name:</span>
+                                <span class="font-black text-slate-800" data-i18n="donateNameValue">Sakthivel Ganesan</span>
                             </div>
                             <div class="flex items-center justify-between border-t border-slate-100 pt-1.5">
-                                <span class="font-bold text-slate-500">📱 GPay / Mobile:</span>
+                                <span class="font-bold text-slate-500" data-i18n="donatePhoneLabel">📱 GPay / Mobile:</span>
                                 <span id="donate-upi-phone" class="font-black text-slate-800 select-all font-mono">+91 9884095281</span>
                             </div>
                             <div class="flex items-center justify-between border-t border-slate-100 pt-1.5">
-                                <span class="font-bold text-slate-500">💳 UPI ID:</span>
+                                <span class="font-bold text-slate-500" data-i18n="donateUpiIdLabel">💳 UPI ID:</span>
                                 <span id="donate-upi-id" class="font-black text-emerald-700 select-all font-mono">gsakthidesigner@oksbi</span>
                             </div>
                         </div>
@@ -1667,12 +1668,12 @@
                         <!-- Quick Copy Button -->
                         <button onclick="copyUpiId()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-3 rounded-xl text-xs transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer">
                             <i class="fas fa-copy"></i>
-                            <span id="copy-upi-btn-text">Copy UPI ID</span>
+                            <span id="copy-upi-btn-text" data-i18n="copyUpiBtnText">Copy UPI ID</span>
                         </button>
 
                         <!-- Direct Mobile UPI Open Button -->
                         <a id="donate-upi-deep-link" href="upi://pay?pa=gsakthidesigner@oksbi&pn=Sakthivel%20Ganesan&cu=INR" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 px-3 rounded-xl text-xs transition-all flex items-center justify-center gap-2 shadow-sm text-center">
-                            <i class="fas fa-external-link-alt"></i> Open Google Pay / UPI
+                            <i class="fas fa-external-link-alt"></i> <span data-i18n="openUpiBtnText">Open Google Pay / UPI</span>
                         </a>
                     </div>
                 </div>
@@ -1681,26 +1682,26 @@
                 <div class="bg-gradient-to-br from-slate-50 to-blue-50/50 p-5 rounded-2xl border-2 border-blue-200 hover:border-blue-400 transition-all shadow-sm flex flex-col justify-between">
                     <div>
                         <div class="flex items-center gap-2 mb-3">
-                            <span class="px-2.5 py-1 bg-blue-600 text-white font-extrabold text-[10px] rounded-lg tracking-wider uppercase">🌐 International PayPal</span>
+                            <span class="px-2.5 py-1 bg-blue-600 text-white font-extrabold text-[10px] rounded-lg tracking-wider uppercase" data-i18n="donatePaypalBadge">🌐 International PayPal</span>
                             <i class="fab fa-paypal text-blue-600 text-lg ml-auto"></i>
                         </div>
                         
-                        <h3 class="font-extrabold text-slate-800 text-sm mb-1">PayPal Direct Payment</h3>
-                        <p class="text-[11px] text-slate-500 font-medium mb-3">Donate securely from anywhere worldwide using your PayPal account, Debit, or Credit Card.</p>
+                        <h3 class="font-extrabold text-slate-800 text-sm mb-1" data-i18n="donatePaypalTitle">PayPal Direct Payment</h3>
+                        <p class="text-[11px] text-slate-500 font-medium mb-3" data-i18n="donatePaypalDesc">Donate securely from anywhere worldwide using your PayPal account, Debit, or Credit Card.</p>
                         
                         <div class="bg-white p-3 rounded-xl border border-blue-200 mb-3 text-xs space-y-1.5">
                             <div class="flex items-center justify-between">
-                                <span class="font-bold text-slate-500">PayPal ID / Email:</span>
+                                <span class="font-bold text-slate-500" data-i18n="donatePaypalIdLabel">PayPal ID / Email:</span>
                             </div>
                             <div class="font-black text-blue-800 font-mono text-[11px] break-all select-all">
                                 gsakthidesigner@gmail.com
                             </div>
-                            <p class="text-[10px] text-slate-400 leading-tight border-t border-slate-100 pt-1">Direct PayPal Login & Instant Payment Support.</p>
+                            <p class="text-[10px] text-slate-400 leading-tight border-t border-slate-100 pt-1" data-i18n="donatePaypalNote">Direct PayPal Login & Instant Payment Support.</p>
                         </div>
                     </div>
 
                     <a href="https://www.paypal.com/paypalme/gsakthidesigner" target="_blank" rel="noopener noreferrer" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-3 rounded-xl text-xs transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer text-center">
-                        <i class="fab fa-paypal text-sm"></i> Pay via PayPal Login
+                        <i class="fab fa-paypal text-sm"></i> <span data-i18n="payViaPaypalBtn">Pay via PayPal Login</span>
                     </a>
                 </div>
 
@@ -1710,14 +1711,14 @@
             <div class="bg-emerald-50/80 p-3.5 rounded-2xl border border-emerald-200 flex items-center gap-3 text-xs text-emerald-900 font-medium">
                 <i class="fas fa-heart text-rose-500 text-xl shrink-0"></i>
                 <div>
-                    <strong class="block font-bold">Thank You for Supporting Education!</strong>
-                    <span>100% of voluntary donations directly support server maintenance and expanding free interactive math features for kids.</span>
+                    <strong class="block font-bold" data-i18n="donateThankYouTitle">Thank You for Supporting Education!</strong>
+                    <span data-i18n="donateThankYouDesc">100% of voluntary donations directly support server maintenance and expanding free interactive math features for kids.</span>
                 </div>
             </div>
 
             <!-- Close Button -->
             <div class="mt-5 text-center">
-                <button onclick="closeDonateModal()" class="px-6 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-extrabold text-xs rounded-xl transition-all cursor-pointer">
+                <button onclick="closeDonateModal()" class="px-6 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-extrabold text-xs rounded-xl transition-all cursor-pointer" data-i18n="closeWindow">
                     Close Window
                 </button>
             </div>
@@ -1845,16 +1846,16 @@
                     <label class="block text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-2" data-i18n="feedbackCategoryLabel">Select Topic / Category:</label>
                     <div class="grid grid-cols-2 sm:grid-cols-2 gap-2" id="feedback-category-options">
                         <button type="button" onclick="selectFeedbackCategory('💡 Feature Suggestion')" class="feedback-cat-btn py-2 px-3 rounded-xl border border-emerald-300 bg-emerald-100 text-emerald-900 font-extrabold text-xs flex items-center gap-1.5 cursor-pointer transition-all shadow-2xs">
-                            <i class="fas fa-lightbulb text-amber-500"></i> Feature Suggestion
+                            <i class="fas fa-lightbulb text-amber-500"></i> <span data-i18n="feedbackCatFeature">Feature Suggestion</span>
                         </button>
                         <button type="button" onclick="selectFeedbackCategory('🐛 Bug / Issue Report')" class="feedback-cat-btn py-2 px-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-bold text-xs flex items-center gap-1.5 cursor-pointer transition-all hover:bg-slate-100 active:scale-95">
-                            <i class="fas fa-bug text-rose-500"></i> Bug Report
+                            <i class="fas fa-bug text-rose-500"></i> <span data-i18n="feedbackCatBug">Bug Report</span>
                         </button>
                         <button type="button" onclick="selectFeedbackCategory('🏫 School Setup Inquiry')" class="feedback-cat-btn py-2 px-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-bold text-xs flex items-center gap-1.5 cursor-pointer transition-all hover:bg-slate-100 active:scale-95">
-                            <i class="fas fa-school text-blue-500"></i> School Setup
+                            <i class="fas fa-school text-blue-500"></i> <span data-i18n="feedbackCatSchool">School Setup</span>
                         </button>
                         <button type="button" onclick="selectFeedbackCategory('⭐ General Feedback')" class="feedback-cat-btn py-2 px-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-bold text-xs flex items-center gap-1.5 cursor-pointer transition-all hover:bg-slate-100 active:scale-95">
-                            <i class="fas fa-star text-amber-400"></i> General Feedback
+                            <i class="fas fa-star text-amber-400"></i> <span data-i18n="feedbackCatGeneral">General Feedback</span>
                         </button>
                     </div>
                 </div>
@@ -1862,12 +1863,12 @@
                 <!-- Message Input -->
                 <div>
                     <label class="block text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-1.5" data-i18n="feedbackMsgLabel">Your Message / Suggestion:</label>
-                    <textarea id="feedback-message-input" rows="4" placeholder="Type your valuable feedback, suggestion, or query here for developer G. Sakthivel..." class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 rounded-2xl p-3.5 text-xs sm:text-sm font-medium text-slate-800 placeholder-slate-400 focus:outline-none transition-all resize-none shadow-inner"></textarea>
+                    <textarea id="feedback-message-input" rows="4" data-i18n-placeholder="feedbackMsgPlaceholder" placeholder="Type your valuable feedback, suggestion, or query here for developer G. Sakthivel..." class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 rounded-2xl p-3.5 text-xs sm:text-sm font-medium text-slate-800 placeholder-slate-400 focus:outline-none transition-all resize-none shadow-inner"></textarea>
                 </div>
 
                 <div class="bg-amber-50 border border-amber-200 rounded-2xl p-3 flex items-center gap-2.5 text-xs text-amber-900 font-semibold">
                     <i class="fas fa-info-circle text-amber-600 text-base shrink-0"></i>
-                    <span>Clicking send will open WhatsApp directly with your message to <strong>+91 8939285768</strong>.</span>
+                    <span data-i18n="feedbackInfoNotice">Clicking send will open WhatsApp directly with your message to <strong>+91 8939285768</strong>.</span>
                 </div>
 
                 <!-- Action Buttons -->
@@ -1878,7 +1879,7 @@
                     </button>
                     <a href="https://api.whatsapp.com/send?phone=918939285768&text=Hello%20G.%20Sakthivel,%20I%20have%20feedback%20or%20a%20suggestion%20regarding%20EduMatrix%20Master." target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-4 rounded-2xl transition-all active:scale-95 flex items-center justify-center gap-1.5 text-xs border border-slate-300">
                         <i class="fas fa-comments text-emerald-600"></i>
-                        <span>Direct Chat</span>
+                        <span data-i18n="feedbackDirectChat">Direct Chat</span>
                     </a>
                 </div>
             </div>
@@ -2603,7 +2604,8 @@
                 advTopicLabel: "Topic:", advTopicAll: "All Topics", advTopicAlgebra: "Algebra & Equations", advTopicFractions: "Fractions & Decimals", advTopicRatios: "Ratios & Percentages", advTopicGeometry: "Geometry & Angles", advTopicExponents: "Exponents & Roots", advTopicIntegers: "Integers & Rational Numbers", advTopicWord: "Word Problems",
                 advCountLabel: "Count:", advShowAnswers: "Show Answers", advFetchBtn: "Fetch Random Questions", advStatusInfo: "Students, teachers, or parents can select questions below:",
                 advSelectAll: "Select All", advDeselectAll: "Deselect All", advSelection: "Selection:", advCancel: "Cancel", advLoadBtn: "Load Selected Questions into Practice Worksheet",
-                resetAnswersBtn: "Reset Answers", clearQuestionsBtn: "Clear Questions", showAnswersBtn: "Show All Answers / Solutions", clearQuestionsConfirm: "Are you sure you want to clear all questions from the worksheet?", clearQuestionsToast: "All questions cleared from worksheet.", clearQuestionsModalTitle: "Clear Questions", confirmOkBtn: "OK, Clear", cancelBtn: "Cancel"
+                resetAnswersBtn: "Reset Answers", clearQuestionsBtn: "Clear Questions", showAnswersBtn: "Show All Answers / Solutions", clearQuestionsConfirm: "Are you sure you want to clear all questions from the worksheet?", clearQuestionsToast: "All questions cleared from worksheet.", clearQuestionsModalTitle: "Clear Questions", confirmOkBtn: "OK, Clear", cancelBtn: "Cancel",
+                feedbackCategoryLabel: "Select Topic / Category:", feedbackCatFeature: "Feature Suggestion", feedbackCatBug: "Bug Report", feedbackCatSchool: "School Setup", feedbackCatGeneral: "General Feedback", feedbackMsgLabel: "Your Message / Suggestion:", feedbackMsgPlaceholder: "Type your valuable feedback, suggestion, or query here for developer G. Sakthivel...", feedbackInfoNotice: "Clicking send will open WhatsApp directly with your message to <strong>+91 8939285768</strong>.", feedbackDirectChat: "Direct Chat", primaryGradeGuidanceNotice: "1st to 5th grade students need Teacher or Parents guidance to work on this math quiz to avoid any interruption.", donateModalTitle: "Support EduMatrix Master", donateModalSub: "Your voluntary support keeps this interactive math learning platform 100% free, ad-free, and accessible to students, teachers, and parents worldwide!", donateUpiBadge: "🇮🇳 Indian UPI / GPay", donateUpiTitle: "Google Pay & UPI Payment", donateUpiDesc: "Donate via Google Pay, PhonePe, Paytm or BHIM using Mobile No or UPI ID.", donateNameLabel: "👤 Name:", donateNameValue: "Sakthivel Ganesan", donatePhoneLabel: "📱 GPay / Mobile:", donateUpiIdLabel: "💳 UPI ID:", copyUpiBtnText: "Copy UPI ID", openUpiBtnText: "Open Google Pay / UPI", donatePaypalBadge: "🌐 International PayPal", donatePaypalTitle: "PayPal Direct Payment", donatePaypalDesc: "Donate securely from anywhere worldwide using your PayPal account, Debit, or Credit Card.", donatePaypalIdLabel: "PayPal ID / Email:", donatePaypalNote: "Direct PayPal Login & Instant Payment Support.", payViaPaypalBtn: "Pay via PayPal Login", donateThankYouTitle: "Thank You for Supporting Education!", donateThankYouDesc: "100% of voluntary donations directly support server maintenance and expanding free interactive math features for kids.", closeWindow: "Close Window"
             },
             ta: {
         voiceTutorBtn: "AI குரல் ஆசிரியர்",
@@ -2770,7 +2772,7 @@
                 quitApp: "வெளியேறு", quitModalTitle: "செயலியில் இருந்து வெளியேறு", quitModalMsg: "EduMatrix Master மூலம் பயிற்சி பெற்றதற்கு நன்றி! உங்கள் அமர்வுத் தரவு பாதுகாப்பாக சேமிக்கப்பட்டுள்ளது. கீழே உள்ள விருப்பங்களில் ஒன்றைத் தேர்ந்தெடுக்கவும்.", confirmQuitBtn: "வெளியேறி மூடவும்", donateAppBtn: "ஆதரவு மற்றும் நன்கொடை", contactDevExitBtn: "உருவாக்குநரைத் தொடர்பு கொள்ளவும்", resumeApp: "செயலியைத் தொடரவும்", lockedNotice: "பூட்டப்பட்டது (லாகினில் மாற்றவும்)", quitModalTitle: "செயலி இடைநிறுத்தப்பட்டது",
                 quitModalMsg: "உங்கள் லாகின் விவரங்கள் மற்றும் தரவுகள் பாதுகாப்பாக சேமிக்கப்பட்டுள்ளன. மீண்டும் தொடர 'செயலியைத் தொடர்' பொத்தானைக் கிளிக் செய்யவும்.",
                 resumeApp: "செயலியைத் தொடர்", manageProfile: "சுயவிவர நிர்வாகம் / லாகின்", signOut: "வெளியேறு",
-                aboutAppBtn: "செயலி பற்றி & பயிற்சி", userFeedbackBtn: "பயனர் கருத்துகள்", feedbackModalTitle: "💬 பயனர் கருத்துகள் & ஆலோசனைகள்", feedbackModalSub: "வாட்ஸ்அப் மூலம் உருவாக்குநர் ஜி. சக்திவேல் அவர்களின் +91 8939285768 எண்ணிற்கு நேரடியாக அனுப்பவும்", sendFeedbackWhatsappBtn: "வாட்ஸ்அப்பில் கருத்து அனுப்பவும்", aboutModalTitle: "கணித மேதை பற்றி & முழுமையான பயிற்சி வழிகாட்டி",
+                aboutAppBtn: "செயலி பற்றி & பயிற்சி", userFeedbackBtn: "பயனர் கருத்துகள்", feedbackModalTitle: "💬 பயனர் கருத்துகள் & ஆலோசனைகள்", feedbackModalSub: "வாட்ஸ்அப் மூலம் உருவாக்குநர் க. சக்திவேல் அவர்களின் +91 8939285768 எண்ணிற்கு நேரடியாக அனுப்பவும்", sendFeedbackWhatsappBtn: "வாட்ஸ்அப்பில் கருத்து அனுப்பவும்", aboutModalTitle: "கணித மேதை பற்றி & முழுமையான பயிற்சி வழிகாட்டி",
                 aboutModalSubtitle: "மாணவர்கள், ஆசிரியர்கள் மற்றும் பெற்றோர்களை எவ்வாறு மேம்படுத்துகிறது என்பதற்கான வழிகாட்டி",
                 aboutSec1Title: "🌟 கணித மேதை என்றால் என்ன?", aboutSec1Desc: "கணித மேதை என்பது 1 முதல் 8 ஆம் வகுப்பு மாணவர்களுக்கான மனக் கணக்கு (+, -, ×, ÷) மற்றும் வாய்ப்பாடுகளை விரைவாகக் கற்றுக்கொள்ள உதவும் ஒரு ஊடாடும் பயிற்சித் தளமாகும்.",
                 aboutSec2Title: "🚀 இது எவ்வாறு இயங்குகிறது (படி-படியா பயிற்சி)", aboutStep1Title: "1. சுயவிவரம் அமைக்கவும் & பங்கைத் தேர்ந்தெடுக்கவும்", aboutStep1Desc: "உங்கள் பங்கைத் தேர்வுசெய்து (மாணவர் 🎓, ஆசிரியர் 👨‍🏫, பெற்றோர் 👨‍👩‍👧), விவரங்கள் மற்றும் புகைப்படத்தைச் சேர்க்கவும்.",
@@ -2780,7 +2782,8 @@
                 aboutSec3Title: "👨‍🏫 ஆசிரியர்கள் & பெற்றோர்களுக்கான நன்மைகள்", aboutTeacherBenefit: "ஆசிரியர்கள்: WhatsApp மூலம் குறிப்பிட்ட எண்களை வழங்கி வினாடி வினா பகிரலாம். இணைப்பை கிளிக் செய்யும் போது மாணவர் முறையில் தானாக ஓபன் ஆகும்.",
                 aboutParentBenefit: "பெற்றோர்கள்: தினசரி பயிற்சி வரலாற்றைக் கண்காணிக்கலாம், பகுப்பாய்வு மற்றும் புகைப்பட அறிக்கைகளைச் சேமிக்கலாம்.", closeTutorial: "பயிற்சியை மூடு",
                 analyticsReportTitle: "பயன்பாட்டு பயன்பாடு & பகுப்பாய்வு டாஷ்போர்டு", analyticsCardSub: "நேரலை பயன்பாட்டு புள்ளிவிவரங்கள், நாட்டு தரவு, திகதி வாரியான வரலாறு மற்றும் அறிக்கைகளை ஏற்றுமதி செய்யவும்.", analyticsReportBtn: "பகுப்பாய்வு அறிக்கை",
-                resetAnswersBtn: "பதில்களை மீட்டமைக்க", clearQuestionsBtn: "கேள்விகளை நீக்குக", showAnswersBtn: "அனைத்து விடைகள் / தீர்வுகள்", clearQuestionsConfirm: "பயிற்சித்தாளிலிருந்து அனைத்து கேள்விகளையும் நிச்சயமாக நீக்க விரும்புகிறீர்களா?", clearQuestionsToast: "பயிற்சித்தாளிலிருந்து அனைத்து கேள்விகளும் நீக்கப்பட்டன.", clearQuestionsModalTitle: "கேள்விகளை நீக்குக", confirmOkBtn: "சரி, நீக்குக", cancelBtn: "ரத்து செய்"
+                resetAnswersBtn: "பதில்களை மீட்டமைக்க", clearQuestionsBtn: "கேள்விகளை நீக்குக", showAnswersBtn: "அனைத்து விடைகள் / தீர்வுகள்", clearQuestionsConfirm: "பயிற்சித்தாளிலிருந்து அனைத்து கேள்விகளையும் நிச்சயமாக நீக்க விரும்புகிறீர்களா?", clearQuestionsToast: "பயிற்சித்தாளிலிருந்து அனைத்து கேள்விகளும் நீக்கப்பட்டன.", clearQuestionsModalTitle: "கேள்விகளை நீக்குக", confirmOkBtn: "சரி, நீக்குக", cancelBtn: "ரத்து செய்",
+                feedbackCategoryLabel: "தலைப்பு / வகையைத் தேர்ந்தெடுக்கவும்:", feedbackCatFeature: "புதிய அம்ச ஆலோசனை", feedbackCatBug: "பிழை அறிக்கை", feedbackCatSchool: "பள்ளி அமைப்பு", feedbackCatGeneral: "பொதுவான கருத்து", feedbackMsgLabel: "உங்கள் செய்தி / ஆலோசனை:", feedbackMsgPlaceholder: "உருவாக்குநர் க. சக்திவேல் அவர்களுக்கு உங்கள் மதிப்புமிக்க கருத்துகள் அல்லது கேள்விகளை இங்கு தட்டச்சு செய்யவும்...", feedbackInfoNotice: "அனுப்பு பொத்தானைக் கிளிக் செய்தால், <strong>+91 8939285768</strong> எண்ணிற்கு வாட்ஸ்அப்பில் செய்தி நேரடியாகச் செல்லும்.", feedbackDirectChat: "நேரடி அரட்டை", primaryGradeGuidanceNotice: "1 முதல் 5 ஆம் வகுப்பு மாணவர்கள் எவ்வித தடையுமின்றி கணிதப் பயிற்சியை செய்ய ஆசிரியர் அல்லது பெற்றோரின் வழிகாட்டுதல் தேவை.", donateModalTitle: "எடுமேட்ரிக்ஸ் மாஸ்டருக்கு ஆதரவளிக்கவும்", donateModalSub: "உங்கள் தன்னார்வ ஆதரவு, இந்த கணித கற்றல் தளத்தை உலகெங்கிலும் உள்ள மாணவர்கள், ஆசிரியர்கள் மற்றும் பெற்றோர்களுக்கு 100% இலவசமாகவும், விளம்பரங்கள் இன்றியும் வழங்க உதவுகிறது!", donateUpiBadge: "🇮🇳 இந்திய UPI / GPay", donateUpiTitle: "Google Pay & UPI செலுத்துதல்", donateUpiDesc: "கூகிள் பே, போன்பே, பேடிஎம் அல்லது பீம் மூலம் மொபைல் எண் அல்லது UPI ஐடியைப் பயன்படுத்தி நன்கொடை அளிக்கவும்.", donateNameLabel: "👤 பெயர்:", donateNameValue: "க. சக்திவேல் கணேசன்", donatePhoneLabel: "📱 GPay / மொபைல்:", donateUpiIdLabel: "💳 UPI ஐடி:", copyUpiBtnText: "UPI ஐடியை நகலெடு", openUpiBtnText: "Google Pay / UPI திறக்கவும்", donatePaypalBadge: "🌐 சர்வதேச PayPal", donatePaypalTitle: "PayPal நேரடி செலுத்துதல்", donatePaypalDesc: "உங்கள் PayPal கணக்கு, டெபிட் அல்லது கிரெடிட் கார்டைப் பயன்படுத்தி உலகளவில் எங்கிருந்தும் பாதுகாப்பாக நன்கொடை அளிக்கவும்.", donatePaypalIdLabel: "PayPal ஐடி / மின்னஞ்சல்:", donatePaypalNote: "நேரடி PayPal உள்நுழைவு மற்றும் உடனடி கட்டண ஆதரவு.", payViaPaypalBtn: "PayPal மூலம் செலுத்தவும்", donateThankYouTitle: "கல்விக்கு ஆதரவளித்தமைக்கு நன்றி!", donateThankYouDesc: "100% தன்னார்வ நன்கொடைகளும் சர்வர் பராமரிப்புக்கும் குழந்தைகளுக்கு இலவச கணிதப் பயிற்சிகளை விரிவுபடுத்துவதற்கும் நேரடியாகப் பயன்படுத்தப்படுகின்றன.", closeWindow: "சாளரத்தை மூடு"
             },
             hi: {
         voiceTutorBtn: "AI वॉयस ट्यूटर",
@@ -2952,7 +2955,8 @@
                 aboutSec3Title: "👨‍🏫 शिक्षकों और अभिभावकों के लिए लाभ", aboutTeacherBenefit: "शिक्षक: व्हाट्सएप के माध्यम से विशिष्ट क्विज़ नंबर असाइन करें। सीधे लिंक से छात्र मोड में असाइन किए गए नंबर अपने आप लोड हो जाते हैं।",
                 aboutParentBenefit: "अभिभावक: दैनिक अभ्यास इतिहास की निगरानी करें, विश्लेषिकी देखें और फोटो युक्त एक्सेल रिपोर्ट सहेजें।", closeTutorial: "ट्यूटोरियल बंद करें",
                 analyticsReportTitle: "एप्लिकेशन उपयोग और विश्लेषिकी डैशबोर्ड", analyticsCardSub: "लाइव उपयोग आंकड़े, देश टेलीमेट्री, तारीख-वार इतिहास ट्रैक करें और रिपोर्ट निर्यात करें।", analyticsReportBtn: "विश्लेषिकी रिपोर्ट",
-                resetAnswersBtn: "उत्तर रीसेट करें", clearQuestionsBtn: "प्रश्न हटाएं", showAnswersBtn: "सभी उत्तर / हल देखें", clearQuestionsConfirm: "क्या आप वाकई कार्यपत्रक से सभी प्रश्नों को हटाना चाहते हैं?", clearQuestionsToast: "कार्यपत्रक से सभी प्रश्न हटा दिए गए हैं।", clearQuestionsModalTitle: "प्रश्न हटाएं", confirmOkBtn: "हाँ, हटाएं", cancelBtn: "रद्द करें"
+                resetAnswersBtn: "उत्तर रीसेट करें", clearQuestionsBtn: "प्रश्न हटाएं", showAnswersBtn: "सभी उत्तर / हल देखें", clearQuestionsConfirm: "क्या आप वाकई कार्यपत्रक से सभी प्रश्नों को हटाना चाहते हैं?", clearQuestionsToast: "कार्यपत्रक से सभी प्रश्न हटा दिए गए हैं।", clearQuestionsModalTitle: "प्रश्न हटाएं", confirmOkBtn: "हाँ, हटाएं", cancelBtn: "रद्द करें",
+                feedbackCategoryLabel: "विषय / श्रेणी चुनें:", feedbackCatFeature: "सुविधा का सुझाव", feedbackCatBug: "बग रिपोर्ट", feedbackCatSchool: "स्कूल सेटअप", feedbackCatGeneral: "सामान्य प्रतिक्रिया", feedbackMsgLabel: "आपका संदेश / सुझाव:", feedbackMsgPlaceholder: "डेवलपर जी. शक्तिवेल के लिए अपना बहुमूल्य सुझाव या प्रश्न यहाँ लिखें...", feedbackInfoNotice: "भेजें पर क्लिक करने से आपका संदेश सीधे व्हाट्सएप पर <strong>+91 8939285768</strong> पर खुल जाएगा।", feedbackDirectChat: "सीधा चैट", primaryGradeGuidanceNotice: "कक्षा 1 से 5 के छात्रों को गणित प्रश्नोत्तरी पर बिना किसी रुकावट के काम करने के लिए शिक्षक या माता-पिता के मार्गदर्शन की आवश्यकता है।", donateModalTitle: "EduMatrix Master का समर्थन करें", donateModalSub: "आपका स्वैच्छिक योगदान इस इंटरैक्टिव गणित सीखने के मंच को 100% मुफ़्त, विज्ञापन-मुक्त और दुनिया भर के छात्रों, शिक्षकों और अभिभावकों के लिए सुलभ बनाए रखता है!", donateUpiBadge: "🇮🇳 भारतीय UPI / GPay", donateUpiTitle: "Google Pay और UPI भुगतान", donateUpiDesc: "मोबाइल नंबर या UPI ID का उपयोग करके Google Pay, PhonePe, Paytm या BHIM के माध्यम से दान करें।", donateNameLabel: "👤 नाम:", donateNameValue: "शक्तिवेल गणेशन", donatePhoneLabel: "📱 GPay / मोबाइल:", donateUpiIdLabel: "💳 UPI ID:", copyUpiBtnText: "UPI ID कॉपी करें", openUpiBtnText: "Google Pay / UPI खोलें", donatePaypalBadge: "🌐 अंतर्राष्ट्रीय PayPal", donatePaypalTitle: "PayPal प्रत्यक्ष भुगतान", donatePaypalDesc: "अपने PayPal खाते, डेबिट या क्रेडिट कार्ड का उपयोग करके दुनिया में कहीं से भी सुरक्षित रूप से दान करें।", donatePaypalIdLabel: "PayPal ID / ईमेल:", donatePaypalNote: "प्रत्यक्ष PayPal लॉगिन और त्वरित भुगतान सहायता।", payViaPaypalBtn: "PayPal से भुगतान करें", donateThankYouTitle: "शिक्षा का समर्थन करने के लिए धन्यवाद!", donateThankYouDesc: "100% स्वैच्छिक दान सीधे सर्वर रखरखाव और बच्चों के लिए मुफ़्त इंटरैक्टिव गणित सुविधाओं का विस्तार करने में सहायता करते हैं।", closeWindow: "विंडो बंद करें"
             },
             zh: {
         voiceTutorBtn: "AI 语音导师",
@@ -3124,7 +3128,8 @@
                 aboutSec3Title: "👨‍🏫 教师与家长的专属优势", aboutTeacherBenefit: "教师：通过 WhatsApp 发送专属测试链接。学生点击链接后将直接进入学生模式并自动加载指定的练习数字。",
                 aboutParentBenefit: "家长：实时监督每日练习记录，查看分析数据，并保存带照片的 Excel 成绩单。", closeTutorial: "关闭教程",
                 analyticsReportTitle: "应用使用与分析仪表板", analyticsCardSub: "追踪实时使用统计、国家/地区数据、按日期的测试历史并导出完整报告。", analyticsReportBtn: "分析报告",
-                resetAnswersBtn: "重置答案", clearQuestionsBtn: "清除所有题目", showAnswersBtn: "显示所有答案与解析", clearQuestionsConfirm: "您确定要从练习表中清除所有题目吗？", clearQuestionsToast: "已从练习表中清除所有题目。", clearQuestionsModalTitle: "清除所有题目", confirmOkBtn: "确定, 清除", cancelBtn: "取消"
+                resetAnswersBtn: "重置答案", clearQuestionsBtn: "清除所有题目", showAnswersBtn: "显示所有答案与解析", clearQuestionsConfirm: "您确定要从练习表中清除所有题目吗？", clearQuestionsToast: "已从练习表中清除所有题目。", clearQuestionsModalTitle: "清除所有题目", confirmOkBtn: "确定, 清除", cancelBtn: "取消",
+                feedbackCategoryLabel: "选择主题 / 类别：", feedbackCatFeature: "功能建议", feedbackCatBug: "问题反馈", feedbackCatSchool: "学校设置", feedbackCatGeneral: "通用反馈", feedbackMsgLabel: "您的留言 / 建议：", feedbackMsgPlaceholder: "在此输入您给开发者 G. Sakthivel 的宝贵反馈、建议或疑问...", feedbackInfoNotice: "点击发送将直接打开 WhatsApp，将您的消息发送至 <strong>+91 8939285768</strong>。", feedbackDirectChat: "直接沟通", primaryGradeGuidanceNotice: "1至5年级学生需要老师或家长的指导来进行此数学测试，以避免中断。", donateModalTitle: "支持 EduMatrix Master", donateModalSub: "您的自愿支持使这个互动数学学习平台对全球学生、教师和家长保持 100% 免费、无广告！", donateUpiBadge: "🇮🇳 印度 UPI / GPay", donateUpiTitle: "Google Pay 与 UPI 支付", donateUpiDesc: "使用手机号或 UPI ID 通过 Google Pay、PhonePe、Paytm 或 BHIM 进行捐赠。", donateNameLabel: "👤 姓名:", donateNameValue: "Sakthivel Ganesan", donatePhoneLabel: "📱 GPay / 手机:", donateUpiIdLabel: "💳 UPI ID:", copyUpiBtnText: "复制 UPI ID", openUpiBtnText: "打开 Google Pay / UPI", donatePaypalBadge: "🌐 国际 PayPal", donatePaypalTitle: "PayPal 直接支付", donatePaypalDesc: "使用您的 PayPal 账户、借记卡或信用卡在全球任何地方安全捐赠。", donatePaypalIdLabel: "PayPal ID / 邮箱:", donatePaypalNote: "支持 PayPal 直接登录与即时支付。", payViaPaypalBtn: "通过 PayPal 支付", donateThankYouTitle: "感谢您支持教育！", donateThankYouDesc: "100% 的自愿捐款将直接用于服务器维护以及扩展面向儿童的免费互动数学功能。", closeWindow: "关闭窗口"
             },
             ar: {
         voiceTutorBtn: "معلم الصوت الذكي",
@@ -3296,7 +3301,8 @@
                 aboutSec3Title: "👨‍🏫 فوائد للمعلمين وأولياء الأمور", aboutTeacherBenefit: "المعلمون: تعيين أرقام اختبار محددة عبر WhatsApp. تفتح الروابط المباشرة في وضع الطالب مع تحميل الأرقام المعينة تلقائيًا.",
                 aboutParentBenefit: "أولياء الأمور: متابعة تاريخ التمرين اليومي، مشاهدة التحليلات، وحفظ بطاقات الدرجات بصور Excel.", closeTutorial: "إغلاق الدليل",
                 analyticsReportTitle: "لوحة تحليلات واستخدام التطبيق", analyticsCardSub: "تتبع إحصائيات الاستخدام المباشرة، وتاريخ الاختبارات حسب التاريخ، وتصدير التقارير الكاملة.", analyticsReportBtn: "تقرير التحليلات",
-                resetAnswersBtn: "إعادة ضبط الإجابات", clearQuestionsBtn: "مسح الأسئلة", showAnswersBtn: "عرض جميع الإجابات والحلول", clearQuestionsConfirm: "هل أنت تأكد من أنك تريد مسح جميع الأسئلة من ورقة العمل؟", clearQuestionsToast: "تم مسح جميع الأسئلة من ورقة العمل.", clearQuestionsModalTitle: "مسح الأسئلة", confirmOkBtn: "موافق، مسح", cancelBtn: "إلغاء"
+                resetAnswersBtn: "إعادة ضبط الإجابات", clearQuestionsBtn: "مسح الأسئلة", showAnswersBtn: "عرض جميع الإجابات والحلول", clearQuestionsConfirm: "هل أنت تأكد من أنك تريد مسح جميع الأسئلة من ورقة العمل؟", clearQuestionsToast: "تم مسح جميع الأسئلة من ورقة العمل.", clearQuestionsModalTitle: "مسح الأسئلة", confirmOkBtn: "موافق، مسح", cancelBtn: "إلغاء",
+                feedbackCategoryLabel: "اختر الموضوع / الفئة:", feedbackCatFeature: "اقتراح ميزة", feedbackCatBug: "الإبلاغ عن خطأ", feedbackCatSchool: "إعداد المدرسة", feedbackCatGeneral: "ملاحظات عامة", feedbackMsgLabel: "رسالتك / اقتراحك:", feedbackMsgPlaceholder: "اكتب ملاحظاتك أو اقتراحاتك القيمة للمطور ج. ساكثيفيل هنا...", feedbackInfoNotice: "سيؤدي النقر على إرسال إلى فتح واتساب مباشرة لرسالتك إلى <strong>+91 8939285768</strong>.", feedbackDirectChat: "محادثة مباشرة", primaryGradeGuidanceNotice: "يحتاج طلاب الصفوف من الأول إلى الخامس إلى توجيه المعلم أو الوالدين للعمل على هذا الاختبار الرياضي لتجنب أي انقطاع.", donateModalTitle: "دعم EduMatrix Master", donateModalSub: "دعمك التطوعي يبقي منصة تعلم الرياضيات التفاعلية هذه مجانية 100% وخالية من الإعلانات ومتاحة للجميع!", donateUpiBadge: "🇮🇳 الدفع الهندي UPI / GPay", donateUpiTitle: "دفع Google Pay & UPI", donateUpiDesc: "التبرع عبر Google Pay أو PhonePe أو Paytm أو BHIM باستخدام رقم الهاتف المحمول أو معرف UPI.", donateNameLabel: "👤 الاسم:", donateNameValue: "ساكثيفيل غانيسان", donatePhoneLabel: "📱 GPay / المحمول:", donateUpiIdLabel: "💳 معرف UPI:", copyUpiBtnText: "نسخ معرف UPI", openUpiBtnText: "فتح Google Pay / UPI", donatePaypalBadge: "🌐 PayPal الدولي", donatePaypalTitle: "الدفع المباشر عبر PayPal", donatePaypalDesc: "التبرع بأمان من أي مكان في العالم باستخدام حساب PayPal أو بطاقة الائتمان.", donatePaypalIdLabel: "معرف PayPal / البريد الإلكتروني:", donatePaypalNote: "تسجيل دخول مباشر عبر PayPal ودعم الدفع الفوري.", payViaPaypalBtn: "الدفع عبر PayPal", donateThankYouTitle: "شكراً لدعمك للتعليم!", donateThankYouDesc: "تُستخدم 100% من التبرعات التطوعية مباشرة لدعم صيانة الخادم وتوسيع الميزات التفاعلية المجانية للأطفال.", closeWindow: "إغلاق النافذة"
             },
             fr: {
         voiceTutorBtn: "Tuteur Vocal IA",
@@ -3468,7 +3474,8 @@
                 aboutSec3Title: "👨‍🏫 Avantages pour les enseignants et les parents", aboutTeacherBenefit: "Enseignants : Assignez des quiz spécifiques via WhatsApp. Les liens s'ouvrent directement en mode Élève avec les numéros préchargés.",
                 aboutParentBenefit: "Parents : Suivez l'historique quotidien, consultez les analyses et enregistrez les bulletins Excel avec photos.", closeTutorial: "Fermer le tutoriel",
                 analyticsReportTitle: "Tableau de bord d'analyse d'utilisation", analyticsCardSub: "Suivez les statistiques en direct, la télémétrie par pays, l'historique par date et exportez des rapports.", analyticsReportBtn: "Rapport d'analyse",
-                resetAnswersBtn: "Réinitialiser les réponses", clearQuestionsBtn: "Effacer les questions", showAnswersBtn: "Afficher toutes les réponses / solutions", clearQuestionsConfirm: "Voulez-vous vraiment effacer toutes les questions de la feuille d'exercices ?", clearQuestionsToast: "Toutes les questions ont été effacées de la feuille d'exercices.", clearQuestionsModalTitle: "Effacer les questions", confirmOkBtn: "OK, Effacer", cancelBtn: "Annuler"
+                resetAnswersBtn: "Réinitialiser les réponses", clearQuestionsBtn: "Effacer les questions", showAnswersBtn: "Afficher toutes les réponses / solutions", clearQuestionsConfirm: "Voulez-vous vraiment effacer toutes les questions de la feuille d'exercices ?", clearQuestionsToast: "Toutes les questions ont été effacées de la feuille d'exercices.", clearQuestionsModalTitle: "Effacer les questions", confirmOkBtn: "OK, Effacer", cancelBtn: "Annuler",
+                feedbackCategoryLabel: "Sélectionner le sujet / catégorie:", feedbackCatFeature: "Suggestion de fonctionnalité", feedbackCatBug: "Rapport de bug", feedbackCatSchool: "Configuration École", feedbackCatGeneral: "Avis Général", feedbackMsgLabel: "Votre message / suggestion:", feedbackMsgPlaceholder: "Saisissez vos remarques ou suggestions pour le développeur G. Sakthivel ici...", feedbackInfoNotice: "Cliquer sur envoyer ouvrira directement WhatsApp vers le <strong>+91 8939285768</strong>.", feedbackDirectChat: "Chat Direct", primaryGradeGuidanceNotice: "Les élèves de la 1ère à la 5ème année ont besoin des conseils de l'enseignant ou des parents pour effectuer ce quiz de mathématiques afin d'éviter toute interruption.", donateModalTitle: "Soutenir EduMatrix Master", donateModalSub: "Votre soutien volontaire permet de garder cette plateforme d'apprentissage des mathématiques 100% gratuite, sans publicité et accessible à tous !", donateUpiBadge: "🇮🇳 UPI Inde / GPay", donateUpiTitle: "Paiement Google Pay & UPI", donateUpiDesc: "Faites un don via Google Pay, PhonePe, Paytm ou BHIM en utilisant le numéro mobile ou l'ID UPI.", donateNameLabel: "👤 Nom :", donateNameValue: "Sakthivel Ganesan", donatePhoneLabel: "📱 GPay / Mobile :", donateUpiIdLabel: "💳 ID UPI :", copyUpiBtnText: "Copier l'ID UPI", openUpiBtnText: "Ouvrir Google Pay / UPI", donatePaypalBadge: "🌐 PayPal International", donatePaypalTitle: "Paiement direct PayPal", donatePaypalDesc: "Faites un don en toute sécurité depuis n'importe où dans le monde avec votre compte PayPal ou carte bancaire.", donatePaypalIdLabel: "ID PayPal / E-mail :", donatePaypalNote: "Connexion directe PayPal et support de paiement instantané.", payViaPaypalBtn: "Payer via PayPal", donateThankYouTitle: "Merci de soutenir l'éducation !", donateThankYouDesc: "100% des dons volontaires soutiennent directement la maintenance du serveur et le développement de fonctionnalités gratuites pour les enfants.", closeWindow: "Fermer la fenêtre"
             },
             es: {
         voiceTutorBtn: "Tutor de Voz IA",
@@ -3640,7 +3647,8 @@
                 aboutSec3Title: "👨‍🏫 Beneficios para profesores y padres", aboutTeacherBenefit: "Profesores: Asignar números específicos por WhatsApp. Los enlaces directos abren en Modo Estudiante con los números precargados.",
                 aboutParentBenefit: "Padres: Monitorear el historial diario de práctica, ver analíticas y guardar tarjetas de reporte en Excel con foto.", closeTutorial: "Cerrar tutorial",
                 analyticsReportTitle: "Panel de analítica y uso de la aplicación", analyticsCardSub: "Siga las estadísticas de uso en vivo, la telemetría del país, el historial por fecha y exporte informes.", analyticsReportBtn: "Informe de analítica",
-                resetAnswersBtn: "Restablecer respuestas", clearQuestionsBtn: "Borrar preguntas", showAnswersBtn: "Mostrar todas las respuestas / soluciones", clearQuestionsConfirm: "¿Está seguro de que desea borrar todas las preguntas de la hoja de trabajo?", clearQuestionsToast: "Se han borrado todas las preguntas de la hoja de trabajo.", clearQuestionsModalTitle: "Borrar preguntas", confirmOkBtn: "Aceptar, Borrar", cancelBtn: "Cancelar"
+                resetAnswersBtn: "Restablecer respuestas", clearQuestionsBtn: "Borrar preguntas", showAnswersBtn: "Mostrar todas las respuestas / soluciones", clearQuestionsConfirm: "¿Está seguro de que desea borrar todas las preguntas de la hoja de trabajo?", clearQuestionsToast: "Se han borrado todas las preguntas de la hoja de trabajo.", clearQuestionsModalTitle: "Borrar preguntas", confirmOkBtn: "Aceptar, Borrar", cancelBtn: "Cancelar",
+                feedbackCategoryLabel: "Seleccionar Tema / Categoría:", feedbackCatFeature: "Sugerencia de función", feedbackCatBug: "Reporte de error", feedbackCatSchool: "Configuración Escolar", feedbackCatGeneral: "Comentario General", feedbackMsgLabel: "Su mensaje / sugerencia:", feedbackMsgPlaceholder: "Escriba sus comentarios o sugerencias para el desarrollador G. Sakthivel aquí...", feedbackInfoNotice: "Hacer clic en enviar abrirá WhatsApp directamente con su mensaje a <strong>+91 8939285768</strong>.", feedbackDirectChat: "Chat Directo", primaryGradeGuidanceNotice: "Los estudiantes de 1.º a 5.º grado necesitan la orientación del profesor o de los padres para trabajar en este cuestionario de matemáticas y evitar interrupciones.", donateModalTitle: "Apoyar a EduMatrix Master", donateModalSub: "¡Su apoyo voluntario mantiene esta plataforma interactiva de aprendizaje de matemáticas 100% gratuita, sin anuncios y accesible para todos!", donateUpiBadge: "🇮🇳 UPI India / GPay", donateUpiTitle: "Pago con Google Pay y UPI", donateUpiDesc: "Done a través de Google Pay, PhonePe, Paytm o BHIM usando el número de móvil o ID de UPI.", donateNameLabel: "👤 Nombre:", donateNameValue: "Sakthivel Ganesan", donatePhoneLabel: "📱 GPay / Móvil:", donateUpiIdLabel: "💳 ID de UPI:", copyUpiBtnText: "Copiar ID de UPI", openUpiBtnText: "Abrir Google Pay / UPI", donatePaypalBadge: "🌐 PayPal Internacional", donatePaypalTitle: "Pago directo con PayPal", donatePaypalDesc: "Done de forma segura desde cualquier parte del mundo con su cuenta de PayPal o tarjeta de crédito.", donatePaypalIdLabel: "ID de PayPal / Correo:", donatePaypalNote: "Inicio de sesión directo en PayPal y pago instantáneo.", payViaPaypalBtn: "Pagar con PayPal", donateThankYouTitle: "¡Gracias por apoyar la educación!", donateThankYouDesc: "El 100% de las donaciones voluntarias apoya directamente el mantenimiento del servidor y la expansión de funciones interactivas gratuitas.", closeWindow: "Cerrar ventana"
             },
             ru: {
         voiceTutorBtn: "Голосовой ИИ-репетитор",
@@ -3812,7 +3820,8 @@
                 aboutSec3Title: "👨‍🏫 Преимущества для учителей и родителей", aboutTeacherBenefit: "Учителя: Назначайте задания через WhatsApp. Прямые ссылки открывают режим ученика с уже загруженными числами.",
                 aboutParentBenefit: "Родители: Отслеживайте ежедневный прогресс, смотрите аналитику и сохраняйте отчеты в Excel с фото.", closeTutorial: "Закрыть руководство",
                 analyticsReportTitle: "Панель аналитики использования приложения", analyticsCardSub: "Отслеживайте статистику в реальном времени, историю по датам и экспортируйте полные отчеты.", analyticsReportBtn: "Отчет об аналитике",
-                resetAnswersBtn: "Сбросить ответы", clearQuestionsBtn: "Очистить вопросы", showAnswersBtn: "Показать все ответы и решения", clearQuestionsConfirm: "Вы уверены, что хотите удалить все вопросы из рабочего листа?", clearQuestionsToast: "Все вопросы удалены из рабочего листа.", clearQuestionsModalTitle: "Очистить вопросы", confirmOkBtn: "ОК, Очистить", cancelBtn: "Отмена"
+                resetAnswersBtn: "Сбросить ответы", clearQuestionsBtn: "Очистить вопросы", showAnswersBtn: "Показать все ответы и решения", clearQuestionsConfirm: "Вы уверены, что хотите удалить все вопросы из рабочего листа?", clearQuestionsToast: "Все вопросы удалены из рабочего листа.", clearQuestionsModalTitle: "Очистить вопросы", confirmOkBtn: "ОК, Очистить", cancelBtn: "Отмена",
+                feedbackCategoryLabel: "Выберите тему / категорию:", feedbackCatFeature: "Предложение функции", feedbackCatBug: "Отчет об ошибке", feedbackCatSchool: "Настройка школы", feedbackCatGeneral: "Общий отзыв", feedbackMsgLabel: "Ваше сообщение / предложение:", feedbackMsgPlaceholder: "Напишите ваш отзыв или предложение разработчику Г. Сактивелу...", feedbackInfoNotice: "Нажатие кнопки «Отправить» откроет WhatsApp с вашим сообщением на номер <strong>+91 8939285768</strong>.", feedbackDirectChat: "Прямой чат", primaryGradeGuidanceNotice: "Ученикам 1–5 классов требуется помощь учителя или родителей для прохождения математического теста без перерывов.", donateModalTitle: "Поддержать EduMatrix Master", donateModalSub: "Ваша добровольная поддержка помогает сохранить эту платформу изучения математики 100% бесплатной, без рекламы и доступной для всех!", donateUpiBadge: "🇮🇳 Индийский UPI / GPay", donateUpiTitle: "Оплата Google Pay и UPI", donateUpiDesc: "Пожертвовать через Google Pay, PhonePe, Paytm или BHIM с помощью мобильного номера или UPI ID.", donateNameLabel: "👤 Имя:", donateNameValue: "Сактивел Ганесан", donatePhoneLabel: "📱 GPay / Мобильный:", donateUpiIdLabel: "💳 UPI ID:", copyUpiBtnText: "Копировать UPI ID", openUpiBtnText: "Открыть Google Pay / UPI", donatePaypalBadge: "🌐 Международный PayPal", donatePaypalTitle: "Прямая оплата через PayPal", donatePaypalDesc: "Безопасное пожертвование из любой точки мира с помощью аккаунта PayPal или банковской карты.", donatePaypalIdLabel: "PayPal ID / Email:", donatePaypalNote: "Прямой вход в PayPal и мгновенная оплата.", payViaPaypalBtn: "Оплатить через PayPal", donateThankYouTitle: "Спасибо за поддержку образования!", donateThankYouDesc: "100% добровольных пожертвований направляются на обслуживание сервера и развитие бесплатных возможностей для детей.", closeWindow: "Закрыть окно"
             },
             nl: {
         voiceTutorBtn: "AI Spraaktutor",
@@ -3984,7 +3993,8 @@
                 aboutSec3Title: "👨‍🏫 Voordelen voor leraren en ouders", aboutTeacherBenefit: "Leraren: Wijs specifieke quiznummers toe via WhatsApp. Directe links openen in Leerlingmodus met vooraf geladen nummers.",
                 aboutParentBenefit: "Ouders: Volg dagelijkse oefengeschiedenis, bekijk analyses en sla Excel-rapporten op met foto's.", closeTutorial: "Handleiding sluiten",
                 analyticsReportTitle: "Gebruikersanalyse- & Statistiekendashboard", analyticsCardSub: "Volg live gebruiksstatistieken, landtelemetrie, quizgeschiedenis per datum en exporteer rapporten.", analyticsReportBtn: "Analyserapport",
-                resetAnswersBtn: "Antwoorden resetten", clearQuestionsBtn: "Vragen wissen", showAnswersBtn: "Toon alle antwoorden / oplossingen", clearQuestionsConfirm: "Weet u zeker dat u alle vragen van het werkblad wilt wissen?", clearQuestionsToast: "Alle vragen zijn gewist van het werkblad.", clearQuestionsModalTitle: "Vragen wissen", confirmOkBtn: "OK, Wissen", cancelBtn: "Annuleren"
+                resetAnswersBtn: "Antwoorden resetten", clearQuestionsBtn: "Vragen wissen", showAnswersBtn: "Toon alle antwoorden / oplossingen", clearQuestionsConfirm: "Weet u zeker dat u alle vragen van het werkblad wilt wissen?", clearQuestionsToast: "Alle vragen zijn gewist van het werkblad.", clearQuestionsModalTitle: "Vragen wissen", confirmOkBtn: "OK, Wissen", cancelBtn: "Annuleren",
+                feedbackCategoryLabel: "Selecteer Onderwerp / Categorie:", feedbackCatFeature: "Functie Suggestie", feedbackCatBug: "Foutmelding", feedbackCatSchool: "School Instellen", feedbackCatGeneral: "Algemene Feedback", feedbackMsgLabel: "Uw Bericht / Suggestie:", feedbackMsgPlaceholder: "Typ uw waardevolle feedback of vragen voor ontwikkelaar G. Sakthivel hier...", feedbackInfoNotice: "Klikken op verzenden opent direct WhatsApp met uw bericht naar <strong>+91 8939285768</strong>.", feedbackDirectChat: "Directe Chat", primaryGradeGuidanceNotice: "Leerlingen van groep 3 t/m 7 (Grade 1-5) hebben begeleiding van de leraar of ouders nodig bij deze wiskundequiz om onderbrekingen te voorkomen.", donateModalTitle: "Steun EduMatrix Master", donateModalSub: "Uw vrijwillige steun houdt dit interactieve wiskundeplatform 100% gratis, reclamevrij en toegankelijk voor iedereen!", donateUpiBadge: "🇮🇳 Indiase UPI / GPay", donateUpiTitle: "Google Pay & UPI Betaling", donateUpiDesc: "Doneren via Google Pay, PhonePe, Paytm of BHIM met mobiel nummer of UPI ID.", donateNameLabel: "👤 Naam:", donateNameValue: "Sakthivel Ganesan", donatePhoneLabel: "📱 GPay / Mobiel:", donateUpiIdLabel: "💳 UPI ID:", copyUpiBtnText: "Kopieer UPI ID", openUpiBtnText: "Open Google Pay / UPI", donatePaypalBadge: "🌐 Internationaal PayPal", donatePaypalTitle: "Directe PayPal Betaling", donatePaypalDesc: "Doneer veilig vanuit de hele wereld met uw PayPal-account of creditcard.", donatePaypalIdLabel: "PayPal ID / E-mail:", donatePaypalNote: "Directe PayPal inloggen en directe betalingsondersteuning.", payViaPaypalBtn: "Betaal via PayPal", donateThankYouTitle: "Bedankt voor het steunen van onderwijs!", donateThankYouDesc: "100% van de vrijwillige donaties gaat rechtstreeks naar serveronderhoud en het uitbreiden van gratis functies voor kinderen.", closeWindow: "Venster sluiten"
             },
             pt: {
         voiceTutorBtn: "Tutor de Voz IA",
@@ -4156,7 +4166,8 @@
                 aboutSec3Title: "👨‍🏫 Benefícios para professores e pais", aboutTeacherBenefit: "Professores: Atribua números específicos via WhatsApp. Links diretos abrem no Modo Aluno com os números pré-carregados.",
                 aboutParentBenefit: "Pais: Monitore o histórico diário, veja estatísticas e salve relatórios em Excel com fotos.", closeTutorial: "Fechar tutorial",
                 analyticsReportTitle: "Painel de Análise e Uso do Aplicativo", analyticsCardSub: "Acompanhe estatísticas em tempo real, telemetria por país, histórico por data e exporte relatórios.", analyticsReportBtn: "Relatório de Análise",
-                resetAnswersBtn: "Redefinir respostas", clearQuestionsBtn: "Limpar perguntas", showAnswersBtn: "Mostrar todas as respostas / soluções", clearQuestionsConfirm: "Tem certeza de que deseja limpar todas as perguntas da folha de exercícios?", clearQuestionsToast: "Todas as perguntas foram limpadas da folha de exercícios.", clearQuestionsModalTitle: "Limpar perguntas", confirmOkBtn: "OK, Limpar", cancelBtn: "Cancelar"
+                resetAnswersBtn: "Redefinir respostas", clearQuestionsBtn: "Limpar perguntas", showAnswersBtn: "Mostrar todas as respostas / soluções", clearQuestionsConfirm: "Tem certeza de que deseja limpar todas as perguntas da folha de exercícios?", clearQuestionsToast: "Todas as perguntas foram limpadas da folha de exercícios.", clearQuestionsModalTitle: "Limpar perguntas", confirmOkBtn: "OK, Limpar", cancelBtn: "Cancelar",
+                feedbackCategoryLabel: "Selecione o Tópico / Categoria:", feedbackCatFeature: "Sugestão de Recurso", feedbackCatBug: "Relatório de Erro", feedbackCatSchool: "Configuração Escolar", feedbackCatGeneral: "Feedback Geral", feedbackMsgLabel: "Sua Mensagem / Sugestão:", feedbackMsgPlaceholder: "Digite seus comentários ou sugestões para o desenvolvedor G. Sakthivel aqui...", feedbackInfoNotice: "Clicar em enviar abrirá o WhatsApp diretamente com sua mensagem para <strong>+91 8939285768</strong>.", feedbackDirectChat: "Chat Direto", primaryGradeGuidanceNotice: "Alunos do 1º ao 5º ano precisam da orientação do professor ou dos pais para realizar este quiz de matemática para evitar interrupções.", donateModalTitle: "Apoiar o EduMatrix Master", donateModalSub: "Seu apoio voluntário mantém esta plataforma interativa de aprendizagem de matemática 100% gratuita, sem anúncios e acessível a todos!", donateUpiBadge: "🇮🇳 UPI Índia / GPay", donateUpiTitle: "Pagamento Google Pay & UPI", donateUpiDesc: "Doe via Google Pay, PhonePe, Paytm ou BHIM usando número de celular ou ID UPI.", donateNameLabel: "👤 Nome:", donateNameValue: "Sakthivel Ganesan", donatePhoneLabel: "📱 GPay / Celular:", donateUpiIdLabel: "💳 ID UPI:", copyUpiBtnText: "Copiar ID UPI", openUpiBtnText: "Abrir Google Pay / UPI", donatePaypalBadge: "🌐 PayPal Internacional", donatePaypalTitle: "Pagamento Direto PayPal", donatePaypalDesc: "Doe com segurança de qualquer lugar do mundo usando sua conta PayPal ou cartão.", donatePaypalIdLabel: "ID PayPal / E-mail:", donatePaypalNote: "Login direto no PayPal e suporte a pagamento instantâneo.", payViaPaypalBtn: "Pagar via PayPal", donateThankYouTitle: "Obrigado por apoiar a educação!", donateThankYouDesc: "100% das doações voluntárias apoiam diretamente a manutenção do servidor e a expansão de recursos gratuitos para crianças.", closeWindow: "Fechar Janela"
             },
             ms: {
         voiceTutorBtn: "Tutor Suara AI",
@@ -4328,7 +4339,8 @@
                 aboutSec3Title: "👨‍🏫 Faedah untuk Guru & Ibu Bapa", aboutTeacherBenefit: "Guru: Tugaskan nombor kuis khusus melalui WhatsApp. Pautan terus dibuka dalam Mod Murid dengan nombor ditugaskan dimasukkan secara automatik.",
                 aboutParentBenefit: "Ibu Bapa: Pantau sejarah latihan harian, lihat analisis, dan simpan kad laporan Excel bersama foto.", closeTutorial: "Tutup Tutorial",
                 analyticsReportTitle: "Papan Pemuka Analisis & Penggunaan Aplikasi", analyticsCardSub: "Jejak statistik penggunaan langsung, telemetri negara, sejarah mengikut tarikh dan eksport laporan.", analyticsReportBtn: "Laporan Analisis",
-                resetAnswersBtn: "Set Semula Jawapan", clearQuestionsBtn: "Padam Soalan", showAnswersBtn: "Tunjuk Semua Jawapan / Penyelesaian", clearQuestionsConfirm: "Adakah anda pasti mahu memadam semua soalan daripada lembaran kerja?", clearQuestionsToast: "Semua soalan telah dipadamkan daripada lembaran kerja.", clearQuestionsModalTitle: "Padam Soalan", confirmOkBtn: "Ya, Padam", cancelBtn: "Batal"
+                resetAnswersBtn: "Set Semula Jawapan", clearQuestionsBtn: "Padam Soalan", showAnswersBtn: "Tunjuk Semua Jawapan / Penyelesaian", clearQuestionsConfirm: "Adakah anda pasti mahu memadam semua soalan daripada lembaran kerja?", clearQuestionsToast: "Semua soalan telah dipadamkan daripada lembaran kerja.", clearQuestionsModalTitle: "Padam Soalan", confirmOkBtn: "Ya, Padam", cancelBtn: "Batal",
+                feedbackCategoryLabel: "Pilih Topik / Kategori:", feedbackCatFeature: "Cadangan Ciri", feedbackCatBug: "Laporan Ralat", feedbackCatSchool: "Tetapan Sekolah", feedbackCatGeneral: "Maklum Balas Umum", feedbackMsgLabel: "Mesej / Cadangan Anda:", feedbackMsgPlaceholder: "Taip maklum balas atau cadangan anda untuk pembangun G. Sakthivel di sini...", feedbackInfoNotice: "Mengeklik hantar akan membuka WhatsApp secara terus untuk mesej anda ke <strong>+91 8939285768</strong>.", feedbackDirectChat: "Sembang Langsung", primaryGradeGuidanceNotice: "Murid tahun 1 hingga 5 memerlukan bimbingan Guru atau Ibu Bapa untuk mengerjakan kuis matematik ini bagi mengelakkan sebarang gangguan.", donateModalTitle: "Sokong EduMatrix Master", donateModalSub: "Sokongan sukarela anda memastikan platform pembelajaran matematik interaktif ini 100% percuma, tanpa iklan dan boleh diakses oleh semua!", donateUpiBadge: "🇮🇳 UPI India / GPay", donateUpiTitle: "Pembayaran Google Pay & UPI", donateUpiDesc: "Derma melalui Google Pay, PhonePe, Paytm atau BHIM menggunakan No Telefon atau ID UPI.", donateNameLabel: "👤 Nama:", donateNameValue: "Sakthivel Ganesan", donatePhoneLabel: "📱 GPay / Telefon:", donateUpiIdLabel: "💳 ID UPI:", copyUpiBtnText: "Salin ID UPI", openUpiBtnText: "Buka Google Pay / UPI", donatePaypalBadge: "🌐 PayPal Antarabangsa", donatePaypalTitle: "Pembayaran Terus PayPal", donatePaypalDesc: "Derma dengan selamat dari mana-mana sahaja di seluruh dunia menggunakan akaun PayPal atau kad anda.", donatePaypalIdLabel: "ID PayPal / E-mel:", donatePaypalNote: "Log masuk terus PayPal & sokongan pembayaran segera.", payViaPaypalBtn: "Bayar melalui PayPal", donateThankYouTitle: "Terima Kasih Kerana Menyokong Pendidikan!", donateThankYouDesc: "100% daripada derma sukarela digunakan secara terus untuk penyelenggaraan pelayan dan meluaskan ciri matematik percuma untuk kanak-kanak.", closeWindow: "Tutup Tetingkap"
             },
             ja: {
         voiceTutorBtn: "AI音声チューター",
@@ -4468,7 +4480,8 @@
                 optionalLabel: "(任意)",
                 selectLanguageLabel: "言語",
                 introNote: "アカウントにログインしてダッシュボードにアクセスするための携帯番号とGmail IDを入力してください：",
-                resetAnswersBtn: "回答をリセット", clearQuestionsBtn: "問題を消去", showAnswersBtn: "すべての解答・解説を表示", clearQuestionsConfirm: "ワークシートからすべての問題を消去してもよろしいですか？", clearQuestionsToast: "ワークシートからすべての問題が消去されました。", clearQuestionsModalTitle: "問題を消去", confirmOkBtn: "OK, 消去する", cancelBtn: "キャンセル"
+                resetAnswersBtn: "回答をリセット", clearQuestionsBtn: "問題を消去", showAnswersBtn: "すべての解答・解説を表示", clearQuestionsConfirm: "ワークシートからすべての問題を消去してもよろしいですか？", clearQuestionsToast: "ワークシートからすべての問題が消去されました。", clearQuestionsModalTitle: "問題を消去", confirmOkBtn: "OK, 消去する", cancelBtn: "キャンセル",
+                feedbackCategoryLabel: "トピック / カテゴリを選択:", feedbackCatFeature: "機能提案", feedbackCatBug: "バグ報告", feedbackCatSchool: "学校設定", feedbackCatGeneral: "一般的なフィードバック", feedbackMsgLabel: "メッセージ / ご提案:", feedbackMsgPlaceholder: "開発者 G. Sakthivel へのご意見、ご提案、質問をここに入力してください...", feedbackInfoNotice: "送信をクリックすると、<strong>+91 8939285768</strong> 宛ての WhatsApp が直接開きます。", feedbackDirectChat: "ダイレクトチャット", primaryGradeGuidanceNotice: "小学1年生から5年生の生徒がこの算数クイズに取り組む際は、中断を防ぐために先生または保護者の指導が必要です。", donateModalTitle: "EduMatrix Masterを支援する", donateModalSub: "皆様の voluntary なご支援により、この対話型数学学習プラットフォームは 100% 無料、広告なしで全世界の生徒、先生、保護者に提供されています！", donateUpiBadge: "🇮🇳 インド UPI / GPay", donateUpiTitle: "Google Pay ＆ UPI 決済", donateUpiDesc: "Google Pay、PhonePe、Paytm、または BHIM から携帯番号または UPI ID を使用して寄付できます。", donateNameLabel: "👤 氏名:", donateNameValue: "サクティヴェル・ガネーサン", donatePhoneLabel: "📱 GPay / 携帯:", donateUpiIdLabel: "💳 UPI ID:", copyUpiBtnText: "UPI IDをコピー", openUpiBtnText: "Google Pay / UPIを開く", donatePaypalBadge: "🌐 国際 PayPal", donatePaypalTitle: "PayPal 直接決済", donatePaypalDesc: "PayPal アカウントまたはクレジットカードを使用して世界中どこからでも安全に寄付できます。", donatePaypalIdLabel: "PayPal ID / メール:", donatePaypalNote: "PayPal 直接ログインと即時決済サポート。", payViaPaypalBtn: "PayPalで支払う", donateThankYouTitle: "教育へのご支援ありがとうございます！", donateThankYouDesc: "いただいたご寄付の 100% は、サーバー維持費および子ども向けの無料数学機能の拡充に直接充てられます。", closeWindow: "ウィンドウを閉じる"
             }
         };
 
@@ -9928,6 +9941,7 @@
         function openDonateModal() {
             const modal = document.getElementById('donate-modal');
             if (modal) {
+                applyTranslations(modal);
                 modal.classList.remove('hidden');
                 modal.classList.add('flex');
             }
