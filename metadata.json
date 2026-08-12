@@ -1,6 +1,6 @@
 {
-  "name": "EduMatrix Master",
-  "description": "EduMatrix worksheet for MathGenius Kids.",
+  "name": "Math Master",
+  "description": "Math practice worksheet generator with handwriting digit recognition and AI companion.",
   "requestFramePermissions": [
     "camera",
     "microphone"
