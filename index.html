@@ -515,12 +515,6 @@
             <!-- Profile Details Inputs (Placed Underneath Main School Name) -->
             <div class="pt-5 border-t border-blue-100 bg-white/95 backdrop-blur-md p-5 sm:p-6 rounded-2xl border border-blue-200/60 shadow-md flex flex-col gap-4 relative z-10">
                 
-                <!-- Primary Grade Guidance Notice Banner -->
-                <div class="bg-amber-50/90 border-l-4 border-amber-500 rounded-2xl p-3 sm:p-3.5 shadow-xs flex items-center gap-3 text-xs sm:text-sm text-amber-950 font-bold w-full relative z-10">
-                    <i class="fas fa-info-circle text-amber-600 text-lg shrink-0"></i>
-                    <span data-i18n="primaryGradeGuidanceNotice">1st to 5th grade students need Teacher or Parents guidance to work on this math quiz to avoid any interruption.</span>
-                </div>
-                
                 <!-- Role Selector Tabs / Active Logged-in Badge -->
                 <div class="flex items-center justify-between border-b border-slate-100 pb-3.5 flex-wrap gap-2.5">
                     <div class="flex items-center gap-2.5">
@@ -576,7 +570,7 @@
                             <label class="font-black text-slate-700 text-xs sm:text-sm whitespace-nowrap flex items-center gap-1.5" data-i18n="standardLabel">
                                 <i class="fas fa-graduation-cap text-violet-600"></i> Standard
                             </label>
-                            <select id="student-standard" onchange="syncStudentDetails()" class="w-full bg-slate-50/80 border-2 border-violet-200/90 rounded-xl px-3.5 py-2.5 font-bold text-slate-800 transition-all hide-on-print text-xs sm:text-sm shadow-2xs focus:bg-white focus:outline-none focus:ring-4 focus:ring-violet-400/20 focus:border-violet-500 cursor-pointer">
+                            <select id="student-standard" onchange="syncStudentDetails(); checkPrimaryGradeNotice(this);" class="w-full bg-slate-50/80 border-2 border-violet-200/90 rounded-xl px-3.5 py-2.5 font-bold text-slate-800 transition-all hide-on-print text-xs sm:text-sm shadow-2xs focus:bg-white focus:outline-none focus:ring-4 focus:ring-violet-400/20 focus:border-violet-500 cursor-pointer">
                                 <option value="" disabled selected data-i18n="selectStandard">Select Grade / Standard</option>
                                 <option value="1st Standard" data-i18n="std1">1st Standard</option>
                                 <option value="2nd Standard" data-i18n="std2">2nd Standard</option>
@@ -622,7 +616,7 @@
                             <label class="font-black text-slate-700 text-xs sm:text-sm whitespace-nowrap flex items-center gap-1.5">
                                 <i class="fas fa-graduation-cap text-violet-600"></i> <span data-i18n="teacherStandardLabel">Standard Taught</span>
                             </label>
-                            <select id="teacher-standard" onchange="syncStudentDetails()" class="w-full bg-slate-50/80 border-2 border-violet-200/90 rounded-xl px-3.5 py-2.5 font-bold text-slate-800 transition-all text-xs sm:text-sm shadow-2xs focus:bg-white focus:outline-none focus:ring-4 focus:ring-violet-400/20 focus:border-violet-500 cursor-pointer">
+                            <select id="teacher-standard" onchange="syncStudentDetails(); checkPrimaryGradeNotice(this);" class="w-full bg-slate-50/80 border-2 border-violet-200/90 rounded-xl px-3.5 py-2.5 font-bold text-slate-800 transition-all text-xs sm:text-sm shadow-2xs focus:bg-white focus:outline-none focus:ring-4 focus:ring-violet-400/20 focus:border-violet-500 cursor-pointer">
                                 <option value="" disabled selected data-i18n="selectStandard">Select Grade / Standard</option>
                                 <option value="1st Standard" data-i18n="std1">1st Standard</option>
                                 <option value="2nd Standard" data-i18n="std2">2nd Standard</option>
@@ -649,7 +643,7 @@
                             <label class="font-black text-slate-700 text-xs sm:text-sm whitespace-nowrap flex items-center gap-1.5">
                                 <i class="fas fa-book-reader text-violet-600"></i> <span data-i18n="standardLabel">Student Standard</span>
                             </label>
-                            <select id="teacher-student-standard" onchange="syncStudentDetails()" class="w-full bg-slate-50/80 border-2 border-violet-200/90 rounded-xl px-3.5 py-2.5 font-bold text-slate-800 transition-all text-xs sm:text-sm shadow-2xs focus:bg-white focus:outline-none focus:ring-4 focus:ring-violet-400/20 focus:border-violet-500 cursor-pointer">
+                            <select id="teacher-student-standard" onchange="syncStudentDetails(); checkPrimaryGradeNotice(this);" class="w-full bg-slate-50/80 border-2 border-violet-200/90 rounded-xl px-3.5 py-2.5 font-bold text-slate-800 transition-all text-xs sm:text-sm shadow-2xs focus:bg-white focus:outline-none focus:ring-4 focus:ring-violet-400/20 focus:border-violet-500 cursor-pointer">
                                 <option value="" disabled selected data-i18n="selectStandard">Select Student Grade</option>
                                 <option value="1st Standard" data-i18n="std1">1st Standard</option>
                                 <option value="2nd Standard" data-i18n="std2">2nd Standard</option>
@@ -713,7 +707,7 @@
                             <label class="font-black text-slate-700 text-xs sm:text-sm whitespace-nowrap flex items-center gap-1.5">
                                 <i class="fas fa-graduation-cap text-violet-600"></i> <span data-i18n="childStandardLabel">Child's Standard</span>
                             </label>
-                            <select id="parent-child-standard" onchange="syncStudentDetails()" class="w-full bg-slate-50/80 border-2 border-violet-200/90 rounded-xl px-3.5 py-2.5 font-bold text-slate-800 transition-all text-xs sm:text-sm shadow-2xs focus:bg-white focus:outline-none focus:ring-4 focus:ring-violet-400/20 focus:border-violet-500 cursor-pointer">
+                            <select id="parent-child-standard" onchange="syncStudentDetails(); checkPrimaryGradeNotice(this);" class="w-full bg-slate-50/80 border-2 border-violet-200/90 rounded-xl px-3.5 py-2.5 font-bold text-slate-800 transition-all text-xs sm:text-sm shadow-2xs focus:bg-white focus:outline-none focus:ring-4 focus:ring-violet-400/20 focus:border-violet-500 cursor-pointer">
                                 <option value="" disabled selected data-i18n="selectStandard">Select Grade / Standard</option>
                                 <option value="1st Standard" data-i18n="std1">1st Standard</option>
                                 <option value="2nd Standard" data-i18n="std2">2nd Standard</option>
@@ -1638,6 +1632,27 @@
             </p>
             <button onclick="closeProfileAlertModal()" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold py-3 px-6 rounded-xl shadow-md transition-all active:scale-95 text-sm border border-rose-500 flex items-center justify-center gap-2 cursor-pointer">
                 <i class="fas fa-arrow-up"></i> <span id="profile-alert-btn-text">Fill Profile Details Now</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Primary Grade Guidance Notice Alert Modal -->
+    <div id="primary-grade-notice-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-[220] hidden items-center justify-center p-4 transition-all duration-300">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 w-full max-w-md text-center shadow-2xl relative border-2 border-amber-400 transform transition-all scale-100">
+            <button onclick="closePrimaryGradeNoticeModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 font-bold flex items-center justify-center transition-all cursor-pointer">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="w-16 h-16 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-amber-200 text-amber-600 shadow-sm">
+                <i class="fas fa-chalkboard-teacher text-3xl"></i>
+            </div>
+            <h3 class="text-xl font-black text-slate-800 mb-2 flex items-center justify-center gap-2">
+                <span>💡</span> <span data-i18n="guidanceNoticeTitle">Teacher & Parent Guidance</span>
+            </h3>
+            <p data-i18n="primaryGradeGuidanceNotice" class="text-slate-700 text-xs sm:text-sm font-semibold leading-relaxed mb-6 bg-amber-50/80 p-4 rounded-2xl border border-amber-200/80">
+                1st to 5th grade students need Teacher or Parents guidance to work on this math quiz to avoid any interruption.
+            </p>
+            <button onclick="closePrimaryGradeNoticeModal()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-extrabold py-3.5 px-6 rounded-xl shadow-md transition-all active:scale-95 text-sm sm:text-base border border-amber-400 flex items-center justify-center gap-2 cursor-pointer">
+                <i class="fas fa-check-circle"></i> <span data-i18n="gotItBtn">Got It</span>
             </button>
         </div>
     </div>
@@ -2782,6 +2797,8 @@
                 feedbackInfoNotice: "Clicking send will open WhatsApp directly with your message to <strong>+91 8939285768</strong>.",
                 feedbackDirectChat: "Direct Chat",
                 primaryGradeGuidanceNotice: "1st to 5th grade students need Teacher or Parents guidance to work on this math quiz to avoid any interruption.",
+                guidanceNoticeTitle: "Teacher & Parent Guidance",
+                gotItBtn: "Got It",
                 donateModalTitle: "Support EduMatrix Master",
                 donateModalSub: "Your voluntary support keeps this interactive math learning platform 100% free, ad-free, and accessible to students, teachers, and parents worldwide!",
                 donateUpiBadge: "🇮🇳 Indian UPI / GPay",
@@ -3071,6 +3088,8 @@
                 feedbackInfoNotice: "அனுப்பு பொத்தானைக் கிளிக் செய்தால், <strong>+91 8939285768</strong> எண்ணிற்கு வாட்ஸ்அப்பில் செய்தி நேரடியாகச் செல்லும்.",
                 feedbackDirectChat: "நேரடி அரட்டை",
                 primaryGradeGuidanceNotice: "1 முதல் 5 ஆம் வகுப்பு மாணவர்கள் எவ்வித தடையுமின்றி கணிதப் பயிற்சியை செய்ய ஆசிரியர் அல்லது பெற்றோரின் வழிகாட்டுதல் தேவை.",
+                guidanceNoticeTitle: "ஆசிரியர் & பெற்றோர் வழிகாட்டுதல்",
+                gotItBtn: "சரி, புரிந்துவிட்டது",
                 donateModalTitle: "எடுமேட்ரிக்ஸ் மாஸ்டருக்கு ஆதரவளிக்கவும்",
                 donateModalSub: "உங்கள் தன்னார்வ ஆதரவு, இந்த கணித கற்றல் தளத்தை உலகெங்கிலும் உள்ள மாணவர்கள், ஆசிரியர்கள் மற்றும் பெற்றோர்களுக்கு 100% இலவசமாகவும், விளம்பரங்கள் இன்றியும் வழங்க உதவுகிறது!",
                 donateUpiBadge: "🇮🇳 இந்திய UPI / GPay",
@@ -3311,6 +3330,8 @@
                 feedbackInfoNotice: "സന്ദേശം നേരിട്ട് +91 8939285768 വാട്ട്‌സ്ആപ്പിലേക്ക് അയക്കപ്പെടും.",
                 feedbackDirectChat: "ഡയറക്ട് ചാറ്റ്",
                 primaryGradeGuidanceNotice: "1 മുതൽ 5 വരെയുള്ള ക്ലാസുകളിലെ കുട്ടികൾക്ക് മുതിർന്നവരുടെ സഹായം ആവശ്യമാണ്.",
+                guidanceNoticeTitle: "അധ്യാപക & മാതാപിതാക്കളുടെ മാർഗ്ഗനിർദ്ദേശം",
+                gotItBtn: "മനസ്സിലായി",
                 donateModalTitle: "എഡ്യൂമാട്രിക്സ് മാസ്റ്ററിനെ പിന്തുണയ്ക്കുക",
                 donateModalSub: "ഈ പ്ലാറ്റ്‌ഫോം 100% സൗജന്യമായി നിലനിർത്താൻ സഹായിക്കുക!",
                 donateUpiBadge: "🇮🇳 ഇന്ത്യൻ UPI / GPay",
@@ -3600,6 +3621,8 @@
                 feedbackInfoNotice: "సందేశం నేరుగా +91 8939285768 వాట్సాప్‌కు పంపబడుతుంది.",
                 feedbackDirectChat: "నేరుగా చాట్ చేయండి",
                 primaryGradeGuidanceNotice: "1 నుండి 5 తరగతుల పిల్లలకు పెద్దల మార్గదర్శకత్వం అవసరం.",
+                guidanceNoticeTitle: "ఉపాధ్యాయుల & తల్లిదండ్రుల మార్గదర్శకత్వం",
+                gotItBtn: "అర్థమైంది",
                 donateModalTitle: "ఎడ్యుమాట్రిక్స్ మాస్టర్‌కు మద్దతు ఇవ్వండి",
                 donateModalSub: "ఈ వేదికను 100% ఉచితంగా ఉంచడంలో సహాయపడండి!",
                 donateUpiBadge: "🇮🇳 ఇండియన్ UPI / GPay",
@@ -3889,6 +3912,8 @@
                 feedbackInfoNotice: "ಸಂದೇಶವನ್ನು ನೇರವಾಗಿ +91 8939285768 ವಾಟ್ಸಾಪ್‌ಗೆ ಕಳುಹಿಸಲಾಗುತ್ತದೆ.",
                 feedbackDirectChat: "ನೇರ ಚಾಟ್ ಮಾಡಿ",
                 primaryGradeGuidanceNotice: "1 ರಿಂದ 5 ನೇ ತರಗತಿಯ ಮಕ್ಕಳಿಗೆ ಹಿರಿಯರ ಮಾರ್ಗದರ್ಶನ ಅಗತ್ಯವಿದೆ.",
+                guidanceNoticeTitle: "ಶಿಕ್ಷಕ ಮತ್ತು ಪೋಷಕರ ಮಾರ್ಗದರ್ಶನ",
+                gotItBtn: "ಅರ್ಥವಾಯಿತು",
                 donateModalTitle: "ಎಡುಮ್ಯಾಟ್ರಿಕ್ಸ್ ಮಾಸ್ಟರ್‌ಗೆ ಬೆಂಬಲ ನೀಡಿ",
                 donateModalSub: "ಈ ವೇದಿಕೆಯನ್ನು 100% ಉಚಿತವಾಗಿಡಲು ಸಹಾಯ ಮಾಡಿ!",
                 donateUpiBadge: "🇮🇳 ಇಂಡಿಯನ್ UPI / GPay",
@@ -4223,6 +4248,8 @@
                 feedbackInfoNotice: "भेजें पर क्लिक करने से आपका संदेश सीधे व्हाट्सएप पर <strong>+91 8939285768</strong> पर खुल जाएगा।",
                 feedbackDirectChat: "सीधा चैट",
                 primaryGradeGuidanceNotice: "कक्षा 1 से 5 के छात्रों को गणित प्रश्नोत्तरी पर बिना किसी रुकावट के काम करने के लिए शिक्षक या माता-पिता के मार्गदर्शन की आवश्यकता है।",
+                guidanceNoticeTitle: "शिक्षक और माता-पिता का मार्गदर्शन",
+                gotItBtn: "समझ गया",
                 donateModalTitle: "EduMatrix Master का समर्थन करें",
                 donateModalSub: "आपका स्वैच्छिक योगदान इस इंटरैक्टिव गणित सीखने के मंच को 100% मुफ़्त, विज्ञापन-मुक्त और दुनिया भर के छात्रों, शिक्षकों और अभिभावकों के लिए सुलभ बनाए रखता है!",
                 donateUpiBadge: "🇮🇳 भारतीय UPI / GPay",
@@ -4512,6 +4539,8 @@
                 feedbackInfoNotice: "点击发送将直接打开 WhatsApp，将您的消息发送至 <strong>+91 8939285768</strong>。",
                 feedbackDirectChat: "直接沟通",
                 primaryGradeGuidanceNotice: "1至5年级学生需要老师或家长的指导来进行此数学测试，以避免中断。",
+                guidanceNoticeTitle: "教师与家长指导",
+                gotItBtn: "知道了",
                 donateModalTitle: "支持 EduMatrix Master",
                 donateModalSub: "您的自愿支持使这个互动数学学习平台对全球学生、教师和家长保持 100% 免费、无广告！",
                 donateUpiBadge: "🇮🇳 印度 UPI / GPay",
@@ -4801,6 +4830,8 @@
                 feedbackInfoNotice: "سيؤدي النقر على إرسال إلى فتح واتساب مباشرة لرسالتك إلى <strong>+91 8939285768</strong>.",
                 feedbackDirectChat: "محادثة مباشرة",
                 primaryGradeGuidanceNotice: "يحتاج طلاب الصفوف من الأول إلى الخامس إلى توجيه المعلم أو الوالدين للعمل على هذا الاختبار الرياضي لتجنب أي انقطاع.",
+                guidanceNoticeTitle: "توجيه المعلم والوالدين",
+                gotItBtn: "فهمت ذلك",
                 donateModalTitle: "دعم EduMatrix Master",
                 donateModalSub: "دعمك التطوعي يبقي منصة تعلم الرياضيات التفاعلية هذه مجانية 100% وخالية من الإعلانات ومتاحة للجميع!",
                 donateUpiBadge: "🇮🇳 الدفع الهندي UPI / GPay",
@@ -5090,6 +5121,8 @@
                 feedbackInfoNotice: "Cliquer sur envoyer ouvrira directement WhatsApp vers le <strong>+91 8939285768</strong>.",
                 feedbackDirectChat: "Chat Direct",
                 primaryGradeGuidanceNotice: "Les élèves de la 1ère à la 5ème année ont besoin des conseils de l'enseignant ou des parents pour effectuer ce quiz de mathématiques afin d'éviter toute interruption.",
+                guidanceNoticeTitle: "Conseils des enseignants et parents",
+                gotItBtn: "J'ai compris",
                 donateModalTitle: "Soutenir EduMatrix Master",
                 donateModalSub: "Votre soutien volontaire permet de garder cette plateforme d'apprentissage des mathématiques 100% gratuite, sans publicité et accessible à tous !",
                 donateUpiBadge: "🇮🇳 UPI Inde / GPay",
@@ -5379,6 +5412,8 @@
                 feedbackInfoNotice: "Hacer clic en enviar abrirá WhatsApp directamente con su mensaje a <strong>+91 8939285768</strong>.",
                 feedbackDirectChat: "Chat Directo",
                 primaryGradeGuidanceNotice: "Los estudiantes de 1.º a 5.º grado necesitan la orientación del profesor o de los padres para trabajar en este cuestionario de matemáticas y evitar interrupciones.",
+                guidanceNoticeTitle: "Orientación de profesores y padres",
+                gotItBtn: "Entendido",
                 donateModalTitle: "Apoyar a EduMatrix Master",
                 donateModalSub: "¡Su apoyo voluntario mantiene esta plataforma interactiva de aprendizaje de matemáticas 100% gratuita, sin anuncios y accesible para todos!",
                 donateUpiBadge: "🇮🇳 UPI India / GPay",
@@ -5668,6 +5703,8 @@
                 feedbackInfoNotice: "Нажатие кнопки «Отправить» откроет WhatsApp с вашим сообщением на номер <strong>+91 8939285768</strong>.",
                 feedbackDirectChat: "Прямой чат",
                 primaryGradeGuidanceNotice: "Ученикам 1–5 классов требуется помощь учителя или родителей для прохождения математического теста без перерывов.",
+                guidanceNoticeTitle: "Руководство учителя и родителей",
+                gotItBtn: "Понятно",
                 donateModalTitle: "Поддержать EduMatrix Master",
                 donateModalSub: "Ваша добровольная поддержка помогает сохранить эту платформу изучения математики 100% бесплатной, без рекламы и доступной для всех!",
                 donateUpiBadge: "🇮🇳 Индийский UPI / GPay",
@@ -5957,6 +5994,8 @@
                 feedbackInfoNotice: "Klikken op verzenden opent direct WhatsApp met uw bericht naar <strong>+91 8939285768</strong>.",
                 feedbackDirectChat: "Directe Chat",
                 primaryGradeGuidanceNotice: "Leerlingen van groep 3 t/m 7 (Grade 1-5) hebben begeleiding van de leraar of ouders nodig bij deze wiskundequiz om onderbrekingen te voorkomen.",
+                guidanceNoticeTitle: "Begeleiding van leraar en ouders",
+                gotItBtn: "Begrepen",
                 donateModalTitle: "Steun EduMatrix Master",
                 donateModalSub: "Uw vrijwillige steun houdt dit interactieve wiskundeplatform 100% gratis, reclamevrij en toegankelijk voor iedereen!",
                 donateUpiBadge: "🇮🇳 Indiase UPI / GPay",
@@ -6246,6 +6285,8 @@
                 feedbackInfoNotice: "Clicar em enviar abrirá o WhatsApp diretamente com sua mensagem para <strong>+91 8939285768</strong>.",
                 feedbackDirectChat: "Chat Direto",
                 primaryGradeGuidanceNotice: "Alunos do 1º ao 5º ano precisam da orientação do professor ou dos pais para realizar este quiz de matemática para evitar interrupções.",
+                guidanceNoticeTitle: "Orientação de Professores e Pais",
+                gotItBtn: "Entendi",
                 donateModalTitle: "Apoiar o EduMatrix Master",
                 donateModalSub: "Seu apoio voluntário mantém esta plataforma interativa de aprendizagem de matemática 100% gratuita, sem anúncios e acessível a todos!",
                 donateUpiBadge: "🇮🇳 UPI Índia / GPay",
@@ -6535,6 +6576,8 @@
                 feedbackInfoNotice: "Mengeklik hantar akan membuka WhatsApp secara terus untuk mesej anda ke <strong>+91 8939285768</strong>.",
                 feedbackDirectChat: "Sembang Langsung",
                 primaryGradeGuidanceNotice: "Murid tahun 1 hingga 5 memerlukan bimbingan Guru atau Ibu Bapa untuk mengerjakan kuis matematik ini bagi mengelakkan sebarang gangguan.",
+                guidanceNoticeTitle: "Bimbingan Guru & Ibu Bapa",
+                gotItBtn: "Faham",
                 donateModalTitle: "Sokong EduMatrix Master",
                 donateModalSub: "Sokongan sukarela anda memastikan platform pembelajaran matematik interaktif ini 100% percuma, tanpa iklan dan boleh diakses oleh semua!",
                 donateUpiBadge: "🇮🇳 UPI India / GPay",
@@ -6826,6 +6869,8 @@
                 feedbackInfoNotice: "送信をクリックすると、<strong>+91 8939285768</strong> 宛ての WhatsApp が直接開きます。",
                 feedbackDirectChat: "ダイレクトチャット",
                 primaryGradeGuidanceNotice: "小学1年生から5年生の生徒がこの算数クイズに取り組む際は、中断を防ぐために先生または保護者の指導が必要です。",
+                guidanceNoticeTitle: "先生・保護者の指導",
+                gotItBtn: "了解しました",
                 donateModalTitle: "EduMatrix Masterを支援する",
                 donateModalSub: "皆様の voluntary なご支援により、この対話型数学学習プラットフォームは 100% 無料、広告なしで全世界の生徒、先生、保護者に提供されています！",
                 donateUpiBadge: "🇮🇳 インド UPI / GPay",
@@ -7383,6 +7428,35 @@
                 subtract: "ひき算 (-)",
                 multiply: "かけ算 (×)",
                 divide: "わり算 (÷)"
+            }
+        }
+
+        function showPrimaryGradeNoticeModal() {
+            const modal = document.getElementById('primary-grade-notice-modal');
+            if (modal) {
+                if (typeof applyTranslations === 'function') {
+                    applyTranslations(modal);
+                }
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        }
+
+        function closePrimaryGradeNoticeModal() {
+            const modal = document.getElementById('primary-grade-notice-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        function checkPrimaryGradeNotice(selectEl) {
+            if (!selectEl) return;
+            const val = typeof selectEl === 'string' ? selectEl : (selectEl.value || selectEl.options?.[selectEl.selectedIndex]?.value || '');
+            if (!val) return;
+            const lower = val.toLowerCase();
+            if (lower.includes('1st') || lower.includes('2nd') || lower.includes('3rd') || lower.includes('4th') || lower.includes('5th')) {
+                showPrimaryGradeNoticeModal();
             }
         };
 
@@ -12125,7 +12199,7 @@
                         </div>
                         <div class="flex flex-col gap-1">
                             <label class="font-bold text-xs text-slate-700" data-i18n="standardLabel">Standard / Grade</label>
-                            <select id="m-student-standard" class="bg-slate-50 border-2 border-violet-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-violet-400">
+                            <select id="m-student-standard" onchange="checkPrimaryGradeNotice(this)" class="bg-slate-50 border-2 border-violet-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-violet-400">
                                 <option value="1st Standard" ${sStd==='1st Standard'?'selected':''} data-i18n="std1">1st Standard</option>
                                 <option value="2nd Standard" ${sStd==='2nd Standard'?'selected':''} data-i18n="std2">2nd Standard</option>
                                 <option value="3rd Standard" ${sStd==='3rd Standard'?'selected':''} data-i18n="std3">3rd Standard</option>
@@ -12160,7 +12234,7 @@
                         </div>
                         <div class="flex flex-col gap-1">
                             <label class="font-bold text-xs text-slate-700" data-i18n="teacherStandardLabel">Standard Taught</label>
-                            <select id="m-teacher-standard" class="bg-slate-50 border-2 border-violet-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800">
+                            <select id="m-teacher-standard" onchange="checkPrimaryGradeNotice(this)" class="bg-slate-50 border-2 border-violet-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800">
                                 <option value="1st Standard" ${tStd==='1st Standard'?'selected':''} data-i18n="std1">1st Standard</option>
                                 <option value="2nd Standard" ${tStd==='2nd Standard'?'selected':''} data-i18n="std2">2nd Standard</option>
                                 <option value="3rd Standard" ${tStd==='3rd Standard'?'selected':''} data-i18n="std3">3rd Standard</option>
@@ -12199,7 +12273,7 @@
                         </div>
                         <div class="flex flex-col gap-1">
                             <label class="font-bold text-xs text-slate-700" data-i18n="childStandardLabel">Child's Standard</label>
-                            <select id="m-parent-child-standard" class="bg-slate-50 border-2 border-violet-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800">
+                            <select id="m-parent-child-standard" onchange="checkPrimaryGradeNotice(this)" class="bg-slate-50 border-2 border-violet-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800">
                                 <option value="1st Standard" ${cStd==='1st Standard'?'selected':''} data-i18n="std1">1st Standard</option>
                                 <option value="2nd Standard" ${cStd==='2nd Standard'?'selected':''} data-i18n="std2">2nd Standard</option>
                                 <option value="3rd Standard" ${cStd==='3rd Standard'?'selected':''} data-i18n="std3">3rd Standard</option>
@@ -12871,6 +12945,35 @@
                     const block = document.getElementById('form-block-student');
                     if (block) block.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
+            }
+        }
+
+        function showPrimaryGradeNoticeModal() {
+            const modal = document.getElementById('primary-grade-notice-modal');
+            if (modal) {
+                if (typeof applyTranslations === 'function') {
+                    applyTranslations(modal);
+                }
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        }
+
+        function closePrimaryGradeNoticeModal() {
+            const modal = document.getElementById('primary-grade-notice-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        function checkPrimaryGradeNotice(selectEl) {
+            if (!selectEl) return;
+            const val = typeof selectEl === 'string' ? selectEl : (selectEl.value || selectEl.options?.[selectEl.selectedIndex]?.value || '');
+            if (!val) return;
+            const lower = val.toLowerCase();
+            if (lower.includes('1st') || lower.includes('2nd') || lower.includes('3rd') || lower.includes('4th') || lower.includes('5th')) {
+                showPrimaryGradeNoticeModal();
             }
         }
 
