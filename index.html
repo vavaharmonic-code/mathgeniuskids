@@ -459,6 +459,12 @@
                     <span data-i18n="aboutAppBtn">About EduMatrix Master</span>
                 </button>
 
+                <!-- AI Helper Chatbot Button -->
+                <button id="ai-chatbot-nav-btn" onclick="openAiChatbotModal()" class="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white px-4 py-2 rounded-xl font-extrabold text-xs sm:text-sm transition-all duration-200 active:scale-95 flex items-center gap-2 cursor-pointer h-10 shrink-0 border border-violet-400 shadow-md group">
+                    <i class="fas fa-robot text-amber-300 group-hover:rotate-12 transition-transform"></i>
+                    <span data-i18n="aiChatbotBtn">AI Chat Helper</span>
+                </button>
+
                 <!-- Voice Tutor Button -->
                 <button id="voice-tutor-btn" onclick="openVoiceTutorModal()" class="btn-bevel-glass-amber text-white px-4 py-2 rounded-xl font-extrabold text-xs sm:text-sm transition-all duration-200 active:scale-95 flex items-center gap-2 cursor-pointer h-10 shrink-0 group">
                     <i class="fas fa-volume-up text-amber-100 animate-pulse group-hover:scale-110 transition-transform"></i>
@@ -2524,6 +2530,94 @@
         </div>
     </div>
 
+    <!-- AI Chatbot Floating Button (Bottom-Right) -->
+    <div id="ai-chatbot-fab" class="fixed bottom-5 right-5 z-[150] flex items-center gap-2">
+        <button onclick="openAiChatbotModal()" class="group relative bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white p-3.5 sm:p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 border-2 border-white/80 ring-4 ring-violet-400/30 cursor-pointer flex items-center justify-center">
+            <span class="absolute -inset-1 rounded-full bg-violet-500/40 animate-ping pointer-events-none"></span>
+            <i class="fas fa-robot text-2xl text-amber-300 group-hover:rotate-12 transition-transform"></i>
+            <span class="hidden sm:inline-block font-black text-xs px-1 tracking-wide" data-i18n="aiBotFabText">AI Helper</span>
+            <span class="absolute top-0 right-0 w-3.5 h-3.5 bg-emerald-400 border-2 border-white rounded-full"></span>
+        </button>
+    </div>
+
+    <!-- AI Chatbot Helper Modal Screen -->
+    <div id="ai-chatbot-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-[200] hidden items-center justify-center p-2 sm:p-4 transition-all duration-300">
+        <div class="bg-white rounded-3xl w-full max-w-xl h-[92vh] sm:h-[85vh] shadow-2xl relative border-2 border-violet-400/80 flex flex-col overflow-hidden">
+            
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-violet-700 via-purple-700 to-indigo-800 p-4 sm:p-5 text-white flex items-center justify-between shadow-md shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 bg-white/20 rounded-2xl border border-white/30 flex items-center justify-center shadow-inner relative shrink-0">
+                        <i class="fas fa-robot text-2xl text-amber-300"></i>
+                        <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 border-2 border-violet-800 rounded-full"></span>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-black text-base sm:text-lg tracking-wide" data-i18n="aiChatbotTitle">EduBot AI Assistant</h3>
+                            <span id="ai-chat-role-tag" class="bg-amber-400/30 text-amber-200 border border-amber-300/40 text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase">Student</span>
+                        </div>
+                        <p class="text-xs text-violet-200 font-medium flex items-center gap-1.5" data-i18n="aiChatbotSub">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Ask anything about EduMatrix Master or Math
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="clearAiChatHistory()" title="Clear Chat" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold flex items-center justify-center transition-all cursor-pointer">
+                        <i class="fas fa-trash-alt text-xs text-violet-200"></i>
+                    </button>
+                    <button onclick="closeAiChatbotModal()" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-rose-500/80 text-white font-bold flex items-center justify-center transition-all cursor-pointer">
+                        <i class="fas fa-times text-base"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Suggestion Chips Bar -->
+            <div class="bg-violet-50/90 border-b border-violet-100 p-2.5 overflow-x-auto whitespace-nowrap scrollbar-none flex items-center gap-2 text-xs shrink-0">
+                <span class="font-extrabold text-violet-900 text-[11px] shrink-0 flex items-center gap-1 px-1">
+                    <i class="fas fa-lightbulb text-amber-500"></i> Quick:
+                </span>
+                <button onclick="sendAiChatMessage('How do I generate and print a math worksheet?')" class="bg-white hover:bg-violet-100 text-violet-800 border border-violet-200/90 font-bold px-3 py-1.5 rounded-full shadow-2xs transition-all shrink-0 cursor-pointer text-xs">
+                    📄 Generate Worksheet
+                </button>
+                <button onclick="sendAiChatMessage('How can teachers share a quiz via WhatsApp?')" class="bg-white hover:bg-violet-100 text-violet-800 border border-violet-200/90 font-bold px-3 py-1.5 rounded-full shadow-2xs transition-all shrink-0 cursor-pointer text-xs">
+                    📱 Teacher WhatsApp Share
+                </button>
+                <button onclick="sendAiChatMessage('How do parents track student progress and signatures?')" class="bg-white hover:bg-violet-100 text-violet-800 border border-violet-200/90 font-bold px-3 py-1.5 rounded-full shadow-2xs transition-all shrink-0 cursor-pointer text-xs">
+                    👨‍👩‍👧 Parent Guide
+                </button>
+                <button onclick="sendAiChatMessage('Explain math multiplication tricks for grade students')" class="bg-white hover:bg-violet-100 text-violet-800 border border-violet-200/90 font-bold px-3 py-1.5 rounded-full shadow-2xs transition-all shrink-0 cursor-pointer text-xs">
+                    ✨ Math Tricks
+                </button>
+            </div>
+
+            <!-- Message Area -->
+            <div id="ai-chat-messages" class="flex-1 p-4 sm:p-5 overflow-y-auto space-y-4 bg-slate-50/60 scroll-smooth">
+                <!-- Messages rendered dynamically -->
+            </div>
+
+            <!-- Typing Indicator -->
+            <div id="ai-chat-typing" class="hidden px-5 py-2 text-xs font-bold text-violet-600 bg-violet-50/50 flex items-center gap-2 border-t border-violet-100">
+                <div class="flex items-center gap-1">
+                    <span class="w-2 h-2 bg-violet-600 rounded-full animate-bounce"></span>
+                    <span class="w-2 h-2 bg-violet-600 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                    <span class="w-2 h-2 bg-violet-600 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                </div>
+                <span>EduBot is thinking...</span>
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-3 sm:p-4 bg-white border-t border-slate-200 shrink-0">
+                <form onsubmit="handleAiChatSubmit(event)" class="flex items-center gap-2">
+                    <input type="text" id="ai-chat-input" placeholder="Type your question here (e.g. How to use EduMatrix Master?)..." data-i18n-placeholder="aiChatPlaceholder" class="flex-1 bg-slate-100 border-2 border-violet-200 focus:border-violet-500 focus:bg-white rounded-2xl px-4 py-3 text-xs sm:text-sm font-bold text-slate-800 focus:outline-none transition-all shadow-inner">
+                    <button type="submit" id="ai-chat-send-btn" class="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold px-5 py-3 rounded-2xl shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 shrink-0 cursor-pointer text-xs sm:text-sm border border-violet-400">
+                        <i class="fas fa-paper-plane"></i> <span class="hidden sm:inline" data-i18n="aiSendBtn">Send</span>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
     <!-- Confetti Canvas -->
     <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-[150]"></canvas>
 
@@ -2821,6 +2915,13 @@
                 closeWindow: "Close Window",
                 syncCurrentQuizQuestionsBtn: "Import Current Quiz",
                 noQuestionsToSync: "No active quiz questions generated yet! Select numbers above first.",
+                aiChatbotBtn: "AI Chat Helper",
+                aiBotFabText: "AI Helper",
+                aiChatbotTitle: "EduBot AI Assistant",
+                aiChatbotSub: "Ask anything about EduMatrix Master or Math",
+                aiChatPlaceholder: "Type your question here (e.g. How to use EduMatrix Master?)...",
+                aiSendBtn: "Send",
+                aiClearBtn: "Clear Chat",
             },
             ta: {
                 voiceTutorBtn: "AI குரல் ஆசிரியர்",
@@ -7428,35 +7529,6 @@
                 subtract: "ひき算 (-)",
                 multiply: "かけ算 (×)",
                 divide: "わり算 (÷)"
-            }
-        }
-
-        function showPrimaryGradeNoticeModal() {
-            const modal = document.getElementById('primary-grade-notice-modal');
-            if (modal) {
-                if (typeof applyTranslations === 'function') {
-                    applyTranslations(modal);
-                }
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            }
-        }
-
-        function closePrimaryGradeNoticeModal() {
-            const modal = document.getElementById('primary-grade-notice-modal');
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }
-        }
-
-        function checkPrimaryGradeNotice(selectEl) {
-            if (!selectEl) return;
-            const val = typeof selectEl === 'string' ? selectEl : (selectEl.value || selectEl.options?.[selectEl.selectedIndex]?.value || '');
-            if (!val) return;
-            const lower = val.toLowerCase();
-            if (lower.includes('1st') || lower.includes('2nd') || lower.includes('3rd') || lower.includes('4th') || lower.includes('5th')) {
-                showPrimaryGradeNoticeModal();
             }
         };
 
@@ -12956,6 +13028,187 @@
                 }
                 modal.classList.remove('hidden');
                 modal.classList.add('flex');
+            }
+        }
+
+        // --- AI Chatbot Assistant Logic ---
+        let aiChatHistory = [];
+
+        function openAiChatbotModal() {
+            const modal = document.getElementById('ai-chatbot-modal');
+            if (!modal) return;
+            
+            const roleTag = document.getElementById('ai-chat-role-tag');
+            if (roleTag) {
+                const activeRole = typeof currentRole !== 'undefined' ? currentRole : 'student';
+                roleTag.textContent = activeRole.toUpperCase();
+            }
+
+            if (typeof applyTranslations === 'function') {
+                applyTranslations(modal);
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            if (aiChatHistory.length === 0) {
+                const userLang = typeof currentLang !== 'undefined' ? currentLang : 'en';
+                const welcomeMsg = getWelcomeMessageForLang(userLang);
+                aiChatHistory.push({ role: 'model', content: welcomeMsg, time: getCurrentTimeString() });
+                renderAiChatMessages();
+            } else {
+                renderAiChatMessages();
+            }
+
+            setTimeout(() => {
+                const input = document.getElementById('ai-chat-input');
+                if (input) input.focus();
+            }, 200);
+        }
+
+        function closeAiChatbotModal() {
+            const modal = document.getElementById('ai-chatbot-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        function getCurrentTimeString() {
+            const now = new Date();
+            return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function getWelcomeMessageForLang(lang) {
+            const welcomeMap = {
+                ta: "வணக்கம்! நான் EduBot, எடுமேட்ரிக்ஸ் மாஸ்டரின் AI உதவியாளர். கணிதப் பயிற்சி, தாள்கள் அச்சிடுதல் அல்லது அம்சங்கள் பற்றி என்ன வேண்டுமானாலும் கேட்கலாம்!",
+                hi: "नमस्ते! मैं EduBot हूँ, EduMatrix Master का AI सहायक। गणित अभ्यास, वर्कशीट प्रिंटिंग या सुविधाओं के बारे में कुछ भी पूछें!",
+                ml: "നമസ്കാരം! ഞാൻ EduBot ആണ്, EduMatrix Master-ന്റെ AI സഹായി. ഗണിത പരിശീലനം, വർക്ക്‌ഷീറ്റ് പ്രിന്റിംഗ് എന്നിവയെക്കുറിച്ച് എന്തും ചോദിക്കാം!",
+                te: "నమస్కారం! నేను EduBot ని, EduMatrix Master యొక్క AI సహాయకుడిని. గణిత సాధన, వర్క్‌షീట్ ప్రింటింగ్ లేదా ఫీచర్ల గురించి ఏదైనా అడగండి!",
+                kn: "ನಮಸ್ಕಾರ! ನಾನು EduBot, EduMatrix Master ನ AI ಸಹಾಯಕ. ಗಣಿತ ತರಬೇತಿ, ವರ್ಕ್‌ಶೀಟ್ ಪ್ರಿಂಟಿಂಗ್ ಕುರಿತು ಏನನ್ನಾದರೂ ಕೇಳಿ!",
+                zh: "你好！我是 EduBot，EduMatrix Master 的 AI 助手。关于数学练习、工作表打印或应用程序功能，随时向我提问！",
+                es: "¡Hola! Soy EduBot, el asistente de IA de EduMatrix Master. Pregúntame cualquier cosa sobre práctica de matemáticas, impresión de hojas de trabajo o funciones.",
+                fr: "Bonjour ! Je suis EduBot, l'assistant IA d'EduMatrix Master. Posez-moi toutes vos questions sur les exercices de maths, l'impression de fiches ou les fonctionnalités !",
+                ar: "مرحباً! أنا EduBot، مساعد الذكاء الاصطناعي لـ EduMatrix Master. اسألني أي شيء عن تمارين الرياضيات، طباعة أوراق العمل، أو الميزات!",
+                ru: "Здравствуйте! Я EduBot, AI-помощник EduMatrix Master. Спрашивайте меня о математических упражнениях, печати рабочих листов или функциях приложения!",
+                nl: "Hallo! Ik ben EduBot, de AI-assistent van EduMatrix Master. Vraag me alles over wiskundeoefeningen, werkbladen afdrukken of functies!",
+                pt: "Olá! Sou o EduBot, o assistente de IA do EduMatrix Master. Pergunte-me qualquer coisa sobre prática de matemática, impressão de folhas de trabalho ou recursos!",
+                ms: "Helo! Saya EduBot, pembantu AI EduMatrix Master. Tanya saya apa sahaja tentang latihan matematik, mencetak lembaran kerja atau ciri-ciri aplikasi!",
+                ja: "こんにちは！EduMatrix MasterのAIアシスタントEduBotです。算数の練習、ワークシートの印刷、機能について何でも聞いてください！"
+            };
+            return welcomeMap[lang] || "Hello! 👋 I am EduBot, your AI Assistant for EduMatrix Master. Ask me anything about math practice, printing worksheets, teacher/parent features, or math problem-solving!";
+        }
+
+        function renderAiChatMessages() {
+            const container = document.getElementById('ai-chat-messages');
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            aiChatHistory.forEach((msg) => {
+                const isUser = msg.role === 'user';
+                const msgWrapper = document.createElement('div');
+                msgWrapper.className = `flex gap-3 ${isUser ? 'justify-end' : 'justify-start'} items-end`;
+
+                if (!isUser) {
+                    const avatar = document.createElement('div');
+                    avatar.className = 'w-8 h-8 rounded-full bg-gradient-to-tr from-violet-600 to-purple-600 text-white flex items-center justify-center text-xs shrink-0 shadow-sm border border-violet-300';
+                    avatar.innerHTML = '<i class="fas fa-robot text-amber-300"></i>';
+                    msgWrapper.appendChild(avatar);
+                }
+
+                const bubble = document.createElement('div');
+                bubble.className = `max-w-[85%] sm:max-w-[75%] p-3.5 sm:p-4 rounded-2xl text-xs sm:text-sm font-medium leading-relaxed shadow-xs ${
+                    isUser
+                        ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-br-none border border-violet-500'
+                        : 'bg-white text-slate-800 rounded-bl-none border border-slate-200/90'
+                }`;
+
+                let formattedText = msg.content
+                    .replace(/\n\n/g, '<br><br>')
+                    .replace(/\n/g, '<br>')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+                bubble.innerHTML = `
+                    <div>${formattedText}</div>
+                    <div class="text-[10px] ${isUser ? 'text-violet-200' : 'text-slate-400'} text-right mt-1.5 font-bold">${msg.time || ''}</div>
+                `;
+
+                msgWrapper.appendChild(bubble);
+
+                if (isUser) {
+                    const avatar = document.createElement('div');
+                    avatar.className = 'w-8 h-8 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center text-xs shrink-0 shadow-sm border border-slate-300';
+                    avatar.innerHTML = '<i class="fas fa-user"></i>';
+                    msgWrapper.appendChild(avatar);
+                }
+
+                container.appendChild(msgWrapper);
+            });
+
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function clearAiChatHistory() {
+            aiChatHistory = [];
+            const userLang = typeof currentLang !== 'undefined' ? currentLang : 'en';
+            aiChatHistory.push({ role: 'model', content: getWelcomeMessageForLang(userLang), time: getCurrentTimeString() });
+            renderAiChatMessages();
+        }
+
+        function handleAiChatSubmit(e) {
+            if (e) e.preventDefault();
+            const input = document.getElementById('ai-chat-input');
+            if (!input) return;
+            const text = input.value.trim();
+            if (!text) return;
+            input.value = '';
+            sendAiChatMessage(text);
+        }
+
+        async function sendAiChatMessage(userText) {
+            if (!userText || !userText.trim()) return;
+
+            openAiChatbotModal();
+
+            const time = getCurrentTimeString();
+            aiChatHistory.push({ role: 'user', content: userText.trim(), time });
+            renderAiChatMessages();
+
+            const typingEl = document.getElementById('ai-chat-typing');
+            if (typingEl) typingEl.classList.remove('hidden');
+
+            const sendBtn = document.getElementById('ai-chat-send-btn');
+            if (sendBtn) sendBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        messages: aiChatHistory.map(m => ({ role: m.role, content: m.content })),
+                        userRole: typeof currentRole !== 'undefined' ? currentRole : 'student',
+                        userLanguage: typeof currentLang !== 'undefined' ? currentLang : 'en',
+                        userStandard: typeof currentStandard !== 'undefined' ? currentStandard : ''
+                    })
+                });
+
+                const data = await response.json();
+                const botReply = data.reply || (data.error ? `Error: ${data.error}` : "I'm having trouble connecting right now. Please try again!");
+
+                aiChatHistory.push({ role: 'model', content: botReply, time: getCurrentTimeString() });
+            } catch (err) {
+                console.error('Chat request error:', err);
+                aiChatHistory.push({
+                    role: 'model',
+                    content: "Sorry, I couldn't reach the AI server. Please check your internet connection and try again.",
+                    time: getCurrentTimeString()
+                });
+            } finally {
+                if (typingEl) typingEl.classList.add('hidden');
+                if (sendBtn) sendBtn.disabled = false;
+                renderAiChatMessages();
             }
         }
 
