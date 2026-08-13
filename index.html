@@ -760,27 +760,27 @@
                 </div>
 
                 <!-- Teacher Quiz Dispatch Panel (Shown when Teacher Role is selected) -->
-                <div id="teacher-quiz-dispatch-panel" class="hidden mt-3 p-4 sm:p-5 bg-gradient-to-br from-violet-700 via-indigo-700 to-purple-800 text-white rounded-2xl shadow-lg border border-violet-400/50 flex flex-col gap-4">
+                <div id="teacher-quiz-dispatch-panel" class="hidden mt-3 -mx-3.5 sm:mx-0 px-2.5 py-3.5 sm:p-5 bg-gradient-to-br from-violet-700 via-indigo-700 to-purple-800 text-white rounded-2xl shadow-lg border border-violet-400/50 flex flex-col gap-3.5 sm:gap-4">
                     <div class="flex items-center justify-between flex-wrap gap-2 pb-3 border-b border-violet-400/30">
-                        <div class="flex items-center gap-3">
-                            <span class="w-10 h-10 rounded-xl bg-amber-400 text-slate-900 flex items-center justify-center font-black text-lg shadow">
+                        <div class="flex items-center gap-2.5 sm:gap-3">
+                            <span class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-400 text-slate-900 flex items-center justify-center font-black text-base sm:text-lg shadow shrink-0">
                                 <i class="fas fa-chalkboard-teacher"></i>
                             </span>
                             <div>
-                                <h3 class="font-extrabold text-sm sm:text-base text-amber-300 flex items-center gap-2" data-i18n="teacherDispatcherTitle">
+                                <h3 class="font-extrabold text-xs sm:text-base text-amber-300 flex items-center gap-2" data-i18n="teacherDispatcherTitle">
                                     Teacher Questions Dispatcher
                                 </h3>
-                                <p class="text-xs text-violet-100 font-medium" data-i18n="teacherDispatcherDesc">Select questions from your own school book</p>
+                                <p class="text-[11px] sm:text-xs text-violet-100 font-medium" data-i18n="teacherDispatcherDesc">Select questions from your own school book</p>
                             </div>
                         </div>
-                        <span class="px-3 py-1 bg-amber-400/20 text-amber-200 border border-amber-300/40 font-mono text-xs font-bold rounded-full flex items-center gap-1.5 shadow-sm">
+                        <span class="px-2.5 py-1 bg-amber-400/20 text-amber-200 border border-amber-300/40 font-mono text-[11px] sm:text-xs font-bold rounded-full flex items-center gap-1.5 shadow-sm">
                             <i class="fab fa-whatsapp text-emerald-300 text-sm"></i> <span data-i18n="whatsappSharing">WhatsApp</span>
                         </span>
                     </div>
 
                     <!-- Step 1: Add Questions & Answers Assignment -->
-                    <div class="flex flex-col gap-3 bg-white/10 p-3 sm:p-4 rounded-xl border border-violet-300/30">
-                        <div class="flex items-center justify-between flex-wrap gap-2">
+                    <div class="flex flex-col gap-2.5 sm:gap-3 bg-white/10 p-2 sm:p-4 rounded-xl border border-violet-300/30">
+                        <div class="flex items-center justify-between flex-wrap gap-1.5">
                             <label class="text-xs font-extrabold text-amber-200 flex items-center gap-1.5 uppercase tracking-wide" data-i18n="addQuestionsExpectedAnswers">
                                 <i class="fas fa-question-circle text-amber-300"></i> Add Questions & Expected Answers:
                             </label>
@@ -14568,15 +14568,15 @@ ${messageText}`;
             const removeTitle = getI18nText('removeQuestionTitle', 'Remove Question');
 
             const rowDiv = document.createElement('div');
-            rowDiv.className = 'teacher-topic-row flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 bg-slate-900/60 p-2.5 sm:p-3 rounded-xl border border-violet-300/40 shadow-sm';
+            rowDiv.className = 'teacher-topic-row flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 bg-slate-900/60 p-2 sm:p-3 rounded-xl border border-violet-300/40 shadow-sm';
             rowDiv.innerHTML = `
-                <div class="flex items-center gap-1.5 flex-1 min-w-0">
+                <div class="flex items-center gap-1.5 flex-1 min-w-0 w-full">
                     <span class="text-[11px] font-extrabold text-amber-200 shrink-0 question-label">${qPrefix}${qNum}:</span>
-                    <input type="text" class="teacher-topic-name-input w-full bg-white/15 border border-violet-300/40 rounded-lg px-2.5 py-1.5 text-xs font-bold text-white placeholder:text-violet-200/70 focus:outline-none focus:ring-2 focus:ring-amber-300" placeholder="${qPlaceholder}" value="${questionVal}">
+                    <input type="text" class="teacher-topic-name-input w-full bg-white/15 border border-violet-300/40 rounded-lg px-2 py-1.5 text-xs font-bold text-white placeholder:text-violet-200/70 focus:outline-none focus:ring-2 focus:ring-amber-300" placeholder="${qPlaceholder}" value="${questionVal}">
                 </div>
-                <div class="flex items-center gap-1.5 w-full sm:w-auto shrink-0">
+                <div class="flex items-center gap-1.5 w-full sm:w-auto shrink-0 justify-end sm:justify-start">
                     <span class="text-[11px] font-extrabold text-emerald-300 shrink-0 answer-label">${ansPrefix}</span>
-                    <input type="text" class="teacher-topic-answer-input w-28 sm:w-24 bg-white/15 border border-emerald-400/40 rounded-lg px-2.5 py-1.5 text-xs font-bold text-emerald-200 placeholder:text-emerald-300/60 focus:outline-none focus:ring-2 focus:ring-emerald-300" placeholder="${ansPlaceholder}" value="${answerVal}">
+                    <input type="text" class="teacher-topic-answer-input flex-1 sm:flex-none w-24 bg-white/15 border border-emerald-400/40 rounded-lg px-2 py-1.5 text-xs font-bold text-emerald-200 placeholder:text-emerald-300/60 focus:outline-none focus:ring-2 focus:ring-emerald-300" placeholder="${ansPlaceholder}" value="${answerVal}">
                     <button type="button" onclick="removeTeacherTopicRow(this)" title="${removeTitle}" aria-label="${removeTitle}" class="p-1.5 bg-rose-500/30 hover:bg-rose-500 text-rose-100 font-extrabold text-xs rounded-lg border border-rose-300/50 flex items-center justify-center cursor-pointer transition-all shrink-0 active:scale-95 shadow-sm">
                         <i class="fas fa-trash-alt text-xs"></i>
                     </button>
