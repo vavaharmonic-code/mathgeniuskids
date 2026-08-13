@@ -1129,15 +1129,16 @@
             <div class="max-w-4xl mx-auto flex flex-col items-center text-center">
                 
                 <!-- Author Badge & Location -->
-                <div class="flex flex-wrap items-center justify-center gap-2.5 mb-3">
-                    <div class="inline-flex items-center gap-2 bg-violet-100/80 border border-violet-300 text-violet-900 px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-bold shadow-sm">
-                        <i class="fas fa-code text-violet-600"></i>
-                        <span data-i18n="footerDeveloper">Developer: G. Sakthivel</span>
-                        <span class="text-violet-300">|</span>
-                        <i class="fas fa-map-marker-alt text-rose-500"></i>
-                        <span data-i18n="footerLocation">Karaikal, Puducherry, INDIA</span>
+                <div class="flex flex-wrap items-center justify-center gap-2 mb-3">
+                    <div class="inline-flex items-center gap-2 bg-violet-100/80 border border-violet-300 text-violet-900 px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-bold shadow-sm whitespace-nowrap">
+                        <i class="fas fa-code text-violet-600 shrink-0"></i>
+                        <span data-i18n="footerDeveloper" class="whitespace-nowrap font-extrabold">Developer: G.\u00A0Sakthivel</span>
                     </div>
-                    <button id="donate-app-btn" onclick="openDonateModal()" class="btn-bevel-glass-emerald text-white px-4 py-1.5 rounded-full font-bold text-xs transition-all duration-200 active:scale-95 flex items-center gap-2 shadow-md cursor-pointer">
+                    <div class="inline-flex items-center gap-2 bg-violet-100/80 border border-violet-300 text-violet-900 px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-bold shadow-sm whitespace-nowrap">
+                        <i class="fas fa-map-marker-alt text-rose-500 shrink-0"></i>
+                        <span data-i18n="footerLocation" class="whitespace-nowrap">Karaikal, Puducherry, INDIA</span>
+                    </div>
+                    <button id="donate-app-btn" onclick="openDonateModal()" class="btn-bevel-glass-emerald text-white px-4 py-1.5 rounded-full font-bold text-xs transition-all duration-200 active:scale-95 flex items-center gap-2 shadow-md cursor-pointer whitespace-nowrap">
                         <i class="fas fa-heart text-rose-300 animate-pulse text-xs"></i>
                         <span data-i18n="donateAppBtn">Support & Donate</span>
                     </button>
@@ -1156,9 +1157,7 @@
                 </p>
 
                 <!-- Legal & Intellectual Property Card -->
-                <div class="bg-gradient-to-r from-slate-50 via-violet-50/40 to-slate-50 border border-violet-200/80 rounded-2xl p-4 sm:p-5 max-w-2xl shadow-sm text-left relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1.5 h-full bg-violet-600"></div>
-                    
+                <div class="bg-gradient-to-r from-slate-50 via-violet-50/40 to-slate-50 border border-violet-200/80 rounded-2xl p-4 sm:p-5 max-w-2xl shadow-sm text-left">
                     <div class="flex items-start gap-3">
                         <div class="w-7 h-7 rounded-lg bg-violet-100 text-violet-700 flex items-center justify-center shrink-0 border border-violet-200 font-bold text-xs mt-0.5">
                             <i class="fas fa-shield-alt"></i>
@@ -1934,7 +1933,7 @@
             </div>
             
             <h3 class="text-lg font-black text-slate-800 mb-0.5">Contact Developer</h3>
-            <p class="text-xs font-bold text-violet-700 mb-1">G. Sakthivel</p>
+            <p class="text-xs font-bold text-violet-700 mb-1 whitespace-nowrap">G.&nbsp;Sakthivel</p>
             <p class="text-[11px] font-semibold text-slate-500 mb-4 flex items-center justify-center gap-1">
                 <i class="fas fa-map-marker-alt text-rose-500"></i> Karaikal, Puducherry, INDIA
             </p>
@@ -1980,7 +1979,7 @@
                 </div>
                 <div>
                     <h3 class="text-lg font-extrabold text-slate-900" data-i18n="feedbackModalTitle">User Feedback & Suggestions</h3>
-                    <p class="text-xs font-semibold text-slate-500" data-i18n="feedbackModalSub">Developer: G. Sakthivel (+91 8939285768)</p>
+                    <p class="text-xs font-semibold text-slate-500" data-i18n="feedbackModalSub">Developer: G.\u00A0Sakthivel (+91 8939285768)</p>
                 </div>
             </div>
 
@@ -2007,7 +2006,7 @@
                 <!-- Message Input -->
                 <div>
                     <label class="block text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-1.5" data-i18n="feedbackMsgLabel">Your Message / Suggestion:</label>
-                    <textarea id="feedback-message-input" rows="4" data-i18n-placeholder="feedbackMsgPlaceholder" placeholder="Type your valuable feedback, suggestion, or query here for developer G. Sakthivel..." class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 rounded-2xl p-3.5 text-xs sm:text-sm font-medium text-slate-800 placeholder-slate-400 focus:outline-none transition-all resize-none shadow-inner"></textarea>
+                    <textarea id="feedback-message-input" rows="4" data-i18n-placeholder="feedbackMsgPlaceholder" placeholder="Type your valuable feedback, suggestion, or query here for developer G.\u00A0Sakthivel..." class="w-full bg-slate-50 border border-slate-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 rounded-2xl p-3.5 text-xs sm:text-sm font-medium text-slate-800 placeholder-slate-400 focus:outline-none transition-all resize-none shadow-inner"></textarea>
                 </div>
 
                 <div class="bg-amber-50 border border-amber-200 rounded-2xl p-3 flex items-center gap-2.5 text-xs text-amber-900 font-semibold">
@@ -2683,7 +2682,7 @@
                 parentProfileRequiredBody: "Please fill in your Parent details before proceeding:<br><strong class=\"text-rose-600\">1. Parent Name</strong><br><strong class=\"text-rose-600\">2. Child's Name & Standard</strong>",
                 parentProfileRequiredBtn: "Fill Parent Details Now",
                 defaultSchoolName: "Add Your School Name",
-                footerDeveloper: "Developer: G. Sakthivel",
+                footerDeveloper: "Developer: G.\u00A0Sakthivel",
                 footerLocation: "Karaikal, Puducherry, INDIA",
                 footerCopyright: "Copyright © 2026 EduMatrix Master. All rights reserved.",
                 footerContact: "Contact:",
@@ -2885,7 +2884,7 @@
                 orientationBtn: "Rotate View",
                 rotateDeviceTip: "Rotate your Mobile or Tablet for an optimal view.",
                 feedbackModalTitle: "💬 User Feedback & Suggestions",
-                feedbackModalSub: "Directly message developer G. Sakthivel via WhatsApp at +91 8939285768",
+                feedbackModalSub: "Directly message developer G.\u00A0Sakthivel via WhatsApp at +91 8939285768",
                 sendFeedbackWhatsappBtn: "Send Feedback via WhatsApp",
                 aboutModalTitle: "About EduMatrix Master & Complete Tutorial",
                 aboutModalSubtitle: "Comprehensive Guide for Students, Teachers & Parents",
@@ -2921,7 +2920,7 @@
                 feedbackCatSchool: "School Setup",
                 feedbackCatGeneral: "General Feedback",
                 feedbackMsgLabel: "Your Message / Suggestion:",
-                feedbackMsgPlaceholder: "Type your valuable feedback, suggestion, or query here for developer G. Sakthivel...",
+                feedbackMsgPlaceholder: "Type your valuable feedback, suggestion, or query here for developer G.\u00A0Sakthivel...",
                 feedbackInfoNotice: "Clicking send will open WhatsApp directly with your message to <strong>+91 8939285768</strong>.",
                 feedbackDirectChat: "Direct Chat",
                 primaryGradeGuidanceNotice: "1st to 5th grade students need Teacher or Parents guidance to work on this math quiz to avoid any interruption.",
@@ -2985,7 +2984,7 @@
                 parentProfileRequiredBody: "தொடர்வதற்கு முன் உங்கள் பெற்றோர் விவரங்களை நிரப்பவும்:<br><strong class=\"text-rose-600\">1. பெற்றோர் பெயர்</strong><br><strong class=\"text-rose-600\">2. குழந்தையின் பெயர் & வகுப்பு</strong>",
                 parentProfileRequiredBtn: "பெற்றோர் விவரங்களை இப்போது நிரப்புக",
                 defaultSchoolName: "உங்கள் பள்ளி பெயரைச் சேர்க்கவும்",
-                footerDeveloper: "உருவாக்கியவர்: க. சக்திவேல்",
+                footerDeveloper: "உருவாக்கியவர்: க.\u00A0சக்திவேல்",
                 footerLocation: "காரைக்கால், புதுச்சேரி, இந்தியா",
                 footerCopyright: "பதிப்புரிமை © 2026 எடுமேட்ரிக்ஸ் மாஸ்டர். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
                 footerContact: "தொடர்புக்கு:",
@@ -3185,7 +3184,7 @@
                 orientationBtn: "திரை சுழற்சி",
                 rotateDeviceTip: "சிறந்த பார்வைக்கு உங்கள் செல்போன் அல்லது டேப்ளெட்டை சுழற்றுங்கள்.",
                 feedbackModalTitle: "💬 பயனர் கருத்துகள் & ஆலோசனைகள்",
-                feedbackModalSub: "வாட்ஸ்அப் மூலம் உருவாக்குநர் க. சக்திவேல் அவர்களின் +91 8939285768 எண்ணிற்கு நேரடியாக அனுப்பவும்",
+                feedbackModalSub: "வாட்ஸ்அப் மூலம் உருவாக்குநர் க.\u00A0சக்திவேல் அவர்களின் +91 8939285768 எண்ணிற்கு நேரடியாக அனுப்பவும்",
                 sendFeedbackWhatsappBtn: "வாட்ஸ்அப்பில் கருத்து அனுப்பவும்",
                 aboutModalTitle: "கணித மேதை பற்றி & முழுமையான பயிற்சி வழிகாட்டி",
                 aboutModalSubtitle: "மாணவர்கள், ஆசிரியர்கள் மற்றும் பெற்றோர்களை எவ்வாறு மேம்படுத்துகிறது என்பதற்கான வழிகாட்டி",
@@ -3221,7 +3220,7 @@
                 feedbackCatSchool: "பள்ளி அமைப்பு",
                 feedbackCatGeneral: "பொதுவான கருத்து",
                 feedbackMsgLabel: "உங்கள் செய்தி / ஆலோசனை:",
-                feedbackMsgPlaceholder: "உருவாக்குநர் க. சக்திவேல் அவர்களுக்கு உங்கள் மதிப்புமிக்க கருத்துகள் அல்லது கேள்விகளை இங்கு தட்டச்சு செய்யவும்...",
+                feedbackMsgPlaceholder: "உருவாக்குநர் க.\u00A0சக்திவேல் அவர்களுக்கு உங்கள் மதிப்புமிக்க கருத்துகள் அல்லது கேள்விகளை இங்கு தட்டச்சு செய்யவும்...",
                 feedbackInfoNotice: "அனுப்பு பொத்தானைக் கிளிக் செய்தால், <strong>+91 8939285768</strong> எண்ணிற்கு வாட்ஸ்அப்பில் செய்தி நேரடியாகச் செல்லும்.",
                 feedbackDirectChat: "நேரடி அரட்டை",
                 primaryGradeGuidanceNotice: "1 முதல் 5 ஆம் வகுப்பு மாணவர்கள் எவ்வித தடையுமின்றி கணிதப் பயிற்சியை செய்ய ஆசிரியர் அல்லது பெற்றோரின் வழிகாட்டுதல் தேவை.",
@@ -3233,7 +3232,7 @@
                 donateUpiTitle: "Google Pay & UPI செலுத்துதல்",
                 donateUpiDesc: "கூகிள் பே, போன்பே, பேடிஎம் அல்லது பீம் மூலம் மொபைல் எண் அல்லது UPI ஐடியைப் பயன்படுத்தி நன்கொடை அளிக்கவும்.",
                 donateNameLabel: "👤 பெயர்:",
-                donateNameValue: "க. சக்திவேல் கணேசன்",
+                donateNameValue: "க.\u00A0சக்திவேல் கணேசன்",
                 donatePhoneLabel: "📱 GPay / மொபைல்:",
                 donateUpiIdLabel: "💳 UPI ஐடி:",
                 copyUpiBtnText: "UPI ஐடியை நகலெடு",
@@ -3278,7 +3277,7 @@
                 parentProfileRequiredBody: "തുടരുന്നതിന് മുമ്പ് രക്ഷിതാവിന്റെ വിവരങ്ങൾ പൂരിപ്പിക്കുക:<br><strong class=\"text-rose-600\">1. രക്ഷിതാവിന്റെ പേര്</strong><br><strong class=\"text-rose-600\">2. കുട്ടിയുടെ പേരും ക്ലാസ്സും</strong>",
                 parentProfileRequiredBtn: "രക്ഷിതാവിന്റെ വിവരങ്ങൾ നൽകുക",
                 defaultSchoolName: "നിങ്ങളുടെ സ്കൂളിന്റെ പേര് ചേർക്കുക",
-                footerDeveloper: "വികസിപ്പിച്ചത്: ജി. ശക്തിവേൽ",
+                footerDeveloper: "വികസിപ്പിച്ചത്: ജി.\u00A0ശക്തിവേൽ",
                 footerLocation: "കാരയ്ക്കൽ, പുതുച്ചേരി, ഇന്ത്യ",
                 footerCopyright: "പകർപ്പവകാശം © 2026 എഡ്യൂമാട്രിക്സ് മാസ്റ്റർ. എല്ലാ അവകാശങ്ങളും സംരക്ഷിതം.",
                 footerContact: "ബന്ധപ്പെടുക:",
@@ -3571,7 +3570,7 @@
                 parentProfileRequiredBody: "కొనసాగడానికి ముందు తల్లిదండ్రుల వివరాలను నింపండి:<br><strong class=\"text-rose-600\">1. తల్లిదండ్రుల పేరు</strong><br><strong class=\"text-rose-600\">2. పిల్లల పేరు & తరగతి</strong>",
                 parentProfileRequiredBtn: "తల్లిదండ్రుల వివరాలు నింపండి",
                 defaultSchoolName: "మీ పాఠశాల పేరును జోడించండి",
-                footerDeveloper: "అభివృద్ధి చేసినవారు: జి. శక్తివేల్",
+                footerDeveloper: "అభివృద్ధి చేసినవారు: జి.\u00A0శక్తివేల్",
                 footerLocation: "కారైకాల్, పుదుచ్చేరి, భారతదేశం",
                 footerCopyright: "కాపీరైట్ © 2026 ఎడ్యుమాట్రిక్స్ మాస్టర్. సర్వహక్కులు ప్రత్యేకించబడ్డాయి.",
                 footerContact: "సంప్రదించండి:",
@@ -3831,7 +3830,7 @@
                 orientationBtn: "స్క్రీన్ తిప్పండి",
                 rotateDeviceTip: "చక్కని వీక్షణ కోసం మీ మొబైల్ లేదా టాబ్లెట్‌ను తిప్పండి.",
                 feedbackModalTitle: "💬 యూజర్ అభిప్రాయాలు & సూచనలు",
-                feedbackModalSub: "డెవలపర్ జి. శక్తివేల్ కు +91 8939285768 లో వాట్సాప్ ద్వారా నేరుగా మెసేజ్ చేయండి",
+                feedbackModalSub: "డెవలపర్ జి.\u00A0శక్తివేల్ కు +91 8939285768 లో వాట్సాప్ ద్వారా నేరుగా మెసేజ్ చేయండి",
                 sendFeedbackWhatsappBtn: "వాట్సాప్ ద్వారా అభిప్రాయం పంపండి",
                 syncCurrentQuizQuestionsBtn: "ప్రస్తుత క్విజ్‌ను దిగుమతి చేయండి",
                 noQuestionsToSync: "ఇంకా ప్రశ్నలు సృష్టించబడలేదు! ముందుగా పైన సంఖ్యలను ఎంచుకోండి.",
@@ -3864,7 +3863,7 @@
                 parentProfileRequiredBody: "ಮುಂದುವರಿಯುವ ಮೊದಲು ಪೋಷಕರ ವಿವರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ:<br><strong class=\"text-rose-600\">1. ಪೋಷಕರ ಹೆಸರು</strong><br><strong class=\"text-rose-600\">2. ಮಗುವಿನ ಹೆಸರು ಮತ್ತು ತರಗತಿ</strong>",
                 parentProfileRequiredBtn: "ಪೋಷಕರ ವಿವರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ",
                 defaultSchoolName: "ನಿಮ್ಮ ಶಾಲೆಯ ಹೆಸರನ್ನು ಸೇರಿಸಿ",
-                footerDeveloper: "ಅಭಿವೃದ್ಧಿಪಡಿಸಿದವರು: ಜಿ. ಶಕ್ತಿವೇಲ್",
+                footerDeveloper: "ಅಭಿವೃದ್ಧಿಪಡಿಸಿದವರು: ಜಿ.\u00A0ಶಕ್ತಿವೇಲ್",
                 footerLocation: "ಕಾರೈಕಾಲ್, ಪುದುಚೇರಿ, ಭಾರತ",
                 footerCopyright: "ಕೃತಿಸ್ವಾಮ್ಯ © 2026 ಎಡುಮ್ಯಾಟ್ರಿಕ್ಸ್ ಮಾಸ್ಟರ್. ಎಲ್ಲಾ ಹಕ್ಕುಗಳನ್ನು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ.",
                 footerContact: "ಸಂಪರ್ಕಿಸಿ:",
@@ -4124,7 +4123,7 @@
                 orientationBtn: "ಸ್ಕ್ರೀನ್ ತಿರುಗಿಸಿ",
                 rotateDeviceTip: "ಉತ್ತಮ ವೀಕ್ಷಣೆಗಾಗಿ ನಿಮ್ಮ ಮೊಬೈಲ್ ಅಥವಾ ಟ್ಯಾಬ್ಲೆಟ್ ಅನ್ನು ತಿರುಗಿಸಿ.",
                 feedbackModalTitle: "💬 ಬಳಕೆದಾರರ ಅಭಿಪ್ರಾಯ ಮತ್ತು ಸಲಹೆಗಳು",
-                feedbackModalSub: "ಡೆವಲಪರ್ ಜಿ. ಶಕ್ತಿವೇಲ್ அவர்களுக்கு +91 8939285768 ರಲ್ಲಿ ನೇರವಾಗಿ ವಾಟ್ಸಾಪ್ ಸಂದೇಶ ಕಳುಹಿಸಿ",
+                feedbackModalSub: "ಡೆವಲಪರ್ ಜಿ.\u00A0ಶಕ್ತಿವೇಲ್ அவர்களுக்கு +91 8939285768 ರಲ್ಲಿ ನೇರವಾಗಿ ವಾಟ್ಸಾಪ್ ಸಂದೇಶ ಕಳುಹಿಸಿ",
                 sendFeedbackWhatsappBtn: "ವಾಟ್ಸಾಪ್ ಮೂಲಕ ಅಭಿಪ್ರಾಯ ಕಳುಹಿಸಿ",
                 syncCurrentQuizQuestionsBtn: "ಪ್ರಸ್ತುತ ರಸಪ್ರಶ್ನೆ ಆಮದು ಮಾಡಿ",
                 noQuestionsToSync: "ಇನ್ನೂ ಪ್ರಶ್ನೆಗಳನ್ನು ರಚಿಸಲಾಗಿಲ್ಲ! ಮೊದಲು ಮೇಲೆ ಸಂಖ್ಯೆಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
@@ -4157,7 +4156,7 @@
                 parentProfileRequiredBody: "आगे बढ़ने से पहले कृपया अपने अभिभावक का विवरण भरें:<br><strong class=\"text-rose-600\">1. अभिभावक का नाम</strong><br><strong class=\"text-rose-600\">2. बच्चे का नाम और कक्षा</strong>",
                 parentProfileRequiredBtn: "अभिभावक विवरण अब भरें",
                 defaultSchoolName: "अपने स्कूल का नाम जोड़ें",
-                footerDeveloper: "डेवलपर: जी. शक्तिवेल",
+                footerDeveloper: "डेवलपर: जी.\u00A0शक्तिवेल",
                 footerLocation: "कारैकल, पुडुचेरी, भारत",
                 footerCopyright: "कॉपीराइट © 2026 EduMatrix Master. सर्वाधिकार सुरक्षित।",
                 footerContact: "संपर्क:",
@@ -4387,7 +4386,7 @@
                 feedbackCatSchool: "स्कूल सेटअप",
                 feedbackCatGeneral: "सामान्य प्रतिक्रिया",
                 feedbackMsgLabel: "आपका संदेश / सुझाव:",
-                feedbackMsgPlaceholder: "डेवलपर जी. शक्तिवेल के लिए अपना बहुमूल्य सुझाव या प्रश्न यहाँ लिखें...",
+                feedbackMsgPlaceholder: "डेवलपर जी.\u00A0शक्तिवेल के लिए अपना बहुमूल्य सुझाव या प्रश्न यहाँ लिखें...",
                 feedbackInfoNotice: "भेजें पर क्लिक करने से आपका संदेश सीधे व्हाट्सएप पर <strong>+91 8939285768</strong> पर खुल जाएगा।",
                 feedbackDirectChat: "सीधा चैट",
                 primaryGradeGuidanceNotice: "कक्षा 1 से 5 के छात्रों को गणित प्रश्नोत्तरी पर बिना किसी रुकावट के काम करने के लिए शिक्षक या माता-पिता के मार्गदर्शन की आवश्यकता है।",
@@ -4417,7 +4416,7 @@
                 orientationBtn: "स्क्रीन घुमाएं",
                 rotateDeviceTip: "उत्कृष्ट दृश्य के लिए अपने मोबाइल या टैबलेट को घुमाएं।",
                 feedbackModalTitle: "💬 उपयोगकर्ता प्रतिक्रिया और सुझाव",
-                feedbackModalSub: "डेवलपर जी. शक्तिवेल को सीधे WhatsApp पर +91 8939285768 पर संदेश भेजें",
+                feedbackModalSub: "डेवलपर जी.\u00A0शक्तिवेल को सीधे WhatsApp पर +91 8939285768 पर संदेश भेजें",
                 sendFeedbackWhatsappBtn: "WhatsApp द्वारा प्रतिक्रिया भेजें",
                 syncCurrentQuizQuestionsBtn: "वर्तमान क्विज़ आयात करें",
                 noQuestionsToSync: "अभी कोई प्रश्न उत्पन्न नहीं हुआ है! पहले ऊपर संख्याएं चुनें।",
@@ -4450,7 +4449,7 @@
                 parentProfileRequiredBody: "请在继续之前填写您的家长信息：<br><strong class=\"text-rose-600\">1. 家长姓名</strong><br><strong class=\"text-rose-600\">2. 孩子的姓名和年级</strong>",
                 parentProfileRequiredBtn: "立即填写家长信息",
                 defaultSchoolName: "添加您的学校名称",
-                footerDeveloper: "开发者：G. Sakthivel",
+                footerDeveloper: "开发者：G.\u00A0Sakthivel",
                 footerLocation: "卡赖卡, 朋迪舍里, 印度",
                 footerCopyright: "版权所有 © 2026 EduMatrix Master。保留所有权利。",
                 footerContact: "联系方式：",
@@ -4680,7 +4679,7 @@
                 feedbackCatSchool: "学校设置",
                 feedbackCatGeneral: "通用反馈",
                 feedbackMsgLabel: "您的留言 / 建议：",
-                feedbackMsgPlaceholder: "在此输入您给开发者 G. Sakthivel 的宝贵反馈、建议或疑问...",
+                feedbackMsgPlaceholder: "在此输入您给开发者 G.\u00A0Sakthivel 的宝贵反馈、建议或疑问...",
                 feedbackInfoNotice: "点击发送将直接打开 WhatsApp，将您的消息发送至 <strong>+91 8939285768</strong>。",
                 feedbackDirectChat: "直接沟通",
                 primaryGradeGuidanceNotice: "1至5年级学生需要老师或家长的指导来进行此数学测试，以避免中断。",
@@ -4710,7 +4709,7 @@
                 orientationBtn: "屏幕旋转",
                 rotateDeviceTip: "旋转您的手机或平板电脑以获得最佳视图。",
                 feedbackModalTitle: "💬 用户反馈与建议",
-                feedbackModalSub: "通过 WhatsApp (+91 8939285768) 直接向开发者 G. Sakthivel 发送消息",
+                feedbackModalSub: "通过 WhatsApp (+91 8939285768) 直接向开发者 G.\u00A0Sakthivel 发送消息",
                 sendFeedbackWhatsappBtn: "通过 WhatsApp 发送反馈",
                 syncCurrentQuizQuestionsBtn: "导入当前测验",
                 noQuestionsToSync: "尚未生成问题！请先在上方选择数字。",
@@ -4743,7 +4742,7 @@
                 parentProfileRequiredBody: "يرجى ملء تفاصيل ولي الأمر قبل المتابعة:<br><strong class=\"text-rose-600\">1. اسم ولي الأمر</strong><br><strong class=\"text-rose-600\">2. اسم الطفل والصف</strong>",
                 parentProfileRequiredBtn: "ملء تفاصيل ولي الأمر الآن",
                 defaultSchoolName: "أضف اسم مدرستك",
-                footerDeveloper: "المطور: جي. ساكثيفيل",
+                footerDeveloper: "المطور: جي.\u00A0ساكثيفيل",
                 footerLocation: "كاريكال، بودوتشيري، الهند",
                 footerCopyright: "حقوق الطبع والنشر © 2026 EduMatrix Master. جميع الحقوق محفوظة.",
                 footerContact: "للتواصل:",
@@ -4973,7 +4972,7 @@
                 feedbackCatSchool: "إعداد المدرسة",
                 feedbackCatGeneral: "ملاحظات عامة",
                 feedbackMsgLabel: "رسالتك / اقتراحك:",
-                feedbackMsgPlaceholder: "اكتب ملاحظاتك أو اقتراحاتك القيمة للمطور ج. ساكثيفيل هنا...",
+                feedbackMsgPlaceholder: "اكتب ملاحظاتك أو اقتراحاتك القيمة للمطور ج.\u00A0ساكثيفيل هنا...",
                 feedbackInfoNotice: "سيؤدي النقر على إرسال إلى فتح واتساب مباشرة لرسالتك إلى <strong>+91 8939285768</strong>.",
                 feedbackDirectChat: "محادثة مباشرة",
                 primaryGradeGuidanceNotice: "يحتاج طلاب الصفوف من الأول إلى الخامس إلى توجيه المعلم أو الوالدين للعمل على هذا الاختبار الرياضي لتجنب أي انقطاع.",
@@ -5003,7 +5002,7 @@
                 orientationBtn: "تدوير الشاشة",
                 rotateDeviceTip: "قم بتدوير هاتفك المحمول أو جهازك اللوحي للحصول على أفضل عرض.",
                 feedbackModalTitle: "💬 آراء واقتراحات المستخدمين",
-                feedbackModalSub: "راسل المطور G. Sakthivel مباشرة عبر واتساب على الرقم +91 8939285768",
+                feedbackModalSub: "راسل المطور G.\u00A0Sakthivel مباشرة عبر واتساب على الرقم +91 8939285768",
                 sendFeedbackWhatsappBtn: "إرسال الملاحظات عبر واتساب",
                 syncCurrentQuizQuestionsBtn: "استيراد الاختبار الحالي",
                 noQuestionsToSync: "لم يتم إنشاء أسئلة بعد! اختر الأرقام أعلاه أولاً.",
@@ -5036,7 +5035,7 @@
                 parentProfileRequiredBody: "Veuillez remplir vos informations de parent avant de continuer :<br><strong class=\"text-rose-600\">1. Nom du parent</strong><br><strong class=\"text-rose-600\">2. Nom et classe de l'enfant</strong>",
                 parentProfileRequiredBtn: "Remplir les informations parent",
                 defaultSchoolName: "Ajoutez le nom de votre école",
-                footerDeveloper: "Développeur : G. Sakthivel",
+                footerDeveloper: "Développeur : G.\u00A0Sakthivel",
                 footerLocation: "Karaikal, Pondichéry, INDE",
                 footerCopyright: "Copyright © 2026 EduMatrix Master. Tous droits réservés.",
                 footerContact: "Contact :",
@@ -5266,7 +5265,7 @@
                 feedbackCatSchool: "Configuration École",
                 feedbackCatGeneral: "Avis Général",
                 feedbackMsgLabel: "Votre message / suggestion:",
-                feedbackMsgPlaceholder: "Saisissez vos remarques ou suggestions pour le développeur G. Sakthivel ici...",
+                feedbackMsgPlaceholder: "Saisissez vos remarques ou suggestions pour le développeur G.\u00A0Sakthivel ici...",
                 feedbackInfoNotice: "Cliquer sur envoyer ouvrira directement WhatsApp vers le <strong>+91 8939285768</strong>.",
                 feedbackDirectChat: "Chat Direct",
                 primaryGradeGuidanceNotice: "Les élèves de la 1ère à la 5ème année ont besoin des conseils de l'enseignant ou des parents pour effectuer ce quiz de mathématiques afin d'éviter toute interruption.",
@@ -5296,7 +5295,7 @@
                 orientationBtn: "Pivoter l'écran",
                 rotateDeviceTip: "Pivotez votre mobile ou tablette pour une vue optimale.",
                 feedbackModalTitle: "💬 Avis et Suggestions",
-                feedbackModalSub: "Envoyez un message direct au développeur G. Sakthivel via WhatsApp au +91 8939285768",
+                feedbackModalSub: "Envoyez un message direct au développeur G.\u00A0Sakthivel via WhatsApp au +91 8939285768",
                 sendFeedbackWhatsappBtn: "Envoyer vos commentaires via WhatsApp",
                 syncCurrentQuizQuestionsBtn: "Importer le quiz actuel",
                 noQuestionsToSync: "Aucune question générée ! Sélectionnez d’abord des chiffres ci-dessus.",
@@ -5329,7 +5328,7 @@
                 parentProfileRequiredBody: "Por favor completa tus datos antes de continuar:<br><strong class=\"text-rose-600\">1. Nombre del padre/madre</strong><br><strong class=\"text-rose-600\">2. Nombre y grado del hijo/a</strong>",
                 parentProfileRequiredBtn: "Llenar datos de padre/madre ahora",
                 defaultSchoolName: "Agregue el nombre de su escuela",
-                footerDeveloper: "Desarrollador: G. Sakthivel",
+                footerDeveloper: "Desarrollador: G.\u00A0Sakthivel",
                 footerLocation: "Karaikal, Puducherry, INDIA",
                 footerCopyright: "Derechos de autor © 2026 EduMatrix Master. Todos los derechos reservados.",
                 footerContact: "Contacto:",
@@ -5559,7 +5558,7 @@
                 feedbackCatSchool: "Configuración Escolar",
                 feedbackCatGeneral: "Comentario General",
                 feedbackMsgLabel: "Su mensaje / sugerencia:",
-                feedbackMsgPlaceholder: "Escriba sus comentarios o sugerencias para el desarrollador G. Sakthivel aquí...",
+                feedbackMsgPlaceholder: "Escriba sus comentarios o sugerencias para el desarrollador G.\u00A0Sakthivel aquí...",
                 feedbackInfoNotice: "Hacer clic en enviar abrirá WhatsApp directamente con su mensaje a <strong>+91 8939285768</strong>.",
                 feedbackDirectChat: "Chat Directo",
                 primaryGradeGuidanceNotice: "Los estudiantes de 1.º a 5.º grado necesitan la orientación del profesor o de los padres para trabajar en este cuestionario de matemáticas y evitar interrupciones.",
@@ -5589,7 +5588,7 @@
                 orientationBtn: "Rotar pantalla",
                 rotateDeviceTip: "Gira tu móvil o tableta para una vista óptima.",
                 feedbackModalTitle: "💬 Comentarios y Sugerencias",
-                feedbackModalSub: "Envíe un mensaje directo al desarrollador G. Sakthivel por WhatsApp al +91 8939285768",
+                feedbackModalSub: "Envíe un mensaje directo al desarrollador G.\u00A0Sakthivel por WhatsApp al +91 8939285768",
                 sendFeedbackWhatsappBtn: "Enviar comentarios por WhatsApp",
                 syncCurrentQuizQuestionsBtn: "Importar cuestionario actual",
                 noQuestionsToSync: "¡No se han generado preguntas! Seleccione números arriba primero.",
@@ -5622,7 +5621,7 @@
                 parentProfileRequiredBody: "Пожалуйста, укажите данные родителя перед продолжением:<br><strong class=\"text-rose-600\">1. Имя родителя</strong><br><strong class=\"text-rose-600\">2. Имя и класс ребенка</strong>",
                 parentProfileRequiredBtn: "Заполнить данные родителя",
                 defaultSchoolName: "Добавьте название вашей школы",
-                footerDeveloper: "Разработчик: Г. Сактивел",
+                footerDeveloper: "Разработчик: Г.\u00A0Сактивел",
                 footerLocation: "Карайкал, Пудучерри, ИНДИЯ",
                 footerCopyright: "Авторские права © 2026 EduMatrix Master. Все права защищены.",
                 footerContact: "Контакты:",
@@ -5852,7 +5851,7 @@
                 feedbackCatSchool: "Настройка школы",
                 feedbackCatGeneral: "Общий отзыв",
                 feedbackMsgLabel: "Ваше сообщение / предложение:",
-                feedbackMsgPlaceholder: "Напишите ваш отзыв или предложение разработчику Г. Сактивелу...",
+                feedbackMsgPlaceholder: "Напишите ваш отзыв или предложение разработчику Г.\u00A0Сактивелу...",
                 feedbackInfoNotice: "Нажатие кнопки «Отправить» откроет WhatsApp с вашим сообщением на номер <strong>+91 8939285768</strong>.",
                 feedbackDirectChat: "Прямой чат",
                 primaryGradeGuidanceNotice: "Ученикам 1–5 классов требуется помощь учителя или родителей для прохождения математического теста без перерывов.",
@@ -5882,7 +5881,7 @@
                 orientationBtn: "Поворот экрана",
                 rotateDeviceTip: "Поверните мобильный телефон или планшет для лучшего обзора.",
                 feedbackModalTitle: "💬 Отзывы и предложения",
-                feedbackModalSub: "Напишите разработчику G. Sakthivel в WhatsApp по номеру +91 8939285768",
+                feedbackModalSub: "Напишите разработчику G.\u00A0Sakthivel в WhatsApp по номеру +91 8939285768",
                 sendFeedbackWhatsappBtn: "Отправить отзыв через WhatsApp",
                 syncCurrentQuizQuestionsBtn: "Импортировать текущий викторину",
                 noQuestionsToSync: "Вопросы ещё не созданы! Сначала выберите числа выше.",
@@ -5915,7 +5914,7 @@
                 parentProfileRequiredBody: "Vul je oudergegevens in voordat je verder gaat:<br><strong class=\"text-rose-600\">1. Naam ouder</strong><br><strong class=\"text-rose-600\">2. Naam & klas van het kind</strong>",
                 parentProfileRequiredBtn: "Oudergegevens nu invullen",
                 defaultSchoolName: "Voeg je schoolnaam toe",
-                footerDeveloper: "Ontwikkelaar: G. Sakthivel",
+                footerDeveloper: "Ontwikkelaar: G.\u00A0Sakthivel",
                 footerLocation: "Karaikal, Puducherry, INDIA",
                 footerCopyright: "Auteursrecht © 2026 EduMatrix Master. Alle rechten voorbehouden.",
                 footerContact: "Contact:",
@@ -6145,7 +6144,7 @@
                 feedbackCatSchool: "School Instellen",
                 feedbackCatGeneral: "Algemene Feedback",
                 feedbackMsgLabel: "Uw Bericht / Suggestie:",
-                feedbackMsgPlaceholder: "Typ uw waardevolle feedback of vragen voor ontwikkelaar G. Sakthivel hier...",
+                feedbackMsgPlaceholder: "Typ uw waardevolle feedback of vragen voor ontwikkelaar G.\u00A0Sakthivel hier...",
                 feedbackInfoNotice: "Klikken op verzenden opent direct WhatsApp met uw bericht naar <strong>+91 8939285768</strong>.",
                 feedbackDirectChat: "Directe Chat",
                 primaryGradeGuidanceNotice: "Leerlingen van groep 3 t/m 7 (Grade 1-5) hebben begeleiding van de leraar of ouders nodig bij deze wiskundequiz om onderbrekingen te voorkomen.",
@@ -6175,7 +6174,7 @@
                 orientationBtn: "Scherm draaien",
                 rotateDeviceTip: "Draai je mobiel of tablet voor een optimaal beeld.",
                 feedbackModalTitle: "💬 Feedback & Suggesties",
-                feedbackModalSub: "Stuur ontwikkelaar G. Sakthivel rechtstreeks een bericht via WhatsApp op +91 8939285768",
+                feedbackModalSub: "Stuur ontwikkelaar G.\u00A0Sakthivel rechtstreeks een bericht via WhatsApp op +91 8939285768",
                 sendFeedbackWhatsappBtn: "Stuur feedback via WhatsApp",
                 syncCurrentQuizQuestionsBtn: "Huidige quiz importeren",
                 noQuestionsToSync: "Nog geen vragen gegenereerd! Selecteer eerst cijfers hierboven.",
@@ -6208,7 +6207,7 @@
                 parentProfileRequiredBody: "Por favor, preencha os dados dos pais antes de continuar:<br><strong class=\"text-rose-600\">1. Nome do pai/mãe</strong><br><strong class=\"text-rose-600\">2. Nome e ano do filho(a)</strong>",
                 parentProfileRequiredBtn: "Preencher dados dos pais agora",
                 defaultSchoolName: "Adicione o nome da sua escola",
-                footerDeveloper: "Desenvolvedor: G. Sakthivel",
+                footerDeveloper: "Desenvolvedor: G.\u00A0Sakthivel",
                 footerLocation: "Karaikal, Puducherry, ÍNDIA",
                 footerCopyright: "Direitos autorais © 2026 EduMatrix Master. Todos os direitos reservados.",
                 footerContact: "Contato:",
@@ -6438,7 +6437,7 @@
                 feedbackCatSchool: "Configuração Escolar",
                 feedbackCatGeneral: "Feedback Geral",
                 feedbackMsgLabel: "Sua Mensagem / Sugestão:",
-                feedbackMsgPlaceholder: "Digite seus comentários ou sugestões para o desenvolvedor G. Sakthivel aqui...",
+                feedbackMsgPlaceholder: "Digite seus comentários ou sugestões para o desenvolvedor G.\u00A0Sakthivel aqui...",
                 feedbackInfoNotice: "Clicar em enviar abrirá o WhatsApp diretamente com sua mensagem para <strong>+91 8939285768</strong>.",
                 feedbackDirectChat: "Chat Direto",
                 primaryGradeGuidanceNotice: "Alunos do 1º ao 5º ano precisam da orientação do professor ou dos pais para realizar este quiz de matemática para evitar interrupções.",
@@ -6468,7 +6467,7 @@
                 orientationBtn: "Girar tela",
                 rotateDeviceTip: "Gire seu celular ou tablet para uma visualização ideal.",
                 feedbackModalTitle: "💬 Feedback e Sugestões",
-                feedbackModalSub: "Envie uma mensagem direta ao desenvolvedor G. Sakthivel pelo WhatsApp em +91 8939285768",
+                feedbackModalSub: "Envie uma mensagem direta ao desenvolvedor G.\u00A0Sakthivel pelo WhatsApp em +91 8939285768",
                 sendFeedbackWhatsappBtn: "Enviar feedback via WhatsApp",
                 syncCurrentQuizQuestionsBtn: "Importar questionário atual",
                 noQuestionsToSync: "Nenhuma pergunta gerada! Selecione os números acima primeiro.",
@@ -6501,7 +6500,7 @@
                 parentProfileRequiredBody: "Sila isi maklumat ibu bapa anda sebelum meneruskan:<br><strong class=\"text-rose-600\">1. Nama Ibu Bapa</strong><br><strong class=\"text-rose-600\">2. Nama & Kelas Anak</strong>",
                 parentProfileRequiredBtn: "Isi Maklumat Ibu Bapa Sekarang",
                 defaultSchoolName: "Tambah Nama Sekolah Anda",
-                footerDeveloper: "Pembina: G. Sakthivel",
+                footerDeveloper: "Pembina: G.\u00A0Sakthivel",
                 footerLocation: "Karaikal, Puducherry, INDIA",
                 footerCopyright: "Hak Cipta © 2026 EduMatrix Master. Hak cipta terpelihara.",
                 footerContact: "Hubungi:",
@@ -6731,7 +6730,7 @@
                 feedbackCatSchool: "Tetapan Sekolah",
                 feedbackCatGeneral: "Maklum Balas Umum",
                 feedbackMsgLabel: "Mesej / Cadangan Anda:",
-                feedbackMsgPlaceholder: "Taip maklum balas atau cadangan anda untuk pembangun G. Sakthivel di sini...",
+                feedbackMsgPlaceholder: "Taip maklum balas atau cadangan anda untuk pembangun G.\u00A0Sakthivel di sini...",
                 feedbackInfoNotice: "Mengeklik hantar akan membuka WhatsApp secara terus untuk mesej anda ke <strong>+91 8939285768</strong>.",
                 feedbackDirectChat: "Sembang Langsung",
                 primaryGradeGuidanceNotice: "Murid tahun 1 hingga 5 memerlukan bimbingan Guru atau Ibu Bapa untuk mengerjakan kuis matematik ini bagi mengelakkan sebarang gangguan.",
@@ -6761,7 +6760,7 @@
                 orientationBtn: "Putar Skrin",
                 rotateDeviceTip: "Putar telefon bimbit atau tablet anda untuk pandangan yang optimum.",
                 feedbackModalTitle: "💬 Maklum Balas & Cadangan",
-                feedbackModalSub: "Mesej terus pembangun G. Sakthivel melalui WhatsApp di +91 8939285768",
+                feedbackModalSub: "Mesej terus pembangun G.\u00A0Sakthivel melalui WhatsApp di +91 8939285768",
                 sendFeedbackWhatsappBtn: "Hantar Maklum Balas melalui WhatsApp",
                 syncCurrentQuizQuestionsBtn: "Import Kuiz Semasa",
                 noQuestionsToSync: "Tiada soalan dijana lagi! Pilih nombor di atas terlebih dahulu.",
@@ -6794,7 +6793,7 @@
                 parentProfileRequiredBody: "続行する前に保護者様の詳細を入力してください：<br><strong class=\"text-emerald-600\">1. 保護者様のお名前</strong><br><strong class=\"text-emerald-600\">2. 続柄</strong><br><strong class=\"text-emerald-600\">3. お子様のお名前</strong>",
                 parentProfileRequiredBtn: "今すぐ保護者情報を入力する",
                 defaultSchoolName: "学校名を追加",
-                footerDeveloper: "開発者: G. Sakthivel",
+                footerDeveloper: "開発者: G.\u00A0Sakthivel",
                 footerLocation: "Karaikal, Puducherry, INDIA",
                 footerCopyright: "Copyright © 2026 EduMatrix Master. All rights reserved.",
                 footerContact: "お問い合わせ:",
@@ -7026,7 +7025,7 @@
                 feedbackCatSchool: "学校設定",
                 feedbackCatGeneral: "一般的なフィードバック",
                 feedbackMsgLabel: "メッセージ / ご提案:",
-                feedbackMsgPlaceholder: "開発者 G. Sakthivel へのご意見、ご提案、質問をここに入力してください...",
+                feedbackMsgPlaceholder: "開発者 G.\u00A0Sakthivel へのご意見、ご提案、質問をここに入力してください...",
                 feedbackInfoNotice: "送信をクリックすると、<strong>+91 8939285768</strong> 宛ての WhatsApp が直接開きます。",
                 feedbackDirectChat: "ダイレクトチャット",
                 primaryGradeGuidanceNotice: "小学1年生から5年生の生徒がこの算数クイズに取り組む際は、中断を防ぐために先生または保護者の指導が必要です。",
@@ -7056,7 +7055,7 @@
                 orientationBtn: "画面回転",
                 rotateDeviceTip: "最適な表示のためにモバイルまたはタブレットを回転させてください。",
                 feedbackModalTitle: "💬 ユーザーフィードバック・ご提案",
-                feedbackModalSub: "WhatsApp (+91 8939285768) で開発者 G. Sakthivel に直接メッセージを送信",
+                feedbackModalSub: "WhatsApp (+91 8939285768) で開発者 G.\u00A0Sakthivel に直接メッセージを送信",
                 sendFeedbackWhatsappBtn: "WhatsAppでフィードバックを送信",
                 syncCurrentQuizQuestionsBtn: "現在のクイズをインポート",
                 noQuestionsToSync: "問題がまだ作成されていません。まず上の数字を選択してください。",
@@ -7645,14 +7644,19 @@
                     }
                 }
                 if (translations[lang] && translations[lang][key]) {
+                    let text = translations[lang][key];
+                    if (key === 'footerDeveloper' || key === 'feedbackModalSub' || key === 'donateNameValue') {
+                        text = text.replace(/([A-Za-z\u0B80-\u0BFF\u0D00-\u0D7F\u0C00-\u0C7F\u0C80-\u0CFF\u0900-\u097F\u0400-\u04FF\u0600-\u06FF]\.)\s+/g, '$1\u00A0');
+                        el.classList.add('whitespace-nowrap');
+                    }
                     const icon = el.querySelector('i');
                     if (icon) {
                         const iconHtml = icon.outerHTML;
-                        el.innerHTML = iconHtml + ' ' + translations[lang][key];
-                    } else if (translations[lang][key].includes('<')) {
-                        el.innerHTML = translations[lang][key];
+                        el.innerHTML = iconHtml + ' ' + text;
+                    } else if (text.includes('<')) {
+                        el.innerHTML = text;
                     } else {
-                        el.textContent = translations[lang][key];
+                        el.textContent = text;
                     }
                 }
             });
@@ -12910,7 +12914,7 @@
                 document.getElementById('auth-mobile-input').value = '9876543210';
                 setModalRole('teacher');
                 setTimeout(() => {
-                    if (document.getElementById('m-teacher-name')) document.getElementById('m-teacher-name').value = 'G. Sakthivel (Teacher)';
+                    if (document.getElementById('m-teacher-name')) document.getElementById('m-teacher-name').value = 'G.\u00A0Sakthivel (Teacher)';
                     if (document.getElementById('m-teacher-standard')) document.getElementById('m-teacher-standard').value = '5th Standard';
                 }, 50);
             } else if (role === 'parent') {
@@ -13867,7 +13871,7 @@
 
             if (!userName) userName = 'EduMatrix App User';
 
-            const formattedMessage = `Hello G. Sakthivel,
+            const formattedMessage = `Hello G.\u00A0Sakthivel,
 
 *EduMatrix Master Feedback / Suggestion*
 ---------------------------------
