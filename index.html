@@ -460,9 +460,9 @@
                 </button>
 
                 <!-- AI Helper Chatbot Button -->
-                <button id="ai-chatbot-nav-btn" onclick="openAiChatbotModal()" class="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white px-4 py-2 rounded-xl font-extrabold text-xs sm:text-sm transition-all duration-200 active:scale-95 flex items-center gap-2 cursor-pointer h-10 shrink-0 border border-violet-400 shadow-md group">
-                    <i class="fas fa-robot text-amber-300 group-hover:rotate-12 transition-transform"></i>
-                    <span data-i18n="aiChatbotBtn">AI Chat Helper</span>
+                <button id="ai-chatbot-nav-btn" onclick="openAiChatbotModal()" class="bg-indigo-600/90 hover:bg-indigo-600 text-white px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 active:scale-95 flex items-center gap-2 cursor-pointer h-10 shrink-0 border border-indigo-400/40 shadow-xs">
+                    <i class="fas fa-comment-dots text-indigo-200"></i>
+                    <span data-i18n="aiChatbotBtn">Help Assistant</span>
                 </button>
 
                 <!-- Voice Tutor Button -->
@@ -531,19 +531,22 @@
                         <!-- Role tabs shown when NOT logged in -->
                         <div id="role-tabs-container" class="inline-flex bg-slate-100/90 p-1.5 rounded-2xl border border-slate-200/90 shadow-inner gap-1.5 flex-wrap max-w-full">
                             <button type="button" id="role-tab-student" onclick="switchRole('student')" class="btn-bevel-glass-violet text-white px-3 sm:px-4 py-1.5 rounded-xl font-extrabold text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer shrink-0 max-w-full active:scale-95">
-                                <span data-i18n="studentRoleTab" class="truncate max-w-full">🎓 Student</span>
+                                <i class="fas fa-user-graduate text-xs sm:text-sm"></i>
+                                <span data-i18n="studentRoleTab" class="truncate max-w-full">Student</span>
                             </button>
                             <button type="button" id="role-tab-teacher" onclick="switchRole('teacher')" class="btn-bevel-glass-inactive text-slate-700 px-3 sm:px-4 py-1.5 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer shrink-0 max-w-full active:scale-95">
-                                <span data-i18n="teacherRoleTab" class="truncate max-w-full">👨‍🏫 Teacher</span>
+                                <i class="fas fa-chalkboard-teacher text-xs sm:text-sm"></i>
+                                <span data-i18n="teacherRoleTab" class="truncate max-w-full">Teacher</span>
                             </button>
                             <button type="button" id="role-tab-parent" onclick="switchRole('parent')" class="btn-bevel-glass-inactive text-slate-700 px-3 sm:px-4 py-1.5 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer shrink-0 max-w-full active:scale-95">
-                                <span data-i18n="parentRoleTab" class="truncate max-w-full">👨‍👩‍👧 Parent</span>
+                                <i class="fas fa-user-friends text-xs sm:text-sm"></i>
+                                <span data-i18n="parentRoleTab" class="truncate max-w-full">Parent</span>
                             </button>
                         </div>
 
                         <!-- Active Logged in Badge shown when logged in -->
                         <div id="logged-role-badge" class="hidden px-3.5 py-1.5 bg-violet-100 text-violet-800 border border-violet-300 font-black text-xs rounded-xl items-center gap-1.5 shadow-xs">
-                            <span id="logged-role-text">🎓 Student</span>
+                            <span id="logged-role-text"><i class="fas fa-user-graduate"></i> Student</span>
                         </div>
                     </div>
                 </div>
@@ -597,10 +600,10 @@
                             </label>
                             <div class="flex flex-row items-center gap-2.5 hide-on-print w-full">
                                 <button id="btn-boy" type="button" onclick="setGender('boy')" class="flex-1 py-2.5 px-3 rounded-xl font-extrabold text-xs sm:text-sm text-slate-700 bg-slate-50 hover:bg-violet-50/80 border-2 border-violet-200/90 transition-all active:scale-95 flex items-center justify-center gap-1.5 whitespace-nowrap shadow-xs cursor-pointer">
-                                    <span class="text-sm sm:text-base">👦</span> <span data-i18n="boy">Boy</span>
+                                    <i class="fas fa-mars text-blue-600 text-sm sm:text-base"></i> <span data-i18n="boy">Boy</span>
                                 </button>
                                 <button id="btn-girl" type="button" onclick="setGender('girl')" class="flex-1 py-2.5 px-3 rounded-xl font-extrabold text-xs sm:text-sm text-slate-700 bg-slate-50 hover:bg-violet-50/80 border-2 border-violet-200/90 transition-all active:scale-95 flex items-center justify-center gap-1.5 whitespace-nowrap shadow-xs cursor-pointer">
-                                    <span class="text-sm sm:text-base">👧</span> <span data-i18n="girl">Girl</span>
+                                    <i class="fas fa-venus text-rose-500 text-sm sm:text-base"></i> <span data-i18n="girl">Girl</span>
                                 </button>
                             </div>
                             <div id="gender-display" class="hidden font-bold text-xs sm:text-sm px-3.5 py-2 bg-slate-50 rounded-xl border border-violet-200 text-slate-800"></div>
@@ -669,10 +672,10 @@
                             </label>
                             <div class="flex flex-row items-center gap-2 w-full">
                                 <button id="btn-boy-teacher" type="button" onclick="setGender('boy')" class="flex-1 py-2.5 px-3 rounded-xl font-extrabold text-xs sm:text-sm text-slate-700 bg-slate-50 hover:bg-violet-50/80 border-2 border-violet-200/90 transition-all active:scale-95 flex items-center justify-center gap-1.5 whitespace-nowrap shadow-xs cursor-pointer">
-                                    <span class="text-sm sm:text-base">👦</span> <span data-i18n="boy">Boy</span>
+                                    <i class="fas fa-mars text-blue-600 text-sm sm:text-base"></i> <span data-i18n="boy">Boy</span>
                                 </button>
                                 <button id="btn-girl-teacher" type="button" onclick="setGender('girl')" class="flex-1 py-2.5 px-3 rounded-xl font-extrabold text-xs sm:text-sm text-slate-700 bg-slate-50 hover:bg-violet-50/80 border-2 border-violet-200/90 transition-all active:scale-95 flex items-center justify-center gap-1.5 whitespace-nowrap shadow-xs cursor-pointer">
-                                    <span class="text-sm sm:text-base">👧</span> <span data-i18n="girl">Girl</span>
+                                    <i class="fas fa-venus text-rose-500 text-sm sm:text-base"></i> <span data-i18n="girl">Girl</span>
                                 </button>
                             </div>
                         </div>
@@ -694,9 +697,9 @@
                                 <i class="fas fa-users text-violet-600"></i> <span data-i18n="relationshipLabel">Relationship</span>
                             </label>
                             <select id="parent-relation" onchange="syncStudentDetails()" class="w-full bg-slate-50/80 border-2 border-violet-200/90 rounded-xl px-3.5 py-2.5 font-bold text-slate-800 transition-all text-xs sm:text-sm shadow-2xs focus:bg-white focus:outline-none focus:ring-4 focus:ring-violet-400/20 focus:border-violet-500 cursor-pointer">
-                                <option value="Father" data-i18n="father">Father 👨</option>
-                                <option value="Mother" data-i18n="mother">Mother 👩</option>
-                                <option value="Guardian" data-i18n="guardian">Guardian 🛡️</option>
+                                <option value="Father" data-i18n="father">Father</option>
+                                <option value="Mother" data-i18n="mother">Mother</option>
+                                <option value="Guardian" data-i18n="guardian">Guardian</option>
                             </select>
                         </div>
 
@@ -733,7 +736,9 @@
                 <div id="teacher-quiz-dispatch-panel" class="hidden mt-3 p-4 sm:p-5 bg-gradient-to-br from-violet-700 via-indigo-700 to-purple-800 text-white rounded-2xl shadow-lg border border-violet-400/50 flex flex-col gap-4">
                     <div class="flex items-center justify-between flex-wrap gap-2 pb-3 border-b border-violet-400/30">
                         <div class="flex items-center gap-3">
-                            <span class="w-10 h-10 rounded-xl bg-amber-400 text-slate-900 flex items-center justify-center font-black text-xl shadow">👨‍🏫</span>
+                            <span class="w-10 h-10 rounded-xl bg-amber-400 text-slate-900 flex items-center justify-center font-black text-lg shadow">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </span>
                             <div>
                                 <h3 class="font-extrabold text-sm sm:text-base text-amber-300 flex items-center gap-2" data-i18n="teacherDispatcherTitle">
                                     Teacher Questions Dispatcher
@@ -742,7 +747,7 @@
                             </div>
                         </div>
                         <span class="px-3 py-1 bg-amber-400/20 text-amber-200 border border-amber-300/40 font-mono text-xs font-bold rounded-full flex items-center gap-1.5 shadow-sm">
-                            <i class="fab fa-whatsapp text-emerald-300 text-sm"></i> <span data-i18n="whatsappSharing">WhatsApp Sharing</span>
+                            <i class="fab fa-whatsapp text-emerald-300 text-sm"></i> <span data-i18n="whatsappSharing">WhatsApp</span>
                         </span>
                     </div>
 
@@ -781,14 +786,14 @@
                             <!-- Option 1: Take Photo via Camera -->
                             <label class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs px-3.5 py-2.5 rounded-xl border border-amber-300 transition-all cursor-pointer shadow-sm flex items-center gap-2 shrink-0 active:scale-95">
                                 <i class="fas fa-camera text-slate-950 text-base"></i>
-                                <span data-i18n="cameraBtn">📷 Camera</span>
+                                <span data-i18n="cameraBtn">Camera</span>
                                 <input type="file" id="teacher-camera-input" accept="image/*" capture="environment" onchange="handleTeacherTopicImageUpload(event)" class="hidden">
                             </label>
 
                             <!-- Option 2: Choose Photo from Gallery -->
                             <label class="bg-violet-600 hover:bg-violet-500 text-white font-black text-xs px-3.5 py-2.5 rounded-xl border border-violet-400 transition-all cursor-pointer shadow-sm flex items-center gap-2 shrink-0 active:scale-95">
                                 <i class="fas fa-file-image text-amber-300 text-base"></i>
-                                <span data-i18n="uploadImageBtn">📁 Upload Image</span>
+                                <span data-i18n="uploadImageBtn">Upload Image</span>
                                 <input type="file" id="teacher-gallery-input" accept="image/*" onchange="handleTeacherTopicImageUpload(event)" class="hidden">
                             </label>
 
@@ -1540,13 +1545,13 @@
                 </label>
                 <div class="grid grid-cols-3 gap-1.5 sm:gap-2 w-full">
                     <button type="button" id="modal-role-student" onclick="setModalRole('student')" class="py-2.5 px-1 sm:px-2 rounded-xl font-bold text-[11px] sm:text-xs flex flex-col items-center justify-center gap-1 border-2 transition-all cursor-pointer bg-violet-600 text-white border-violet-600 shadow-sm text-center leading-tight">
-                        <span class="text-base sm:text-lg">🎓</span> <span data-i18n="studentRole" class="truncate max-w-full">Student</span>
+                        <i class="fas fa-user-graduate text-base sm:text-lg"></i> <span data-i18n="studentRole" class="truncate max-w-full">Student</span>
                     </button>
                     <button type="button" id="modal-role-teacher" onclick="setModalRole('teacher')" class="py-2.5 px-1 sm:px-2 rounded-xl font-bold text-[11px] sm:text-xs flex flex-col items-center justify-center gap-1 border-2 transition-all cursor-pointer bg-slate-50 text-slate-600 border-violet-200 hover:bg-violet-50 text-center leading-tight">
-                        <span class="text-base sm:text-lg">👨‍🏫</span> <span data-i18n="teacherRole" class="truncate max-w-full">Teacher</span>
+                        <i class="fas fa-chalkboard-teacher text-base sm:text-lg"></i> <span data-i18n="teacherRole" class="truncate max-w-full">Teacher</span>
                     </button>
                     <button type="button" id="modal-role-parent" onclick="setModalRole('parent')" class="py-2.5 px-1 sm:px-2 rounded-xl font-bold text-[11px] sm:text-xs flex flex-col items-center justify-center gap-1 border-2 transition-all cursor-pointer bg-slate-50 text-slate-600 border-violet-200 hover:bg-violet-50 text-center leading-tight">
-                        <span class="text-base sm:text-lg">👨‍👩‍👧</span> <span data-i18n="parentRole" class="truncate max-w-full">Parent</span>
+                        <i class="fas fa-user-friends text-base sm:text-lg"></i> <span data-i18n="parentRole" class="truncate max-w-full">Parent</span>
                     </button>
                 </div>
             </div>
@@ -2532,85 +2537,81 @@
 
     <!-- AI Chatbot Floating Button (Bottom-Right) -->
     <div id="ai-chatbot-fab" class="fixed bottom-5 right-5 z-[150] flex items-center gap-2">
-        <button onclick="openAiChatbotModal()" class="group relative bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white p-3.5 sm:p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 active:scale-95 border-2 border-white/80 ring-4 ring-violet-400/30 cursor-pointer flex items-center justify-center">
-            <span class="absolute -inset-1 rounded-full bg-violet-500/40 animate-ping pointer-events-none"></span>
-            <i class="fas fa-robot text-2xl text-amber-300 group-hover:rotate-12 transition-transform"></i>
-            <span class="hidden sm:inline-block font-black text-xs px-1 tracking-wide" data-i18n="aiBotFabText">AI Helper</span>
-            <span class="absolute top-0 right-0 w-3.5 h-3.5 bg-emerald-400 border-2 border-white rounded-full"></span>
+        <button onclick="openAiChatbotModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white p-3.5 sm:px-4 sm:py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95 border border-indigo-500 cursor-pointer flex items-center gap-2.5">
+            <i class="fas fa-comment-dots text-lg sm:text-xl text-white"></i>
+            <span class="hidden sm:inline-block font-semibold text-xs tracking-wide" data-i18n="aiBotFabText">Help & Chat</span>
+            <span class="w-2.5 h-2.5 bg-emerald-400 border border-white rounded-full"></span>
         </button>
     </div>
 
     <!-- AI Chatbot Helper Modal Screen -->
-    <div id="ai-chatbot-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-[200] hidden items-center justify-center p-2 sm:p-4 transition-all duration-300">
-        <div class="bg-white rounded-3xl w-full max-w-xl h-[92vh] sm:h-[85vh] shadow-2xl relative border-2 border-violet-400/80 flex flex-col overflow-hidden">
+    <div id="ai-chatbot-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-[200] hidden items-center justify-center p-2 sm:p-4 transition-all duration-200">
+        <div class="bg-white rounded-2xl w-full max-w-lg h-[88vh] sm:h-[660px] shadow-2xl relative border border-slate-200 flex flex-col overflow-hidden">
             
             <!-- Header -->
-            <div class="bg-gradient-to-r from-violet-700 via-purple-700 to-indigo-800 p-4 sm:p-5 text-white flex items-center justify-between shadow-md shrink-0">
+            <div class="bg-blue-600 px-5 py-4 text-white flex items-center justify-between shrink-0 border-b border-blue-700 shadow-sm">
                 <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 bg-white/20 rounded-2xl border border-white/30 flex items-center justify-center shadow-inner relative shrink-0">
-                        <i class="fas fa-robot text-2xl text-amber-300"></i>
-                        <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 border-2 border-violet-800 rounded-full"></span>
+                    <div class="w-9 h-9 bg-white/20 rounded-xl border border-white/30 flex items-center justify-center text-white text-base shrink-0 shadow-xs">
+                        <i class="fas fa-graduation-cap"></i>
                     </div>
                     <div>
                         <div class="flex items-center gap-2">
-                            <h3 class="font-black text-base sm:text-lg tracking-wide" data-i18n="aiChatbotTitle">EduBot AI Assistant</h3>
-                            <span id="ai-chat-role-tag" class="bg-amber-400/30 text-amber-200 border border-amber-300/40 text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase">Student</span>
+                            <h3 class="font-bold text-sm sm:text-base text-white tracking-tight" data-i18n="aiChatbotTitle">EduMatrix Help Assistant</h3>
+                            <span id="ai-chat-role-tag" class="bg-blue-800/80 text-blue-100 border border-blue-400/40 text-[10px] font-semibold px-2 py-0.5 rounded uppercase">Student</span>
                         </div>
-                        <p class="text-xs text-violet-200 font-medium flex items-center gap-1.5" data-i18n="aiChatbotSub">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Ask anything about EduMatrix Master or Math
+                        <p class="text-xs text-blue-100 font-normal flex items-center gap-1.5" data-i18n="aiChatbotSub">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 border border-white/40"></span> Online • Ask any question about math or app features
                         </p>
                     </div>
                 </div>
-                <div class="flex items-center gap-2">
-                    <button onclick="clearAiChatHistory()" title="Clear Chat" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold flex items-center justify-center transition-all cursor-pointer">
-                        <i class="fas fa-trash-alt text-xs text-violet-200"></i>
+                <div class="flex items-center gap-1">
+                    <button onclick="clearAiChatHistory()" title="Clear Chat" class="w-8 h-8 rounded-lg text-blue-100 hover:text-white hover:bg-white/15 font-medium flex items-center justify-center transition-all cursor-pointer text-xs">
+                        <i class="fas fa-trash-alt"></i>
                     </button>
-                    <button onclick="closeAiChatbotModal()" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-rose-500/80 text-white font-bold flex items-center justify-center transition-all cursor-pointer">
-                        <i class="fas fa-times text-base"></i>
+                    <button onclick="closeAiChatbotModal()" class="w-8 h-8 rounded-lg text-blue-100 hover:text-white hover:bg-white/15 font-medium flex items-center justify-center transition-all cursor-pointer text-sm">
+                        <i class="fas fa-times"></i>
                     </button>
                 </div>
             </div>
 
             <!-- Suggestion Chips Bar -->
-            <div class="bg-violet-50/90 border-b border-violet-100 p-2.5 overflow-x-auto whitespace-nowrap scrollbar-none flex items-center gap-2 text-xs shrink-0">
-                <span class="font-extrabold text-violet-900 text-[11px] shrink-0 flex items-center gap-1 px-1">
-                    <i class="fas fa-lightbulb text-amber-500"></i> Quick:
-                </span>
-                <button onclick="sendAiChatMessage('How do I generate and print a math worksheet?')" class="bg-white hover:bg-violet-100 text-violet-800 border border-violet-200/90 font-bold px-3 py-1.5 rounded-full shadow-2xs transition-all shrink-0 cursor-pointer text-xs">
-                    📄 Generate Worksheet
+            <div class="bg-slate-50 border-b border-slate-200 px-3.5 py-2.5 overflow-x-auto whitespace-nowrap scrollbar-none flex items-center gap-2 text-xs shrink-0">
+                <span class="font-semibold text-slate-500 text-[11px] shrink-0 px-1">Quick:</span>
+                <button onclick="sendAiChatMessage('How do I generate and print a math worksheet?')" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-medium px-3 py-1 rounded-lg transition-all shrink-0 cursor-pointer text-xs shadow-2xs">
+                    Print Worksheet
                 </button>
-                <button onclick="sendAiChatMessage('How can teachers share a quiz via WhatsApp?')" class="bg-white hover:bg-violet-100 text-violet-800 border border-violet-200/90 font-bold px-3 py-1.5 rounded-full shadow-2xs transition-all shrink-0 cursor-pointer text-xs">
-                    📱 Teacher WhatsApp Share
+                <button onclick="sendAiChatMessage('How can teachers share a quiz via WhatsApp?')" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-medium px-3 py-1 rounded-lg transition-all shrink-0 cursor-pointer text-xs shadow-2xs">
+                    WhatsApp Quiz Share
                 </button>
-                <button onclick="sendAiChatMessage('How do parents track student progress and signatures?')" class="bg-white hover:bg-violet-100 text-violet-800 border border-violet-200/90 font-bold px-3 py-1.5 rounded-full shadow-2xs transition-all shrink-0 cursor-pointer text-xs">
-                    👨‍👩‍👧 Parent Guide
+                <button onclick="sendAiChatMessage('How do parents track student progress and signatures?')" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-medium px-3 py-1 rounded-lg transition-all shrink-0 cursor-pointer text-xs shadow-2xs">
+                    Parent Tracking
                 </button>
-                <button onclick="sendAiChatMessage('Explain math multiplication tricks for grade students')" class="bg-white hover:bg-violet-100 text-violet-800 border border-violet-200/90 font-bold px-3 py-1.5 rounded-full shadow-2xs transition-all shrink-0 cursor-pointer text-xs">
-                    ✨ Math Tricks
+                <button onclick="sendAiChatMessage('Explain math multiplication tricks for grade students')" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-medium px-3 py-1 rounded-lg transition-all shrink-0 cursor-pointer text-xs shadow-2xs">
+                    Math Tricks
                 </button>
             </div>
 
             <!-- Message Area -->
-            <div id="ai-chat-messages" class="flex-1 p-4 sm:p-5 overflow-y-auto space-y-4 bg-slate-50/60 scroll-smooth">
+            <div id="ai-chat-messages" class="flex-1 p-4 sm:p-5 overflow-y-auto space-y-3.5 bg-slate-50/50 scroll-smooth">
                 <!-- Messages rendered dynamically -->
             </div>
 
             <!-- Typing Indicator -->
-            <div id="ai-chat-typing" class="hidden px-5 py-2 text-xs font-bold text-violet-600 bg-violet-50/50 flex items-center gap-2 border-t border-violet-100">
+            <div id="ai-chat-typing" class="hidden px-5 py-2 text-xs font-medium text-slate-500 bg-slate-50 flex items-center gap-2 border-t border-slate-100">
                 <div class="flex items-center gap-1">
-                    <span class="w-2 h-2 bg-violet-600 rounded-full animate-bounce"></span>
-                    <span class="w-2 h-2 bg-violet-600 rounded-full animate-bounce [animation-delay:0.2s]"></span>
-                    <span class="w-2 h-2 bg-violet-600 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                    <span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"></span>
+                    <span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                    <span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
                 </div>
-                <span>EduBot is thinking...</span>
+                <span>Assistant is typing...</span>
             </div>
 
             <!-- Input Area -->
             <div class="p-3 sm:p-4 bg-white border-t border-slate-200 shrink-0">
                 <form onsubmit="handleAiChatSubmit(event)" class="flex items-center gap-2">
-                    <input type="text" id="ai-chat-input" placeholder="Type your question here (e.g. How to use EduMatrix Master?)..." data-i18n-placeholder="aiChatPlaceholder" class="flex-1 bg-slate-100 border-2 border-violet-200 focus:border-violet-500 focus:bg-white rounded-2xl px-4 py-3 text-xs sm:text-sm font-bold text-slate-800 focus:outline-none transition-all shadow-inner">
-                    <button type="submit" id="ai-chat-send-btn" class="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold px-5 py-3 rounded-2xl shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 shrink-0 cursor-pointer text-xs sm:text-sm border border-violet-400">
-                        <i class="fas fa-paper-plane"></i> <span class="hidden sm:inline" data-i18n="aiSendBtn">Send</span>
+                    <input type="text" id="ai-chat-input" placeholder="Ask a question about math or EduMatrix..." data-i18n-placeholder="aiChatPlaceholder" class="flex-1 bg-slate-50 border border-slate-300 focus:border-indigo-600 focus:bg-white focus:ring-1 focus:ring-indigo-600 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-slate-800 font-normal transition-all">
+                    <button type="submit" id="ai-chat-send-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2.5 rounded-xl shadow-xs transition-all active:scale-95 flex items-center justify-center gap-1.5 shrink-0 cursor-pointer text-xs sm:text-sm">
+                        <i class="fas fa-paper-plane text-xs"></i> <span class="hidden sm:inline" data-i18n="aiSendBtn">Send</span>
                     </button>
                 </form>
             </div>
@@ -2674,8 +2675,8 @@
                 addQuestionBtn: "Add Question",
                 captureUploadBookPhoto: "Capture / Upload Book Photo (PNG/Image):",
                 capturePhotoDesc: "Capture photo of school textbook question or upload image",
-                cameraBtn: "📷 Camera",
-                uploadImageBtn: "📁 Upload Image",
+                cameraBtn: "Camera",
+                uploadImageBtn: "Upload Image",
                 bookPhotoAttached: "Book Photo Attached",
                 removeImageBtn: "Remove Image",
                 parentMobileWhatsapp: "Parent Mobile Number (WhatsApp):",
@@ -2779,9 +2780,9 @@
                 parentNameLabel: "Parent Name",
                 enterParentNamePlaceholder: "Enter Parent Name",
                 relationshipLabel: "Relationship",
-                father: "Father 👨",
-                mother: "Mother 👩",
-                guardian: "Guardian 🛡️",
+                father: "Father",
+                mother: "Mother",
+                guardian: "Guardian",
                 childNameLabel: "Child's Name",
                 enterChildNamePlaceholder: "Enter Child's Name",
                 childStandardLabel: "Child's Standard",
@@ -2789,9 +2790,9 @@
                 studentRole: "Student",
                 teacherRole: "Teacher",
                 parentRole: "Parent",
-                studentRoleTab: "🎓 Student",
-                teacherRoleTab: "👨‍🏫 Teacher",
-                parentRoleTab: "👨‍👩‍👧 Parent",
+                studentRoleTab: "Student",
+                teacherRoleTab: "Teacher",
+                parentRoleTab: "Parent",
                 activeLoggedRole: "Active Logged-in Role:",
                 roleConfirmationDesc: "Teacher, Student, and Parent Role Confirmation",
                 selectAccountType: "Select Account Type:",
@@ -2805,6 +2806,7 @@
                 parentMobileLabel: "Parent Mobile Number (WhatsApp):",
                 targetGradeLabel: "Target Class / Grade:",
                 targetGradePlaceholder: "e.g. 5th Standard - Section A",
+                whatsappSharing: "WhatsApp",
                 shareToStudent: "Share to Student",
                 shareToParent: "Share to Parent",
                 shareToBoth: "Share to Both",
@@ -2835,8 +2837,8 @@
                 msgAwesome: "Awesome job!",
                 msgGood: "Good effort! Keep practicing.",
                 msgTry: "Try again! You can do it!",
-                boyEmoji: "👦 Boy",
-                girlEmoji: "👧 Girl",
+                boyEmoji: "Boy",
+                girlEmoji: "Girl",
                 interactiveModeLabel: "Interactive Companion Mode:",
                 quitApp: "Quit App",
                 quitModalTitle: "Application Session Paused",
@@ -2915,11 +2917,11 @@
                 closeWindow: "Close Window",
                 syncCurrentQuizQuestionsBtn: "Import Current Quiz",
                 noQuestionsToSync: "No active quiz questions generated yet! Select numbers above first.",
-                aiChatbotBtn: "AI Chat Helper",
-                aiBotFabText: "AI Helper",
-                aiChatbotTitle: "EduBot AI Assistant",
-                aiChatbotSub: "Ask anything about EduMatrix Master or Math",
-                aiChatPlaceholder: "Type your question here (e.g. How to use EduMatrix Master?)...",
+                aiChatbotBtn: "Help Assistant",
+                aiBotFabText: "Help & Chat",
+                aiChatbotTitle: "EduMatrix Help Assistant",
+                aiChatbotSub: "Online • Ask any question about math or app features",
+                aiChatPlaceholder: "Ask a question about math or EduMatrix...",
                 aiSendBtn: "Send",
                 aiClearBtn: "Clear Chat",
             },
@@ -2973,8 +2975,8 @@
                 addQuestionBtn: "வினாவைச் சேர்",
                 captureUploadBookPhoto: "புத்தகப் படத்தைப் படம் பிடிக்கவும் / பதிவேற்றவும் (PNG/படம்):",
                 capturePhotoDesc: "பள்ளிப் பாடநூல் வினாவைப் படம் பிடிக்கவும் அல்லது படத்தைப் பதிவேற்றவும்",
-                cameraBtn: "📷 கேமரா",
-                uploadImageBtn: "📁 படம் பதிவேற்று",
+                cameraBtn: "கேமரா",
+                uploadImageBtn: "படம் பதிவேற்று",
                 bookPhotoAttached: "புத்தகப் படம் இணைக்கப்பட்டது",
                 removeImageBtn: "படத்தை நீக்கு",
                 parentMobileWhatsapp: "பெற்றோர் கைப்பேசி எண் (வாட்ஸ்அப்):",
@@ -3077,9 +3079,9 @@
                 parentNameLabel: "பெற்றோர் பெயர்",
                 enterParentNamePlaceholder: "பெற்றோர் பெயரை உள்ளிடவும்",
                 relationshipLabel: "உறவுமுறை",
-                father: "தந்தை 👨",
-                mother: "தாய் 👩",
-                guardian: "காப்பாளர் 🛡️",
+                father: "தந்தை",
+                mother: "தாய்",
+                guardian: "காப்பாளர்",
                 childNameLabel: "குழந்தையின் பெயர்",
                 enterChildNamePlaceholder: "குழந்தையின் பெயரை உள்ளிடவும்",
                 childStandardLabel: "குழந்தையின் வகுப்பு",
@@ -3087,9 +3089,9 @@
                 studentRole: "மாணவர்",
                 teacherRole: "ஆசிரியர்",
                 parentRole: "பெற்றோர்",
-                studentRoleTab: "🎓 மாணவர்",
-                teacherRoleTab: "👨‍🏫 ஆசிரியர்",
-                parentRoleTab: "👨‍👩‍👧 பெற்றோர்",
+                studentRoleTab: "மாணவர்",
+                teacherRoleTab: "ஆசிரியர்",
+                parentRoleTab: "பெற்றோர்",
                 activeLoggedRole: "செயலில் உள்ள பங்கு:",
                 roleConfirmationDesc: "ஆசிரியர், மாணவர் மற்றும் பெற்றோர் பங்கு உறுதிப்படுத்தல்",
                 selectAccountType: "கணக்கு வகையைத் தேர்ந்தெடுக்கவும்:",
@@ -3133,8 +3135,8 @@
                 msgAwesome: "சிறந்த வேலை!",
                 msgGood: "நல்ல முயற்சி! தொடர்ந்து பயிற்சி செய்யுங்கள்.",
                 msgTry: "மீண்டும் முயற்சிக்கவும்!",
-                boyEmoji: "👦 மாணவன்",
-                girlEmoji: "👧 மாணவி",
+                boyEmoji: "மாணவன்",
+                girlEmoji: "மாணவி",
                 interactiveModeLabel: "இணைப்பு முறை:",
                 quitApp: "வெளியேறு",
                 quitModalTitle: "செயலி இடைநிறுத்தப்பட்டது",
@@ -3264,8 +3266,8 @@
                 addQuestionBtn: "ചോദ്യം ചേർക്കുക",
                 captureUploadBookPhoto: "പാഠപുസ്തക ഫോട്ടോ അപ്‌ലോഡ് ചെയ്യുക (PNG/ചിത്രം):",
                 capturePhotoDesc: "ചോദ്യത്തിന്റെ ഫോട്ടോ എടുക്കുക അല്ലെങ്കിൽ ചിത്രം അപ്‌ലോഡ് ചെയ്യുക",
-                cameraBtn: "📷 ക്യാമറ",
-                uploadImageBtn: "📁 ചിത്രം അപ്‌ലോഡ് ചെയ്യുക",
+                cameraBtn: "ക്യാമറ",
+                uploadImageBtn: "ചിത്രം അപ്‌ലോഡ് ചെയ്യുക",
                 bookPhotoAttached: "ഫോട്ടോ ചേർത്തു",
                 removeImageBtn: "ചിത്രം നീക്കം ചെയ്യുക",
                 parentMobileWhatsapp: "രക്ഷിതാവിന്റെ മൊബൈൽ (വാട്ട്‌സ്ആപ്പ്):",
@@ -3317,9 +3319,9 @@
                 parentNameLabel: "രക്ഷിതാവിന്റെ പേര്",
                 enterParentNamePlaceholder: "രക്ഷിതാവിന്റെ പേര് നൽകുക",
                 relationshipLabel: "ബന്ധം",
-                father: "പിതാവ് 👨",
-                mother: "മാതാവ് 👩",
-                guardian: "രക്ഷിതാവ് 🛡️",
+                father: "പിതാവ്",
+                mother: "മാതാവ്",
+                guardian: "രക്ഷിതാവ്",
                 childNameLabel: "കുട്ടിയുടെ പേര്",
                 enterChildNamePlaceholder: "കുട്ടിയുടെ പേര് നൽകുക",
                 childStandardLabel: "കുട്ടിയുടെ ക്ലാസ്സ്",
@@ -3327,9 +3329,9 @@
                 studentRole: "വിദ്യാർത്ഥി",
                 teacherRole: "അധ്യാപകൻ",
                 parentRole: "രക്ഷിതാവ്",
-                studentRoleTab: "🎓 വിദ്യാർത്ഥി",
-                teacherRoleTab: "👨‍🏫 അധ്യാപകൻ",
-                parentRoleTab: "👨‍👩‍👧 രക്ഷിതാവ്",
+                studentRoleTab: "വിദ്യാർത്ഥി",
+                teacherRoleTab: "അധ്യാപകൻ",
+                parentRoleTab: "രക്ഷിതാവ്",
                 activeLoggedRole: "നിലവിലെ റോൾ:",
                 roleConfirmationDesc: "റോൾ സ്ഥിരീകരണം",
                 selectAccountType: "അക്കൗണ്ട് തരം തിരഞ്ഞെടുക്കുക:",
@@ -3379,8 +3381,8 @@
                 msgAwesome: "വളരെ നന്നായിരിക്കുന്നു!",
                 msgGood: "നല്ല ശ്രമം! കൂടുതൽ പരിശീലിക്കുക.",
                 msgTry: "വീണ്ടും ശ്രമിക്കുക!",
-                boyEmoji: "👦 ആൺകുട്ടി",
-                girlEmoji: "👧 പെൺകുട്ടി",
+                boyEmoji: "ആൺകുട്ടി",
+                girlEmoji: "പെൺകുട്ടി",
                 interactiveModeLabel: "മോഡ്:",
                 quitApp: "പുറത്തുകടക്കുക",
                 quitModalTitle: "ആപ്പിൽ നിന്ന് പുറത്തുകടക്കുക",
@@ -3555,8 +3557,8 @@
                 addQuestionBtn: "ప్రశ్నను జోడించు",
                 captureUploadBookPhoto: "పుస్తకం ఫోటో అప్‌లోడ్ చేయండి (PNG/చిత్రం):",
                 capturePhotoDesc: "పాఠ్యపుస్తకం ఫోటో తీయండి లేదా చిత్రాన్ని అప్‌లోడ్ చేయండి",
-                cameraBtn: "📷 కెమెరా",
-                uploadImageBtn: "📁 చిత్రం అప్‌లోడ్",
+                cameraBtn: "కెమెరా",
+                uploadImageBtn: "చిత్రం అప్‌లోడ్",
                 bookPhotoAttached: "ఫోటో జోడించబడింది",
                 removeImageBtn: "చిత్రాన్ని తొలగించు",
                 parentMobileWhatsapp: "తల్లిదండ్రుల మొబైల్ (వాట్సాప్):",
@@ -3608,9 +3610,9 @@
                 parentNameLabel: "తల్లిదండ్రుల పేరు",
                 enterParentNamePlaceholder: "తల్లిదండ్రుల పేరు నమోదు చేయండి",
                 relationshipLabel: "సంబంధం",
-                father: "తండ్రి 👨",
-                mother: "తల్లి 👩",
-                guardian: "సంరక్షకుడు 🛡️",
+                father: "తండ్రి",
+                mother: "తల్లి",
+                guardian: "సంరక్షకుడు",
                 childNameLabel: "పిల్లల పేరు",
                 enterChildNamePlaceholder: "పిల్లల పేరు నమోదు చేయండి",
                 childStandardLabel: "పిల్లల తరగతి",
@@ -3618,9 +3620,9 @@
                 studentRole: "విద్యార్థి",
                 teacherRole: "ఉపాధ్యాయుడు",
                 parentRole: "తల్లిదండ్రులు",
-                studentRoleTab: "🎓 విద్యార్థి",
-                teacherRoleTab: "👨‍🏫 ఉపాధ్యాయుడు",
-                parentRoleTab: "👨‍👩‍👧 తల్లిదండ్రులు",
+                studentRoleTab: "విద్యార్థి",
+                teacherRoleTab: "ఉపాధ్యాయుడు",
+                parentRoleTab: "తల్లిదండ్రులు",
                 activeLoggedRole: "ప్రస్తుత పాత్ర:",
                 roleConfirmationDesc: "పాత్ర నిర్ధారణ",
                 selectAccountType: "ఖాతా రకాన్ని ఎంచుకోండి:",
@@ -3670,8 +3672,8 @@
                 msgAwesome: "చాలా బాగా చేశారు!",
                 msgGood: "మంచి ప్రయత్నం! మరింత సాధన చేయండి.",
                 msgTry: "మళ్లీ ప్రయత్నించండి!",
-                boyEmoji: "👦 బాలుడు",
-                girlEmoji: "👧 బాలిక",
+                boyEmoji: "బాలుడు",
+                girlEmoji: "బాలిక",
                 interactiveModeLabel: "మోడ్:",
                 quitApp: "నిష్క్రమించు",
                 quitModalTitle: "యాప్ నుండి నిష్క్రమించండి",
@@ -3846,8 +3848,8 @@
                 addQuestionBtn: "ಪ್ರಶ್ನೆ ಸೇರಿಸಿ",
                 captureUploadBookPhoto: "ಪುಸ್ತಕದ ಫೋಟೋ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ (PNG/ಚಿತ್ರ):",
                 capturePhotoDesc: "ಪಠ್ಯಪುಸ್ತಕದ ಪ್ರಶ್ನೆಯ ಫೋಟೋ ತೆಗೆಯಿರಿ ಅಥವಾ ಚಿತ್ರ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
-                cameraBtn: "📷 ಕ್ಯಾಮೆರಾ",
-                uploadImageBtn: "📁 ಚಿತ್ರ ಅಪ್‌ಲೋಡ್",
+                cameraBtn: "ಕ್ಯಾಮೆರಾ",
+                uploadImageBtn: "ಚಿತ್ರ ಅಪ್‌ಲೋಡ್",
                 bookPhotoAttached: "ಫೋಟೋ ಲಗತ್ತಿಸಲಾಗಿದೆ",
                 removeImageBtn: "ಚಿತ್ರವನ್ನು ತೆಗೆದುಹಾಕಿ",
                 parentMobileWhatsapp: "ಪೋಷಕರ ಮೊಬೈಲ್ (ವಾಟ್ಸಾಪ್):",
@@ -3899,9 +3901,9 @@
                 parentNameLabel: "ಪೋಷಕರ ಹೆಸರು",
                 enterParentNamePlaceholder: "ಪೋಷಕರ ಹೆಸರು ನಮೂದಿಸಿ",
                 relationshipLabel: "ಸಂಬಂಧ",
-                father: "ತಂದೆ 👨",
-                mother: "ತಾಯಿ 👩",
-                guardian: "ಪೋಷಕ 🛡️",
+                father: "ತಂದೆ",
+                mother: "ತಾಯಿ",
+                guardian: "ಪೋಷಕ",
                 childNameLabel: "ಮಗುವಿನ ಹೆಸರು",
                 enterChildNamePlaceholder: "ಮಗುವಿನ ಹೆಸರು ನಮೂದಿಸಿ",
                 childStandardLabel: "ಮಗುವಿನ ತರಗತಿ",
@@ -3909,9 +3911,9 @@
                 studentRole: "ವಿದ್ಯಾರ್ಥಿ",
                 teacherRole: "ಶಿಕ್ಷಕರು",
                 parentRole: "ಪೋಷಕರು",
-                studentRoleTab: "🎓 ವಿದ್ಯಾರ್ಥಿ",
-                teacherRoleTab: "👨‍🏫 ಶಿಕ್ಷಕರು",
-                parentRoleTab: "👨‍👩‍👧 ಪೋಷಕರು",
+                studentRoleTab: "ವಿದ್ಯಾರ್ಥಿ",
+                teacherRoleTab: "ಶಿಕ್ಷಕರು",
+                parentRoleTab: "ಪೋಷಕರು",
                 activeLoggedRole: "ಪ್ರಸ್ತುತ ಪಾತ್ರ:",
                 roleConfirmationDesc: "ಪಾತ್ರ ದೃಢೀಕರಣ",
                 selectAccountType: "ಖಾತೆ ಪ್ರಕಾರವನ್ನು ಆಯ್ಕೆಮಾಡಿ:",
@@ -3961,8 +3963,8 @@
                 msgAwesome: "ಅತ್ಯುತ್ತಮ ಕೆಲಸ!",
                 msgGood: "ಉತ್ತಮ ಪ್ರಯತ್ನ! ಇನ್ನಷ್ಟು ಅಭ್ಯಾಸ ಮಾಡಿ.",
                 msgTry: "ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ!",
-                boyEmoji: "👦 ಹುಡುಗ",
-                girlEmoji: "👧 ಹುಡುಗಿ",
+                boyEmoji: "ಹುಡುಗ",
+                girlEmoji: "ಹುಡುಗಿ",
                 interactiveModeLabel: "ಮೋಡ್:",
                 quitApp: "ನಿರ್ಗಮಿಸಿ",
                 quitModalTitle: "ಆಪ್‌ನಿಂದ ನಿರ್ಗಮಿಸಿ",
@@ -4137,8 +4139,8 @@
                 addQuestionBtn: "प्रश्न जोड़ें",
                 captureUploadBookPhoto: "किताब की फोटो कैप्चर / अपलोड करें (PNG/छवि):",
                 capturePhotoDesc: "स्कूली पाठ्यपुस्तक के प्रश्न की फोटो कैप्चर करें या छवि अपलोड करें",
-                cameraBtn: "📷 कैमरा",
-                uploadImageBtn: "📁 छवि अपलोड करें",
+                cameraBtn: "कैमरा",
+                uploadImageBtn: "छवि अपलोड करें",
                 bookPhotoAttached: "किताब की फोटो संलग्न है",
                 removeImageBtn: "छवि हटाएं",
                 parentMobileWhatsapp: "अभिभावक का मोबाइल नंबर (व्हाट्सएप):",
@@ -4241,9 +4243,9 @@
                 parentNameLabel: "अभिभावक का नाम",
                 enterParentNamePlaceholder: "अभिभावक का नाम दर्ज करें",
                 relationshipLabel: "संबंध",
-                father: "पिता 👨",
-                mother: "माता 👩",
-                guardian: "संरक्षक 🛡️",
+                father: "पिता",
+                mother: "माता",
+                guardian: "संरक्षक",
                 childNameLabel: "बच्चे का नाम",
                 enterChildNamePlaceholder: "बच्चे का नाम दर्ज करें",
                 childStandardLabel: "बच्चे की कक्षा",
@@ -4251,9 +4253,9 @@
                 studentRole: "छात्र",
                 teacherRole: "शिक्षक",
                 parentRole: "अभिभावक",
-                studentRoleTab: "🎓 छात्र",
-                teacherRoleTab: "👨‍🏫 शिक्षक",
-                parentRoleTab: "👨‍👩‍👧 अभिभावक",
+                studentRoleTab: "छात्र",
+                teacherRoleTab: "शिक्षक",
+                parentRoleTab: "अभिभावक",
                 activeLoggedRole: "सक्रिय भूमिका:",
                 roleConfirmationDesc: "शिक्षक, छात्र और अभिभावक भूमिका की पुष्टि",
                 selectAccountType: "खाता प्रकार चुनें:",
@@ -4297,8 +4299,8 @@
                 msgAwesome: "बहुत बढ़िया काम!",
                 msgGood: "अच्छा प्रयास! अभ्यास जारी रखें।",
                 msgTry: "पुनः प्रयास करें!",
-                boyEmoji: "👦 लड़का",
-                girlEmoji: "👧 लड़की",
+                boyEmoji: "लड़का",
+                girlEmoji: "लड़की",
                 interactiveModeLabel: "इंटरएक्टिव मोड:",
                 quitApp: "ऐप बंद करें",
                 quitModalTitle: "सत्र रोका गया",
@@ -4428,8 +4430,8 @@
                 addQuestionBtn: "添加题目",
                 captureUploadBookPhoto: "拍摄/上传课本照片 (PNG/图片)：",
                 capturePhotoDesc: "拍摄教科书题目照片或上传图片",
-                cameraBtn: "📷 相机",
-                uploadImageBtn: "📁 上传图片",
+                cameraBtn: "相机",
+                uploadImageBtn: "上传图片",
                 bookPhotoAttached: "已附加课本照片",
                 removeImageBtn: "移除图片",
                 parentMobileWhatsapp: "家长手机号码 (WhatsApp)：",
@@ -4532,9 +4534,9 @@
                 parentNameLabel: "家长姓名",
                 enterParentNamePlaceholder: "输入家长姓名",
                 relationshipLabel: "关系",
-                father: "父亲 👨",
-                mother: "母亲 👩",
-                guardian: "监护人 🛡️",
+                father: "父亲",
+                mother: "母亲",
+                guardian: "监护人",
                 childNameLabel: "孩子姓名",
                 enterChildNamePlaceholder: "输入孩子姓名",
                 childStandardLabel: "孩子年级",
@@ -4542,9 +4544,9 @@
                 studentRole: "学生",
                 teacherRole: "教师",
                 parentRole: "家长",
-                studentRoleTab: "🎓 学生",
-                teacherRoleTab: "👨‍🏫 教师",
-                parentRoleTab: "👨‍👩‍👧 家长",
+                studentRoleTab: "学生",
+                teacherRoleTab: "教师",
+                parentRoleTab: "家长",
                 activeLoggedRole: "当前登录身份：",
                 roleConfirmationDesc: "教师、学生和家长身份确认",
                 selectAccountType: "选择账户类型：",
@@ -4588,8 +4590,8 @@
                 msgAwesome: "干得漂亮！",
                 msgGood: "很棒的尝试！继续练习。",
                 msgTry: "再试一次！你可以的！",
-                boyEmoji: "👦 男孩",
-                girlEmoji: "👧 女孩",
+                boyEmoji: "男孩",
+                girlEmoji: "女孩",
                 interactiveModeLabel: "互动模式：",
                 quitApp: "退出应用",
                 quitModalTitle: "应用程序已暂停",
@@ -4719,8 +4721,8 @@
                 addQuestionBtn: "إضافة سؤال",
                 captureUploadBookPhoto: "التقاط / تحميل صورة الكتاب (PNG/صورة):",
                 capturePhotoDesc: "التقط صورة لسؤال الكتاب المدرسي أو قم بتحميل صورة",
-                cameraBtn: "📷 كاميرا",
-                uploadImageBtn: "📁 تحميل صورة",
+                cameraBtn: "كاميرا",
+                uploadImageBtn: "تحميل صورة",
                 bookPhotoAttached: "تم إرفاق صورة الكتاب",
                 removeImageBtn: "إزالة الصورة",
                 parentMobileWhatsapp: "رقم هاتف ولي الأمر (WhatsApp):",
@@ -4823,9 +4825,9 @@
                 parentNameLabel: "اسم ولي الأمر",
                 enterParentNamePlaceholder: "أدخل اسم ولي الأمر",
                 relationshipLabel: "صلة القرابة",
-                father: "أب 👨",
-                mother: "أم 👩",
-                guardian: "وصي 🛡️",
+                father: "أب",
+                mother: "أم",
+                guardian: "وصي",
                 childNameLabel: "اسم الطفل",
                 enterChildNamePlaceholder: "أدخل اسم الطفل",
                 childStandardLabel: "صف الطفل",
@@ -4833,9 +4835,9 @@
                 studentRole: "طالب",
                 teacherRole: "معلم",
                 parentRole: "ولي أمر",
-                studentRoleTab: "🎓 طالب",
-                teacherRoleTab: "👨‍🏫 معلم",
-                parentRoleTab: "👨‍👩‍👧 ولي أمر",
+                studentRoleTab: "طالب",
+                teacherRoleTab: "معلم",
+                parentRoleTab: "ولي أمر",
                 activeLoggedRole: "الدور النشط:",
                 roleConfirmationDesc: "تأكيد دور المعلم والطالب وولي الأمر",
                 selectAccountType: "اختر نوع الحساب:",
@@ -4879,8 +4881,8 @@
                 msgAwesome: "عمل ممتاز!",
                 msgGood: "جهد جيد! استمر في التمرين.",
                 msgTry: "حاول مرة أخرى!",
-                boyEmoji: "👦 ولد",
-                girlEmoji: "👧 بنت",
+                boyEmoji: "ولد",
+                girlEmoji: "بنت",
                 interactiveModeLabel: "وضع التفاعل:",
                 quitApp: "خروج",
                 quitModalTitle: "تم إيقاف التطبيق مؤقتًا",
@@ -5010,8 +5012,8 @@
                 addQuestionBtn: "Ajouter une question",
                 captureUploadBookPhoto: "Capturer / Télécharger la photo du livre (PNG/Image) :",
                 capturePhotoDesc: "Prenez une photo de la question du manuel ou téléchargez une image",
-                cameraBtn: "📷 Appareil photo",
-                uploadImageBtn: "📁 Importer une image",
+                cameraBtn: "Appareil photo",
+                uploadImageBtn: "Importer une image",
                 bookPhotoAttached: "Photo du livre jointe",
                 removeImageBtn: "Supprimer l'image",
                 parentMobileWhatsapp: "Numéro de mobile du parent (WhatsApp) :",
@@ -5114,9 +5116,9 @@
                 parentNameLabel: "Nom du parent",
                 enterParentNamePlaceholder: "Entrez le nom du parent",
                 relationshipLabel: "Relation",
-                father: "Père 👨",
-                mother: "Mère 👩",
-                guardian: "Tuteur 🛡️",
+                father: "Père",
+                mother: "Mère",
+                guardian: "Tuteur",
                 childNameLabel: "Nom de l'enfant",
                 enterChildNamePlaceholder: "Entrez le nom de l'enfant",
                 childStandardLabel: "Classe de l'enfant",
@@ -5124,9 +5126,9 @@
                 studentRole: "Élève",
                 teacherRole: "Enseignant",
                 parentRole: "Parent",
-                studentRoleTab: "🎓 Élève",
-                teacherRoleTab: "👨‍🏫 Enseignant",
-                parentRoleTab: "👨‍👩‍👧 Parent",
+                studentRoleTab: "Élève",
+                teacherRoleTab: "Enseignant",
+                parentRoleTab: "Parent",
                 activeLoggedRole: "Rôle actif :",
                 roleConfirmationDesc: "Confirmation des rôles d'enseignant, d'élève et de parent",
                 selectAccountType: "Sélectionner le type de compte :",
@@ -5170,8 +5172,8 @@
                 msgAwesome: "Beau travail!",
                 msgGood: "Bon effort! Continuez à vous entraîner.",
                 msgTry: "Ressayez encore!",
-                boyEmoji: "👦 Garçon",
-                girlEmoji: "👧 Fille",
+                boyEmoji: "Garçon",
+                girlEmoji: "Fille",
                 interactiveModeLabel: "Mode Interactif:",
                 quitApp: "Quitter",
                 quitModalTitle: "Session de l'application en pause",
@@ -5301,8 +5303,8 @@
                 addQuestionBtn: "Agregar Pregunta",
                 captureUploadBookPhoto: "Capturar / Cargar foto del libro (PNG/Imagen):",
                 capturePhotoDesc: "Tome una foto de la pregunta del libro de texto o cargue una imagen",
-                cameraBtn: "📷 Cámara",
-                uploadImageBtn: "📁 Cargar Imagen",
+                cameraBtn: "Cámara",
+                uploadImageBtn: "Cargar Imagen",
                 bookPhotoAttached: "Foto del libro adjunta",
                 removeImageBtn: "Eliminar Imagen",
                 parentMobileWhatsapp: "Número de móvil del padre (WhatsApp):",
@@ -5405,9 +5407,9 @@
                 parentNameLabel: "Nombre del Padre/Madre",
                 enterParentNamePlaceholder: "Ingrese nombre del padre/madre",
                 relationshipLabel: "Relación",
-                father: "Padre 👨",
-                mother: "Madre 👩",
-                guardian: "Tutor 🛡️",
+                father: "Padre",
+                mother: "Madre",
+                guardian: "Tutor",
                 childNameLabel: "Nombre del Hijo/a",
                 enterChildNamePlaceholder: "Ingrese nombre del hijo/a",
                 childStandardLabel: "Grado del Hijo/a",
@@ -5415,9 +5417,9 @@
                 studentRole: "Estudiante",
                 teacherRole: "Profesor",
                 parentRole: "Padre/Madre",
-                studentRoleTab: "🎓 Estudiante",
-                teacherRoleTab: "👨‍🏫 Profesor",
-                parentRoleTab: "👨‍👩‍👧 Padre/Madre",
+                studentRoleTab: "Estudiante",
+                teacherRoleTab: "Profesor",
+                parentRoleTab: "Padre/Madre",
                 activeLoggedRole: "Rol activo:",
                 roleConfirmationDesc: "Confirmación de roles de profesor, estudiante y padre/madre",
                 selectAccountType: "Seleccionar tipo de cuenta:",
@@ -5461,8 +5463,8 @@
                 msgAwesome: "¡Buen trabajo!",
                 msgGood: "¡Buen esfuerzo! Sigue practicando.",
                 msgTry: "¡Inténtalo de nuevo!",
-                boyEmoji: "👦 Niño",
-                girlEmoji: "👧 Niña",
+                boyEmoji: "Niño",
+                girlEmoji: "Niña",
                 interactiveModeLabel: "Modo Interactivo:",
                 quitApp: "Salir de App",
                 quitModalTitle: "Sesión en pausa",
@@ -5592,8 +5594,8 @@
                 addQuestionBtn: "Добавить вопрос",
                 captureUploadBookPhoto: "Сделать фото / Загрузить страницу книги (PNG/Изображение):",
                 capturePhotoDesc: "Сфотографируйте вопрос из учебника или загрузите изображение",
-                cameraBtn: "📷 Камера",
-                uploadImageBtn: "📁 Загрузить картинку",
+                cameraBtn: "Камера",
+                uploadImageBtn: "Загрузить картинку",
                 bookPhotoAttached: "Страница книги прикреплена",
                 removeImageBtn: "Удалить фото",
                 parentMobileWhatsapp: "Мобильный номер родителя (WhatsApp):",
@@ -5696,9 +5698,9 @@
                 parentNameLabel: "Имя родителя",
                 enterParentNamePlaceholder: "Введите имя родителя",
                 relationshipLabel: "Родство",
-                father: "Отец 👨",
-                mother: "Мать 👩",
-                guardian: "Опекун 🛡️",
+                father: "Отец",
+                mother: "Мать",
+                guardian: "Опекун",
                 childNameLabel: "Имя ребёнка",
                 enterChildNamePlaceholder: "Введите имя ребёнка",
                 childStandardLabel: "Класс ребёнка",
@@ -5706,9 +5708,9 @@
                 studentRole: "Ученик",
                 teacherRole: "Учитель",
                 parentRole: "Родитель",
-                studentRoleTab: "🎓 Ученик",
-                teacherRoleTab: "👨‍🏫 Учитель",
-                parentRoleTab: "👨‍👩‍👧 Родитель",
+                studentRoleTab: "Ученик",
+                teacherRoleTab: "Учитель",
+                parentRoleTab: "Родитель",
                 activeLoggedRole: "Активная роль:",
                 roleConfirmationDesc: "Подтверждение роли учителя, ученика и родителя",
                 selectAccountType: "Выберите тип аккаунта:",
@@ -5752,8 +5754,8 @@
                 msgAwesome: "Отличная работа!",
                 msgGood: "Хорошая попытка! Продолжайте заниматься.",
                 msgTry: "Попробуйте ещё раз!",
-                boyEmoji: "👦 Мальчик",
-                girlEmoji: "👧 Девочка",
+                boyEmoji: "Мальчик",
+                girlEmoji: "Девочка",
                 interactiveModeLabel: "Интерактивный режим:",
                 quitApp: "Выйти из приложения",
                 quitModalTitle: "Сессия приостановлена",
@@ -5883,8 +5885,8 @@
                 addQuestionBtn: "Vraag Toevoegen",
                 captureUploadBookPhoto: "Maak / Upload boekfoto (PNG/Afbeelding):",
                 capturePhotoDesc: "Maak een foto van een leerboekvraag of upload een afbeelding",
-                cameraBtn: "📷 Camera",
-                uploadImageBtn: "📁 Upload Afbeelding",
+                cameraBtn: "Camera",
+                uploadImageBtn: "Upload Afbeelding",
                 bookPhotoAttached: "Boekfoto Bijgevoegd",
                 removeImageBtn: "Verwijder Afbeelding",
                 parentMobileWhatsapp: "Mobiel nummer ouder (WhatsApp):",
@@ -5987,9 +5989,9 @@
                 parentNameLabel: "Naam Ouder",
                 enterParentNamePlaceholder: "Voer naam ouder in",
                 relationshipLabel: "Relatie",
-                father: "Vader 👨",
-                mother: "Moeder 👩",
-                guardian: "Voogd 🛡️",
+                father: "Vader",
+                mother: "Moeder",
+                guardian: "Voogd",
                 childNameLabel: "Naam Kind",
                 enterChildNamePlaceholder: "Voer naam kind in",
                 childStandardLabel: "Groep Kind",
@@ -5997,9 +5999,9 @@
                 studentRole: "Leerling",
                 teacherRole: "Leraar",
                 parentRole: "Ouder",
-                studentRoleTab: "🎓 Leerling",
-                teacherRoleTab: "👨‍🏫 Leraar",
-                parentRoleTab: "👨‍👩‍👧 Ouder",
+                studentRoleTab: "Leerling",
+                teacherRoleTab: "Leraar",
+                parentRoleTab: "Ouder",
                 activeLoggedRole: "Actieve rol:",
                 roleConfirmationDesc: "Bevestiging van leraar-, leerling- en ouderrol",
                 selectAccountType: "Selecteer accounttype:",
@@ -6043,8 +6045,8 @@
                 msgAwesome: "Goed gedaan!",
                 msgGood: "Goede poging! Blijf oefenen.",
                 msgTry: "Probeer het nog eens!",
-                boyEmoji: "👦 Jongen",
-                girlEmoji: "👧 Meisje",
+                boyEmoji: "Jongen",
+                girlEmoji: "Meisje",
                 interactiveModeLabel: "Interactieve Modus:",
                 quitApp: "App Afsluiten",
                 quitModalTitle: "Sessie Gepauzeerd",
@@ -6174,8 +6176,8 @@
                 addQuestionBtn: "Adicionar Pergunta",
                 captureUploadBookPhoto: "Tirar / Enviar foto do livro (PNG/Imagem):",
                 capturePhotoDesc: "Tire uma foto da pergunta do livro didático ou envie uma imagem",
-                cameraBtn: "📷 Câmera",
-                uploadImageBtn: "📁 Carregar Imagem",
+                cameraBtn: "Câmera",
+                uploadImageBtn: "Carregar Imagem",
                 bookPhotoAttached: "Foto do Livro Anexada",
                 removeImageBtn: "Remover Imagem",
                 parentMobileWhatsapp: "Número de celular do pai/mãe (WhatsApp):",
@@ -6278,9 +6280,9 @@
                 parentNameLabel: "Nome do Pai/Mãe",
                 enterParentNamePlaceholder: "Digite o nome do pai/mãe",
                 relationshipLabel: "Parentesco",
-                father: "Pai 👨",
-                mother: "Mãe 👩",
-                guardian: "Tutor 🛡️",
+                father: "Pai",
+                mother: "Mãe",
+                guardian: "Tutor",
                 childNameLabel: "Nome do Filho(a)",
                 enterChildNamePlaceholder: "Digite o nome do filho(a)",
                 childStandardLabel: "Série do Filho(a)",
@@ -6288,9 +6290,9 @@
                 studentRole: "Aluno",
                 teacherRole: "Professor",
                 parentRole: "Pai/Mãe",
-                studentRoleTab: "🎓 Aluno",
-                teacherRoleTab: "👨‍🏫 Professor",
-                parentRoleTab: "👨‍👩‍👧 Pai/Mãe",
+                studentRoleTab: "Aluno",
+                teacherRoleTab: "Professor",
+                parentRoleTab: "Pai/Mãe",
                 activeLoggedRole: "Função ativa:",
                 roleConfirmationDesc: "Confirmação das funções de professor, aluno e pai/mãe",
                 selectAccountType: "Selecionar tipo de conta:",
@@ -6334,8 +6336,8 @@
                 msgAwesome: "Ótimo trabalho!",
                 msgGood: "Bom esforço! Continue praticando.",
                 msgTry: "Tente novamente!",
-                boyEmoji: "👦 Menino",
-                girlEmoji: "👧 Menina",
+                boyEmoji: "Menino",
+                girlEmoji: "Menina",
                 interactiveModeLabel: "Modo Interativo:",
                 quitApp: "Sair do App",
                 quitModalTitle: "Sessão Pausada",
@@ -6465,8 +6467,8 @@
                 addQuestionBtn: "Tambah Soalan",
                 captureUploadBookPhoto: "Tangkap / Muat naik Foto Buku (PNG/Imej):",
                 capturePhotoDesc: "Tangkap foto soalan buku teks sekolah atau muat naik imej",
-                cameraBtn: "📷 Kamera",
-                uploadImageBtn: "📁 Muat Naik Imej",
+                cameraBtn: "Kamera",
+                uploadImageBtn: "Muat Naik Imej",
                 bookPhotoAttached: "Foto Buku Dilampirkan",
                 removeImageBtn: "Buang Imej",
                 parentMobileWhatsapp: "Nombor Telefon Ibu Bapa (WhatsApp):",
@@ -6569,9 +6571,9 @@
                 parentNameLabel: "Nama Ibu Bapa",
                 enterParentNamePlaceholder: "Masukkan Nama Ibu Bapa",
                 relationshipLabel: "Hubungan",
-                father: "Bapa 👨",
-                mother: "Ibu 👩",
-                guardian: "Penjaga 🛡️",
+                father: "Bapa",
+                mother: "Ibu",
+                guardian: "Penjaga",
                 childNameLabel: "Nama Anak",
                 enterChildNamePlaceholder: "Masukkan Nama Anak",
                 childStandardLabel: "Tahun Anak",
@@ -6579,9 +6581,9 @@
                 studentRole: "Murid",
                 teacherRole: "Guru",
                 parentRole: "Ibu Bapa",
-                studentRoleTab: "🎓 Murid",
-                teacherRoleTab: "👨‍🏫 Guru",
-                parentRoleTab: "👨‍👩‍👧 Ibu Bapa",
+                studentRoleTab: "Murid",
+                teacherRoleTab: "Guru",
+                parentRoleTab: "Ibu Bapa",
                 activeLoggedRole: "Peranan Aktif:",
                 roleConfirmationDesc: "Pengesahan peranan guru, murid, dan ibu bapa",
                 selectAccountType: "Pilih jenis akaun:",
@@ -6625,8 +6627,8 @@
                 msgAwesome: "Syabas!",
                 msgGood: "Usaha yang baik! Teruskan latihan.",
                 msgTry: "Cuba lagi!",
-                boyEmoji: "👦 Lelaki",
-                girlEmoji: "👧 Perempuan",
+                boyEmoji: "Lelaki",
+                girlEmoji: "Perempuan",
                 interactiveModeLabel: "Mod Interaktif:",
                 quitApp: "Tutup Aplikasi",
                 quitModalTitle: "Sesi Diberhentikan Seketika",
@@ -6756,8 +6758,8 @@
                 addQuestionBtn: "+ 問題を追加",
                 captureUploadBookPhoto: "教科書・問題集の写真撮影/アップロード",
                 capturePhotoDesc: "宿題や問題集の写真を撮影または選択して送信します：",
-                cameraBtn: "📷 カメラ",
-                uploadImageBtn: "🖼️ 画像をアップロード",
+                cameraBtn: "カメラ",
+                uploadImageBtn: "画像をアップロード",
                 bookPhotoAttached: "📸 問題集の写真が添付されました",
                 removeImageBtn: "削除",
                 parentMobileWhatsapp: "保護者の携帯番号 (WhatsApp):",
@@ -6805,9 +6807,9 @@
                 parentNameLabel: "保護者様のお名前",
                 enterParentNamePlaceholder: "保護者様のお名前を入力",
                 relationshipLabel: "続柄",
-                father: "父親 👨",
-                mother: "母親 👩",
-                guardian: "保護者・後見人 🛡️",
+                father: "父親",
+                mother: "母親",
+                guardian: "保護者・後見人",
                 childNameLabel: "お子様のお名前",
                 enterChildNamePlaceholder: "お子様のお名前を入力",
                 childStandardLabel: "お子様の学年",
@@ -6815,9 +6817,9 @@
                 studentRole: "生徒",
                 teacherRole: "先生",
                 parentRole: "保護者",
-                studentRoleTab: "🎓 生徒",
-                teacherRoleTab: "👨‍🏫 先生",
-                parentRoleTab: "👨‍👩‍👧 保護者",
+                studentRoleTab: "生徒",
+                teacherRoleTab: "先生",
+                parentRoleTab: "保護者",
                 activeLoggedRole: "現在ログイン中の役割:",
                 roleConfirmationDesc: "先生、生徒、保護者の役割の確認",
                 selectAccountType: "アカウントの種類を選択:",
@@ -6867,8 +6869,8 @@
                 msgAwesome: "素晴らしい出来栄えです！",
                 msgGood: "よく頑張りました！この調子で練習しましょう。",
                 msgTry: "もう一度挑戦しよう！君ならできます！",
-                boyEmoji: "👦 男子",
-                girlEmoji: "👧 女子",
+                boyEmoji: "男子",
+                girlEmoji: "女子",
                 interactiveModeLabel: "インタラクティブ学習モード:",
                 quitApp: "アプリを終了",
                 quitModalTitle: "アプリケーションの終了と中断",
@@ -8746,7 +8748,7 @@
         }
 
         function showTeacherAssignedNoticeBanner() {
-            const genderText = selectedGender === 'boy' ? '👦 Boy' : (selectedGender === 'girl' ? '👧 Girl' : '');
+            const genderText = selectedGender === 'boy' ? 'Boy' : (selectedGender === 'girl' ? 'Girl' : '');
             const studentNameVal = document.getElementById('student-name')?.value.trim() || 'Student';
             const studentStdVal = document.getElementById('student-standard')?.value.trim() || '';
             const quizNumsStr = (window.assignedQuizNums && window.assignedQuizNums.length > 0)
@@ -12078,22 +12080,22 @@
                 }
 
                 let displayName = '';
-                let roleEmoji = '🎓';
+                let roleIconHtml = '<i class="fas fa-user-graduate"></i>';
                 if (currentRole === 'student') {
                     displayName = currentAccount.studentName || (translations[currentLang]?.studentRole || 'Student');
-                    roleEmoji = '🎓';
+                    roleIconHtml = '<i class="fas fa-user-graduate"></i>';
                 } else if (currentRole === 'teacher') {
                     displayName = currentAccount.teacherName || (translations[currentLang]?.teacherRole || 'Teacher');
-                    roleEmoji = '👨‍🏫';
+                    roleIconHtml = '<i class="fas fa-chalkboard-teacher"></i>';
                 } else if (currentRole === 'parent') {
                     displayName = currentAccount.parentName || (translations[currentLang]?.parentRole || 'Parent');
-                    roleEmoji = '👨‍👩‍👧';
+                    roleIconHtml = '<i class="fas fa-user-friends"></i>';
                 }
 
                 const translatedRole = translations[currentLang]?.[`${currentRole}Role`] || currentRole;
                 const translatedActivePrefix = translations[currentLang]?.activeLoggedRole || 'Active Logged-in Role:';
-                if (loggedText) loggedText.textContent = `${roleEmoji} ${translatedActivePrefix} ${translatedRole.toUpperCase()} (${displayName})`;
-                if (navText) navText.textContent = `${roleEmoji} ${displayName}`;
+                if (loggedText) loggedText.innerHTML = `${roleIconHtml} ${translatedActivePrefix} ${translatedRole.toUpperCase()} (${displayName})`;
+                if (navText) navText.innerHTML = `${roleIconHtml} ${displayName}`;
             }
         }
 
@@ -12287,9 +12289,9 @@
                             <div class="flex items-center gap-1.5">
                                 <input type="text" id="m-student-parent-name" value="${pName}" placeholder="Parent Name" data-i18n-placeholder="enterParentNamePlaceholder" class="flex-1 bg-slate-50 border-2 border-violet-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-violet-400">
                                 <select id="m-student-parent-relation" class="bg-slate-50 border-2 border-violet-200 rounded-xl px-2 py-2 text-xs font-bold text-slate-800 shrink-0 focus:outline-none focus:ring-2 focus:ring-violet-400">
-                                    <option value="Father" ${pRel==='Father'?'selected':''} data-i18n="father">Father 👨</option>
-                                    <option value="Mother" ${pRel==='Mother'?'selected':''} data-i18n="mother">Mother 👩</option>
-                                    <option value="Guardian" ${pRel==='Guardian'?'selected':''} data-i18n="guardian">Guardian 🛡️</option>
+                                    <option value="Father" ${pRel==='Father'?'selected':''} data-i18n="father">Father</option>
+                                    <option value="Mother" ${pRel==='Mother'?'selected':''} data-i18n="mother">Mother</option>
+                                    <option value="Guardian" ${pRel==='Guardian'?'selected':''} data-i18n="guardian">Guardian</option>
                                 </select>
                             </div>
                         </div>
@@ -12334,9 +12336,9 @@
                         <div class="flex flex-col gap-1">
                             <label class="font-bold text-xs text-slate-700" data-i18n="relationshipLabel">Relationship</label>
                             <select id="m-parent-relation" class="bg-slate-50 border-2 border-violet-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800">
-                                <option value="Father" ${pRel==='Father'?'selected':''} data-i18n="father">Father 👨</option>
-                                <option value="Mother" ${pRel==='Mother'?'selected':''} data-i18n="mother">Mother 👩</option>
-                                <option value="Guardian" ${pRel==='Guardian'?'selected':''} data-i18n="guardian">Guardian 🛡️</option>
+                                <option value="Father" ${pRel==='Father'?'selected':''} data-i18n="father">Father</option>
+                                <option value="Mother" ${pRel==='Mother'?'selected':''} data-i18n="mother">Mother</option>
+                                <option value="Guardian" ${pRel==='Guardian'?'selected':''} data-i18n="guardian">Guardian</option>
                             </select>
                         </div>
                         <div class="flex flex-col gap-1">
@@ -13108,20 +13110,20 @@
             aiChatHistory.forEach((msg) => {
                 const isUser = msg.role === 'user';
                 const msgWrapper = document.createElement('div');
-                msgWrapper.className = `flex gap-3 ${isUser ? 'justify-end' : 'justify-start'} items-end`;
+                msgWrapper.className = `flex gap-2.5 ${isUser ? 'justify-end' : 'justify-start'} items-start`;
 
                 if (!isUser) {
                     const avatar = document.createElement('div');
-                    avatar.className = 'w-8 h-8 rounded-full bg-gradient-to-tr from-violet-600 to-purple-600 text-white flex items-center justify-center text-xs shrink-0 shadow-sm border border-violet-300';
-                    avatar.innerHTML = '<i class="fas fa-robot text-amber-300"></i>';
+                    avatar.className = 'w-7 h-7 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center text-xs shrink-0 border border-indigo-200 font-semibold';
+                    avatar.innerHTML = '<i class="fas fa-graduation-cap"></i>';
                     msgWrapper.appendChild(avatar);
                 }
 
                 const bubble = document.createElement('div');
-                bubble.className = `max-w-[85%] sm:max-w-[75%] p-3.5 sm:p-4 rounded-2xl text-xs sm:text-sm font-medium leading-relaxed shadow-xs ${
+                bubble.className = `max-w-[85%] sm:max-w-[78%] p-3 sm:p-3.5 text-xs sm:text-sm leading-relaxed ${
                     isUser
-                        ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-br-none border border-violet-500'
-                        : 'bg-white text-slate-800 rounded-bl-none border border-slate-200/90'
+                        ? 'bg-indigo-600 text-white rounded-2xl rounded-tr-xs font-normal shadow-2xs'
+                        : 'bg-white text-slate-800 rounded-2xl rounded-tl-xs border border-slate-200/90 font-normal shadow-2xs'
                 }`;
 
                 let formattedText = msg.content
@@ -13132,14 +13134,14 @@
 
                 bubble.innerHTML = `
                     <div>${formattedText}</div>
-                    <div class="text-[10px] ${isUser ? 'text-violet-200' : 'text-slate-400'} text-right mt-1.5 font-bold">${msg.time || ''}</div>
+                    <div class="text-[10px] ${isUser ? 'text-indigo-200' : 'text-slate-400'} text-right mt-1 font-medium">${msg.time || ''}</div>
                 `;
 
                 msgWrapper.appendChild(bubble);
 
                 if (isUser) {
                     const avatar = document.createElement('div');
-                    avatar.className = 'w-8 h-8 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center text-xs shrink-0 shadow-sm border border-slate-300';
+                    avatar.className = 'w-7 h-7 rounded-lg bg-slate-200 text-slate-600 flex items-center justify-center text-xs shrink-0 border border-slate-300 font-semibold';
                     avatar.innerHTML = '<i class="fas fa-user"></i>';
                     msgWrapper.appendChild(avatar);
                 }
@@ -13182,10 +13184,16 @@
             const sendBtn = document.getElementById('ai-chat-send-btn');
             if (sendBtn) sendBtn.disabled = true;
 
+            let botReply = '';
+
             try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 12000); // 12 sec timeout for mobile networks
+
                 const response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
+                    signal: controller.signal,
                     body: JSON.stringify({
                         messages: aiChatHistory.map(m => ({ role: m.role, content: m.content })),
                         userRole: typeof currentRole !== 'undefined' ? currentRole : 'student',
@@ -13194,22 +13202,83 @@
                     })
                 });
 
-                const data = await response.json();
-                const botReply = data.reply || (data.error ? `Error: ${data.error}` : "I'm having trouble connecting right now. Please try again!");
+                clearTimeout(timeoutId);
 
-                aiChatHistory.push({ role: 'model', content: botReply, time: getCurrentTimeString() });
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data && data.reply) {
+                        botReply = data.reply;
+                    }
+                }
             } catch (err) {
-                console.error('Chat request error:', err);
-                aiChatHistory.push({
-                    role: 'model',
-                    content: "Sorry, I couldn't reach the AI server. Please check your internet connection and try again.",
-                    time: getCurrentTimeString()
-                });
-            } finally {
-                if (typingEl) typingEl.classList.add('hidden');
-                if (sendBtn) sendBtn.disabled = false;
-                renderAiChatMessages();
+                console.warn('AI Chat API network or server issue, using smart local assistant:', err);
             }
+
+            if (!botReply) {
+                botReply = getSmartClientFallbackReply(userText.trim(), typeof currentRole !== 'undefined' ? currentRole : 'student', typeof currentLang !== 'undefined' ? currentLang : 'en');
+            }
+
+            aiChatHistory.push({ role: 'model', content: botReply, time: getCurrentTimeString() });
+
+            if (typingEl) typingEl.classList.add('hidden');
+            if (sendBtn) sendBtn.disabled = false;
+            renderAiChatMessages();
+        }
+
+        function getSmartClientFallbackReply(userText, role, lang) {
+            const query = (userText || '').toLowerCase().trim();
+
+            // Simple math problem evaluator
+            const mathMatch = query.match(/(\d+)\s*([\+\-\*\/x×÷])\s*(\d+)/);
+            if (mathMatch) {
+                const num1 = parseFloat(mathMatch[1]);
+                const op = mathMatch[2];
+                const num2 = parseFloat(mathMatch[3]);
+                let result = 0;
+                let opSymbol = op;
+                if (op === '+') result = num1 + num2;
+                else if (op === '-') result = num1 - num2;
+                else if (op === '*' || op === 'x' || op === '×') { result = num1 * num2; opSymbol = '×'; }
+                else if (op === '/' || op === '÷') { result = num2 !== 0 ? num1 / num2 : NaN; opSymbol = '÷'; }
+
+                if (!isNaN(result)) {
+                    return `🔢 **Math Solution:**\n\n${num1} ${opSymbol} ${num2} = **${result}**\n\nGreat job practicing! You can test your speed on full practice quizzes using the navigation bar above! 🚀`;
+                }
+            }
+
+            // Greetings
+            if (query.includes('hi') || query.includes('hello') || query.includes('hey') || query.includes('வணக்கம்') || query.includes('नमस्ते')) {
+                if (role === 'teacher') {
+                    return `👋 **Welcome Teacher!** I am **EduBot**, your AI Assistant for EduMatrix Master.\n\nI can help you with:\n- 📝 Generating printable worksheets with answer keys\n- 📲 Sharing quiz assignments directly via WhatsApp\n- 🏫 Customizing school branding & class rosters\n\nHow can I help your classroom today?`;
+                } else if (role === 'parent') {
+                    return `👋 **Hello Parent!** I am **EduBot**, your child's math learning companion.\n\nI can assist with:\n- 📊 Reviewing math practice scores and reports\n- 📄 Creating home practice worksheets\n- ✍️ Signature report cards\n\nWhat would you like to check today?`;
+                } else {
+                    return `👋 **Hello Math Champion!** I am **EduBot**, your math assistant.\n\nAsk me any math question or ask how to use EduMatrix Master! 🌟`;
+                }
+            }
+
+            // Worksheets / Printing
+            if (query.includes('worksheet') || query.includes('print') || query.includes('pdf') || query.includes('download')) {
+                return `📄 **How to Print Worksheets in EduMatrix Master:**\n\n1. Choose your **Grade / Standard** and math operation on the main page.\n2. Click the **Worksheet View** tab or press **"Generate Printable Worksheet"**.\n3. Customize questions, school headers, and answer key options.\n4. Click **"Print / Save as PDF"** to print or download instantly! 🖨️`;
+            }
+
+            // WhatsApp / Sharing
+            if (query.includes('whatsapp') || query.includes('share') || query.includes('send') || query.includes('code')) {
+                return `📲 **How to Share Quizzes via WhatsApp:**\n\n1. In **Teacher** or **Parent** mode, click the green **"Share Quiz"** button.\n2. A customized WhatsApp message with assignment details will generate automatically.\n3. Send it to your student or parent group on WhatsApp! 🎯`;
+            }
+
+            // Scores / Progress
+            if (query.includes('score') || query.includes('progress') || query.includes('report') || query.includes('badge')) {
+                return `📊 **Checking Scores & Performance:**\n\n- After taking a quiz, click **"Check My Score!"** to see your grade, time spent, and breakdown.\n- Click **"View Full Report Card"** to generate a printable performance certificate! 🏆`;
+            }
+
+            // Languages / Standards
+            if (query.includes('language') || query.includes('grade') || query.includes('standard') || query.includes('tamil') || query.includes('hindi')) {
+                return `🌐 **Language & Grade Settings:**\n\n- **Languages:** Use the language selector at the top right to switch between 15 global languages.\n- **Grades:** Select **1st to 8th Standard** on the top grade bar to auto-adjust quiz difficulty!`;
+            }
+
+            // Default fallback
+            return `🤖 **EduBot AI Assistant - EduMatrix Master**\n\nI'm ready to assist you! Here are key things you can ask or do:\n- 🧮 **Solve Math Problems:** Type any calculation like "what is 12 x 12".\n- 📄 **Print Worksheets:** Ask "how to print worksheets".\n- 📲 **Share on WhatsApp:** Ask "how to share on WhatsApp".\n- 🎯 **Practice Math:** Select Addition, Subtraction, Multiplication, or Division on the top bar!`;
         }
 
         function closePrimaryGradeNoticeModal() {
@@ -13307,7 +13376,7 @@
             const teacherName = currentAccount.teacherName || document.getElementById('teacher-name')?.value.trim() || 'Math Teacher';
             const studentName = getStudentNameValue();
             const studentStd = getStudentStandardValue();
-            const genderText = selectedGender === 'boy' ? '👦 Boy' : (selectedGender === 'girl' ? '👧 Girl' : '');
+            const genderText = selectedGender === 'boy' ? 'Boy' : (selectedGender === 'girl' ? 'Girl' : '');
 
             const schoolName = document.getElementById('top-school-name')?.textContent.trim() || 'School';
             const opName = currentOperation === 'add' ? 'Addition (+)' : (currentOperation === 'subtract' ? 'Subtraction (-)' : (currentOperation === 'multiply' ? 'Multiplication (×)' : 'Division (÷)'));
@@ -13463,7 +13532,7 @@
                         `${langData.teacher} ${teacherName}\n` +
                         `${langData.student} ${studentName}\n` +
                         `${langData.standard} ${studentStd}\n` +
-                        (genderText ? `👧/👦 *Gender:* ${genderText}\n` : '') +
+                        (genderText ? `👤 *Gender:* ${genderText}\n` : '') +
                         `${langData.assigned} ${tablesStr}\n` +
                         `${langData.op} ${opName}\n` +
                         `━━━━━━━━━━━━━━━━━━━━━━━\n` +
@@ -13754,7 +13823,7 @@ ${messageText}`;
             if (wsGender) {
                 const boyTxt = translations[currentLang]?.boy || 'Boy';
                 const girlTxt = translations[currentLang]?.girl || 'Girl';
-                wsGender.textContent = selectedGender === 'boy' ? `👦 ${boyTxt}` : (selectedGender === 'girl' ? `👧 ${girlTxt}` : '__________');
+                wsGender.innerHTML = selectedGender === 'boy' ? `<i class="fas fa-mars text-blue-600"></i> ${boyTxt}` : (selectedGender === 'girl' ? `<i class="fas fa-venus text-rose-500"></i> ${girlTxt}` : '__________');
             }
 
             updateWorksheetActionButton();
@@ -13789,7 +13858,7 @@ ${messageText}`;
                 const boyTxt = translations[currentLang]?.boy || 'Boy';
                 const girlTxt = translations[currentLang]?.girl || 'Girl';
                 if (g === 'boy' || g === 'girl') {
-                    display.innerHTML = g === 'boy' ? `👦 ${boyTxt}` : `👧 ${girlTxt}`;
+                    display.innerHTML = g === 'boy' ? `<i class="fas fa-mars text-blue-600"></i> ${boyTxt}` : `<i class="fas fa-venus text-rose-500"></i> ${girlTxt}`;
                     display.className = `hidden font-bold text-xs sm:text-sm px-3.5 py-2 bg-slate-50 rounded-xl border border-violet-200 text-slate-800 ${g==='boy'?'text-blue-600':'text-rose-500'}`;
                 } else {
                     display.innerHTML = '';
@@ -14913,7 +14982,7 @@ ${messageText}`;
                 const studentName = getStudentNameValue();
                 const studentStd = getStudentStandardValue();
                 
-                const genderText = (typeof selectedGender !== 'undefined' && selectedGender) ? (selectedGender === 'boy' ? 'Boy 👦' : (selectedGender === 'girl' ? 'Girl 👧' : 'Not Specified')) : 'Not Specified';
+                const genderText = (typeof selectedGender !== 'undefined' && selectedGender) ? (selectedGender === 'boy' ? 'Boy' : (selectedGender === 'girl' ? 'Girl' : 'Not Specified')) : 'Not Specified';
                 const parentMobile = document.getElementById('teacher-parent-mobile')?.value.trim() || '';
                 
                 const opName = (typeof currentOperation !== 'undefined' && currentOperation) ? (currentOperation === 'add' ? 'Addition (+)' : (currentOperation === 'subtract' ? 'Subtraction (-)' : (currentOperation === 'multiply' ? 'Multiplication (×)' : 'Division (÷)'))) : 'Arithmetic';
@@ -15167,7 +15236,7 @@ ${messageText}`;
             const parentMobile = document.getElementById('teacher-parent-mobile')?.value.replace(/[^0-9]/g, '') || '';
             const studentName = getStudentNameValue();
             const studentStd = getStudentStandardValue();
-            const genderText = selectedGender === 'boy' ? '👦 Boy' : (selectedGender === 'girl' ? '👧 Girl' : '');
+            const genderText = selectedGender === 'boy' ? 'Boy' : (selectedGender === 'girl' ? 'Girl' : '');
 
             const teacherName = currentAccount.teacherName || document.getElementById('teacher-name')?.value.trim() || 'Math Teacher';
             const schoolName = document.getElementById('top-school-name')?.textContent.trim() || 'School';
@@ -15375,7 +15444,7 @@ ${messageText}`;
                         `${langData.teacher} ${teacherName}\n` +
                         `${langData.student} ${studentName}\n` +
                         `${langData.standard} ${studentStd}\n` +
-                        (genderText ? `👧/👦 *Gender:* ${genderText}\n` : '') +
+                        (genderText ? `👤 *Gender:* ${genderText}\n` : '') +
                         (tablesStr ? `🎯 *Assigned Quiz Numbers:* ${tablesStr}\n` : '') +
                         `${langData.assigned}\n${questionsFormattedStr}\n\n` +
                         `${langData.imageNote}\n` +
@@ -15580,7 +15649,7 @@ ${messageText}`;
             const schoolName = document.getElementById('top-school-name').textContent || 'School';
             const stdSelect = document.getElementById('student-standard');
             const stdText = stdSelect && stdSelect.selectedIndex >= 0 ? stdSelect.options[stdSelect.selectedIndex].textContent : 'Standard';
-            const genderText = selectedGender === 'boy' ? '👦 Boy' : selectedGender === 'girl' ? '👧 Girl' : 'Student';
+            const genderText = selectedGender === 'boy' ? 'Boy' : selectedGender === 'girl' ? 'Girl' : 'Student';
             const scorePercent = document.getElementById('toast-score').textContent;
             const timeSpent = document.getElementById('toast-time-val').textContent;
             const nowStr = new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -15590,7 +15659,7 @@ ${messageText}`;
                         `👤 *Student Name:* ${studentName}\n` +
                         `🏫 *School:* ${schoolName}\n` +
                         `📚 *Standard:* ${stdText}\n` +
-                        `👧/👦 *Gender:* ${genderText}\n` +
+                        `👤 *Gender:* ${genderText}\n` +
                         `━━━━━━━━━━━━━━━━━━━━━━━\n` +
                         `📊 *Score:* ${scorePercent}\n` +
                         `⏱️ *Time Spent:* ${timeSpent}\n` +

@@ -33,11 +33,12 @@ app.post('/api/chat', async (req, res) => {
       return res.status(400).json({ error: 'Messages array is required' });
     }
 
+    const lastUserMessage = [...messages].reverse().find((m: { role: string; content: string }) => m.role === 'user')?.content || '';
+
     const ai = getGeminiClient();
     if (!ai) {
-      return res.json({
-        reply: "Hello! I am EduBot, your AI Assistant for EduMatrix Master. (Note: GEMINI_API_KEY environment variable is missing. Please configure it in your secrets to enable live AI responses). How can I help you today with math practice or worksheets?",
-      });
+      const fallbackReply = generateSmartFallbackReply(lastUserMessage, userRole, userLanguage, userStandard);
+      return res.json({ reply: fallbackReply });
     }
 
     const systemInstruction = `You are EduBot, an empathetic, intelligent, and cheerful AI Assistant built into EduMatrix Master (Math Master).
@@ -75,20 +76,94 @@ Your Guidance Rules:
 
     const prompt = `System Context:\n${systemInstruction}\n\nConversation History:\n${formattedHistory}\n\nAssistant:`;
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-3.6-flash',
-      contents: prompt,
-    });
+    // Try primary gemini-2.5-flash model, with fallback models
+    const modelsToTry = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+    let reply = '';
 
-    const reply = response.text || "I'm here to help with EduMatrix Master! Could you please ask your question again?";
+    for (const modelName of modelsToTry) {
+      try {
+        const response = await ai.models.generateContent({
+          model: modelName,
+          contents: prompt,
+        });
+        if (response.text) {
+          reply = response.text;
+          break;
+        }
+      } catch (err) {
+        console.warn(`Model ${modelName} failed, trying next fallback...`, err);
+      }
+    }
+
+    if (!reply) {
+      reply = generateSmartFallbackReply(lastUserMessage, userRole, userLanguage, userStandard);
+    }
 
     return res.json({ reply });
   } catch (err: unknown) {
     console.error('Error in /api/chat:', err);
-    const errorMessage = err instanceof Error ? err.message : 'Failed to generate AI response';
-    return res.status(500).json({ error: errorMessage });
+    const lastUserMsg = req.body?.messages ? [...req.body.messages].reverse().find((m: { role: string; content: string }) => m.role === 'user')?.content || '' : '';
+    const fallback = generateSmartFallbackReply(lastUserMsg, req.body?.userRole, req.body?.userLanguage, req.body?.userStandard);
+    return res.json({ reply: fallback });
   }
 });
+
+function generateSmartFallbackReply(userText: string, userRole?: string, userLang?: string, userStandard?: string): string {
+  const query = (userText || '').toLowerCase().trim();
+  const role = userRole || 'student';
+
+  // Math calculation evaluator if user asks a simple math question e.g. "what is 5 x 5" or "12 + 15"
+  const mathMatch = query.match(/(\d+)\s*([\+\-\*\/x×÷])\s*(\d+)/);
+  if (mathMatch) {
+    const num1 = parseFloat(mathMatch[1]);
+    const op = mathMatch[2];
+    const num2 = parseFloat(mathMatch[3]);
+    let result = 0;
+    let opSymbol = op;
+    if (op === '+' ) result = num1 + num2;
+    else if (op === '-') result = num1 - num2;
+    else if (op === '*' || op === 'x' || op === '×') { result = num1 * num2; opSymbol = '×'; }
+    else if (op === '/' || op === '÷') { result = num2 !== 0 ? num1 / num2 : NaN; opSymbol = '÷'; }
+
+    if (!isNaN(result)) {
+      return `🔢 **Math Solution:**\n\n${num1} ${opSymbol} ${num2} = **${result}**\n\nKeep up the great practice! You can also solve full dynamic quizzes in EduMatrix Master by choosing Addition, Subtraction, Multiplication, or Division on the top bar! 🌟`;
+    }
+  }
+
+  // Greeting check
+  if (query.includes('hi') || query.includes('hello') || query.includes('hey') || query.includes('வணக்கம்') || query.includes('नमस्ते') || query.includes('வணகம்')) {
+    if (role === 'teacher') {
+      return `👋 **Welcome, Educator!** I am **EduBot**, your AI Assistant for EduMatrix Master.\n\nI can help you with:\n- 📝 Creating & printing customized worksheets with answer keys\n- 📲 Sharing quiz assignments directly with students/parents via WhatsApp\n- 🏫 Customizing school branding and class grade parameters\n\nHow can I support your classroom today?`;
+    } else if (role === 'parent') {
+      return `👋 **Hello Parent!** I am **EduBot**, your math revision assistant.\n\nI can assist you with:\n- 📊 Tracking your child's math scores & progress\n- 📄 Generating offline practice worksheets for home revision\n- ✍️ Parent-Teacher signature reports\n\nWhat would you like to explore today?`;
+    } else {
+      return `👋 **Hello Math Master!** I am **EduBot**, your AI Math Assistant.\n\nI'm here to help you solve math problems, practice times tables, and earn high score stars! ⭐\n\nAsk me any math question or ask how to use EduMatrix Master! 🚀`;
+    }
+  }
+
+  // Worksheet / Print query
+  if (query.includes('worksheet') || query.includes('print') || query.includes('pdf') || query.includes('paper') || query.includes('download')) {
+    return `📄 **How to Print & Download Worksheets in EduMatrix Master:**\n\n1. Select your target **Grade/Standard** and **Operation** (e.g. Multiplication, Addition).\n2. Click on the **Worksheet View** tab or press **"Generate Printable Worksheet"**.\n3. Customize the number of questions, school header, and answer key settings.\n4. Click **"Print / Save as PDF"** to print or export directly to your device!\n\nNeed extra help? Ask me any question! 💡`;
+  }
+
+  // WhatsApp / Share query
+  if (query.includes('whatsapp') || query.includes('share') || query.includes('send') || query.includes('code')) {
+    return `📲 **How to Share Quizzes on WhatsApp:**\n\n1. In **Teacher** or **Parent** mode, click the green **"Share Quiz"** button on the worksheet/quiz section.\n2. A custom WhatsApp message containing the quiz details and standard assignment code will automatically open.\n3. Choose your class group or parent contact on WhatsApp and press Send!\n4. Students can click the link or enter the code to take the exact assignment online. 🎯`;
+  }
+
+  // Score / Progress query
+  if (query.includes('score') || query.includes('progress') || query.includes('badge') || query.includes('report') || query.includes('star')) {
+    return `📊 **Checking Scores & Progress Reports:**\n\n- After finishing a quiz session, click **"Check My Score!"** to see your immediate percentage score, time spent, and performance breakdown.\n- Click **"View Full Report Card"** to generate a printable performance certificate.\n- Teachers and parents can review total accuracy badges and star rewards! 🌟`;
+  }
+
+  // Language / Grade query
+  if (query.includes('language') || query.includes('tamil') || query.includes('hindi') || query.includes('grade') || query.includes('standard')) {
+    return `🌐 **Language & Grade Settings:**\n\n- **Languages:** Click the Language dropdown at the top right header to switch between 15 languages (English, Tamil, Hindi, Malayalam, Telugu, Kannada, Spanish, French, etc.).\n- **Grades:** Select any grade from **1st Standard to 8th Standard** on the top grade selector bar to automatically scale quiz difficulty!`;
+  }
+
+  // Default fallback response
+  return `🤖 **EduBot AI Assistant - EduMatrix Master**\n\nI'm here to help you master math and make full use of EduMatrix Master!\n\nHere are popular things you can do:\n- 🧮 **Solve Math:** Ask me any math calculation or problem (e.g. "what is 15 × 12").\n- 📄 **Print Worksheets:** Ask "how to print worksheets".\n- 📲 **Share via WhatsApp:** Ask "how to share on WhatsApp".\n- 🎯 **Practice Quizzes:** Select an operation (Addition, Subtraction, Multiplication, Division) and test your speed!\n\nHow else can I help you today?`;
+}
 
 // Start Express server with Vite middleware in development or static serving in production
 async function startServer() {
