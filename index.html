@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Math Master - Worksheet Generator & Futuristic AI Companion</title>
     
+        <!-- Agora RTC Web SDK -->
+    <script src="https://download.agora.io/sdk/release/AgoraRTC_N-4.22.2.js"></script>
     <!-- Tailwind CSS for Styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -496,6 +498,13 @@
                 <button id="voice-tutor-btn" onclick="openVoiceTutorModal()" class="btn-bevel-glass-amber text-white px-4 py-2 rounded-xl font-extrabold text-xs sm:text-sm transition-all duration-200 active:scale-95 flex items-center gap-2 cursor-pointer h-10 shrink-0 group">
                     <i class="fas fa-volume-up text-amber-100 animate-pulse group-hover:scale-110 transition-transform"></i>
                     <span data-i18n="voiceTutorBtn">AI Voice Tutor</span>
+                </button>
+
+                <!-- Live 1-on-1 Tutoring Video Call Button -->
+                <button id="live-tutor-btn" onclick="toggleLiveTutorSidebar()" class="bg-gradient-to-r from-rose-600 via-pink-600 to-rose-700 hover:from-rose-500 hover:to-pink-500 text-white px-4 py-2 rounded-xl font-extrabold text-xs sm:text-sm transition-all duration-200 active:scale-95 flex items-center gap-2 cursor-pointer h-10 shrink-0 border border-rose-400/80 shadow-md group relative overflow-hidden">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    <i class="fas fa-video text-rose-100 group-hover:scale-110 transition-transform"></i>
+                    <span data-i18n="liveTutorBtn">Live Tutor / Join Classroom</span>
                 </button>
 
                 <!-- User Feedback Button -->
@@ -2584,9 +2593,31 @@
                         <i class="fas fa-graduation-cap"></i>
                     </div>
                     <div>
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-2 flex-wrap">
                             <h3 class="font-bold text-sm sm:text-base text-white tracking-tight" data-i18n="aiChatbotTitle">EduMatrix Help Assistant</h3>
-                            <span id="ai-chat-role-tag" class="bg-blue-800/80 text-blue-100 border border-blue-400/40 text-[10px] font-semibold px-2 py-0.5 rounded uppercase">Student</span>
+                            <span id="ai-chat-role-tag" class="bg-blue-800/80 text-blue-100 border border-blue-400/40 text-[10px] font-semibold px-2 py-0.5 rounded uppercase">STUDENT</span>
+                            <!-- Interactive Language Selector in Chatbot Header -->
+                            <div class="relative inline-flex items-center bg-emerald-700/90 hover:bg-emerald-600/90 text-emerald-100 border border-emerald-400/40 rounded-lg px-2 py-0.5 text-[11px] font-semibold shadow-xs transition-colors cursor-pointer group">
+                                <i class="fas fa-globe text-[10px] mr-1 text-emerald-200"></i>
+                                <select id="ai-chat-lang-selector" onchange="changeLanguage(this.value)" class="bg-transparent text-white font-semibold text-[11px] focus:outline-none cursor-pointer border-none appearance-none pr-3.5">
+                                    <option value="en" class="bg-slate-900 text-white">English</option>
+                                    <option value="ta" class="bg-slate-900 text-white">தமிழ் (Tamil)</option>
+                                    <option value="hi" class="bg-slate-900 text-white">हिंदी (Hindi)</option>
+                                    <option value="ml" class="bg-slate-900 text-white">മലയാളം (Malayalam)</option>
+                                    <option value="te" class="bg-slate-900 text-white">తెలుగు (Telugu)</option>
+                                    <option value="kn" class="bg-slate-900 text-white">ಕನ್ನಡ (Kannada)</option>
+                                    <option value="zh" class="bg-slate-900 text-white">中文 (Mandarin)</option>
+                                    <option value="ar" class="bg-slate-900 text-white">العربية (Arabic)</option>
+                                    <option value="fr" class="bg-slate-900 text-white">Français (French)</option>
+                                    <option value="ru" class="bg-slate-900 text-white">Русский (Russian)</option>
+                                    <option value="es" class="bg-slate-900 text-white">Español (Spanish)</option>
+                                    <option value="nl" class="bg-slate-900 text-white">Nederlands (Dutch)</option>
+                                    <option value="pt" class="bg-slate-900 text-white">Português (Portuguese)</option>
+                                    <option value="ms" class="bg-slate-900 text-white">Bahasa Melayu (Malay)</option>
+                                    <option value="ja" class="bg-slate-900 text-white">日本語 (Japanese)</option>
+                                </select>
+                                <i class="fas fa-chevron-down text-[7px] absolute right-1.5 pointer-events-none opacity-80 group-hover:opacity-100"></i>
+                            </div>
                         </div>
                         <p class="text-xs text-blue-100 font-normal flex items-center gap-1.5" data-i18n="aiChatbotSub">
                             <span class="w-2 h-2 rounded-full bg-emerald-400 border border-white/40"></span> Online • Ask any question about math or app features
@@ -2594,10 +2625,10 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-1">
-                    <button onclick="clearAiChatHistory()" title="Clear Chat" class="w-8 h-8 rounded-lg text-blue-100 hover:text-white hover:bg-white/15 font-medium flex items-center justify-center transition-all cursor-pointer text-xs">
+                    <button onclick="clearAiChatHistory()" title="Clear Chat" data-i18n-title="aiClearBtn" class="w-8 h-8 rounded-lg text-blue-100 hover:text-white hover:bg-white/15 font-medium flex items-center justify-center transition-all cursor-pointer text-xs">
                         <i class="fas fa-trash-alt"></i>
                     </button>
-                    <button onclick="closeAiChatbotModal()" class="w-8 h-8 rounded-lg text-blue-100 hover:text-white hover:bg-white/15 font-medium flex items-center justify-center transition-all cursor-pointer text-sm">
+                    <button onclick="closeAiChatbotModal()" data-i18n-title="closeWindow" class="w-8 h-8 rounded-lg text-blue-100 hover:text-white hover:bg-white/15 font-medium flex items-center justify-center transition-all cursor-pointer text-sm">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -2605,19 +2636,10 @@
 
             <!-- Suggestion Chips Bar -->
             <div class="bg-slate-50 border-b border-slate-200 px-3.5 py-2.5 overflow-x-auto whitespace-nowrap scrollbar-none flex items-center gap-2 text-xs shrink-0">
-                <span class="font-semibold text-slate-500 text-[11px] shrink-0 px-1">Quick:</span>
-                <button onclick="sendAiChatMessage('How do I generate and print a math worksheet?')" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-medium px-3 py-1 rounded-lg transition-all shrink-0 cursor-pointer text-xs shadow-2xs">
-                    Print Worksheet
-                </button>
-                <button onclick="sendAiChatMessage('How can teachers share a quiz via WhatsApp?')" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-medium px-3 py-1 rounded-lg transition-all shrink-0 cursor-pointer text-xs shadow-2xs">
-                    WhatsApp Quiz Share
-                </button>
-                <button onclick="sendAiChatMessage('How do parents track student progress and signatures?')" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-medium px-3 py-1 rounded-lg transition-all shrink-0 cursor-pointer text-xs shadow-2xs">
-                    Parent Tracking
-                </button>
-                <button onclick="sendAiChatMessage('Explain math multiplication tricks for grade students')" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-medium px-3 py-1 rounded-lg transition-all shrink-0 cursor-pointer text-xs shadow-2xs">
-                    Math Tricks
-                </button>
+                <span class="font-semibold text-slate-500 text-[11px] shrink-0 px-1" data-i18n="aiQuickSuggestionsLabel">Quick:</span>
+                <div id="ai-chat-quick-chips" class="flex items-center gap-2">
+                    <!-- Rendered dynamically by renderAiChatQuickSuggestions -->
+                </div>
             </div>
 
             <!-- Message Area -->
@@ -2632,7 +2654,7 @@
                     <span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
                     <span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
                 </div>
-                <span>Assistant is typing...</span>
+                <span data-i18n="aiAssistantTyping">Assistant is typing...</span>
             </div>
 
             <!-- Input Area -->
@@ -2648,6 +2670,252 @@
         </div>
     </div>
 
+    
+    <!-- Live 1-on-1 Tutoring Video Call Sidebar / Split-Screen (Agora Powered) -->
+        <!-- Live 1-on-1 Tutoring Video Call Sidebar / Split-Screen (Agora WebRTC + Real-Time Chat Powered) -->
+    <div id="live-tutor-panel" class="fixed top-0 right-0 h-full w-full sm:w-[420px] md:w-[460px] lg:w-[490px] bg-slate-900/98 backdrop-blur-xl z-[165] shadow-2xl flex flex-col border-l border-slate-700/80 text-white transition-all duration-300 transform translate-x-full hidden select-none">
+        
+        <!-- Panel Header: Clean, Simple & User-Friendly -->
+        <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 px-4 py-3 border-b border-slate-700/80 flex items-center justify-between shrink-0">
+            <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-rose-500 to-pink-500 flex items-center justify-center text-white shadow-xs">
+                    <i class="fas fa-video text-xs"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h3 class="font-extrabold text-sm text-white tracking-tight" data-i18n="liveTutorSidebarTitle">Live Classroom</h3>
+                        <span id="agora-status-badge" class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-slate-700 text-slate-300 border border-slate-600 flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+                            <span id="agora-status-text">Ready</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Header Action Controls (Participants, PiP & Close) -->
+            <div class="flex items-center gap-1.5">
+                <div id="classroom-participant-count" class="hidden px-2 py-0.5 bg-indigo-950/80 border border-indigo-500/40 text-indigo-300 rounded-full text-[10px] font-bold flex items-center gap-1">
+                    <i class="fas fa-users text-[9px]"></i> <span id="classroom-participant-count-num">1</span>
+                </div>
+                <button type="button" onclick="toggleLiveTutorPiP()" id="agora-pip-btn" title="Minimize to Picture-in-Picture" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-all cursor-pointer text-xs">
+                    <i class="fas fa-compress-alt"></i>
+                </button>
+                <button type="button" onclick="toggleLiveTutorSidebar()" title="Close / Hide Video" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-rose-600/80 text-slate-300 hover:text-white flex items-center justify-center transition-all cursor-pointer text-xs">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Room & Invite Bar (Simple, Compact & One-Click) -->
+        <div class="px-4 py-2 bg-slate-800/70 border-b border-slate-700/60 flex items-center justify-between gap-2 shrink-0">
+            <div class="flex items-center gap-2 flex-1 min-w-0">
+                <span class="text-[11px] font-bold text-slate-400">Room:</span>
+                <input type="text" id="agora-room-input" value="Math-Classroom-1" onchange="onClassroomRoomChanged()" placeholder="Room Name" class="bg-slate-900 text-white font-mono text-xs px-2 py-1 rounded-lg border border-slate-700 focus:border-indigo-500 focus:outline-none w-full max-w-[150px]">
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+                <button type="button" onclick="copyLiveClassroomLink()" title="Copy Direct Invite Link" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg text-xs font-semibold flex items-center gap-1 transition-all cursor-pointer">
+                    <i class="fas fa-link text-[10px]"></i> <span id="agora-copy-lbl" class="text-[11px]">Copy Link</span>
+                </button>
+                <button type="button" onclick="shareLiveClassroomWhatsApp()" title="Invite on WhatsApp" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1 transition-all cursor-pointer">
+                    <i class="fab fa-whatsapp text-xs"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Scrollable Content Area: Video + Live Chat + Reactions -->
+        <div class="flex-1 p-3.5 flex flex-col gap-3 overflow-y-auto relative bg-slate-950/70">
+            
+            <!-- Main Video Screen (Remote Teacher / Peer) -->
+            <div class="relative w-full aspect-4/3 sm:aspect-16/10 bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden shadow-inner flex items-center justify-center group shrink-0">
+                
+                <!-- Remote Video Stream Element -->
+                <div id="agora-remote-video" class="absolute inset-0 w-full h-full object-cover"></div>
+
+                <!-- Remote Placeholder (When No One Else is in Room) -->
+                <div id="agora-remote-placeholder" class="flex flex-col items-center justify-center p-6 text-center z-1">
+                    <div class="relative mb-3">
+                        <div class="w-16 h-16 rounded-full bg-indigo-950/80 border border-indigo-500/40 flex items-center justify-center text-indigo-300 text-2xl shadow-inner">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <span class="absolute -top-1 -right-1 flex h-4 w-4">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-4 w-4 bg-indigo-500 text-[8px] font-bold text-white items-center justify-center">1</span>
+                        </span>
+                    </div>
+                    <h4 class="font-black text-sm text-slate-200 tracking-tight" data-i18n="waitingForTutor">Ready for Classroom</h4>
+                    <p class="text-xs text-slate-400 mt-1 max-w-[260px] leading-relaxed">Click <strong>Join</strong> below or invite your partner with the invite link.</p>
+                </div>
+
+                <!-- Remote Participant Tag Badge -->
+                <div class="absolute top-2.5 left-2.5 z-10 bg-slate-900/80 backdrop-blur-xs px-2.5 py-1 rounded-lg border border-slate-700/60 text-[11px] font-bold flex items-center gap-1.5">
+                    <i class="fas fa-chalkboard-teacher text-indigo-400 text-xs"></i>
+                    <span id="agora-remote-name-tag">Classroom Stream</span>
+                </div>
+
+                <!-- Floating Real-Time Reactions Container -->
+                <div id="agora-reactions-container" class="absolute inset-0 pointer-events-none z-20 flex items-center justify-center overflow-hidden"></div>
+
+                <!-- Local Video Screen (Picture-in-Picture Box in Bottom Right) -->
+                <div id="agora-local-video-box" class="absolute bottom-3 right-3 w-28 sm:w-36 aspect-4/3 rounded-xl bg-slate-900 border-2 border-indigo-500/80 shadow-2xl overflow-hidden z-30 transition-all group/local hover:scale-105">
+                    <div id="agora-local-video" class="w-full h-full object-cover"></div>
+                    
+                    <!-- Local Avatar Fallback (when camera is off) -->
+                    <div id="agora-local-avatar" class="hidden absolute inset-0 w-full h-full bg-slate-800 flex flex-col items-center justify-center text-slate-300">
+                        <i class="fas fa-user text-xl mb-1 text-slate-400"></i>
+                        <span class="text-[9px] font-bold uppercase tracking-wider text-slate-400">Cam Off</span>
+                    </div>
+
+                    <!-- Local Tag -->
+                    <div class="absolute bottom-1 left-1 bg-slate-950/85 px-1.5 py-0.5 rounded text-[9px] font-bold text-slate-200">
+                        <span id="agora-local-name-tag" data-i18n="youStudent">You</span>
+                    </div>
+                    
+                    <!-- Mic Mute Icon Indicator on Local Stream -->
+                    <div id="agora-local-mic-badge" class="hidden absolute top-1 right-1 bg-rose-600/90 text-white w-4 h-4 rounded-full flex items-center justify-center text-[8px]">
+                        <i class="fas fa-microphone-slash"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Classroom Interaction Tabs (Live Chat & Reaction Emojis) -->
+            <div class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 shrink-0">
+                <button type="button" id="tab-btn-classroom-chat" onclick="switchClassroomTab('chat')" class="flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 bg-indigo-600 text-white shadow-xs cursor-pointer">
+                    <i class="fas fa-comments text-xs"></i> <span>Live Chat</span>
+                    <span id="classroom-chat-badge" class="hidden px-1.5 py-0.2 rounded-full bg-rose-500 text-white text-[9px] font-bold">0</span>
+                </button>
+                <button type="button" id="tab-btn-classroom-reactions" onclick="switchClassroomTab('reactions')" class="flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 text-slate-400 hover:text-white cursor-pointer">
+                    <span>✨</span> <span>Reactions</span>
+                </button>
+            </div>
+
+            <!-- Tab 1: Real-Time Classroom Live Chat -->
+            <div id="classroom-chat-view" class="flex-1 flex flex-col bg-slate-900/90 rounded-2xl border border-slate-800 shadow-sm overflow-hidden min-h-[220px]">
+                <!-- Chat Messages Feed -->
+                <div id="classroom-chat-messages" class="flex-1 p-3 overflow-y-auto space-y-2 text-xs">
+                    <div class="text-center py-4 text-slate-500 text-[11px] leading-relaxed">
+                        <i class="fas fa-comments text-slate-600 text-lg mb-1 block"></i>
+                        Live chat ready! Send a message or question to your teacher or student.
+                    </div>
+                </div>
+
+                <!-- Quick Prompt Chips -->
+                <div class="px-2.5 py-1.5 bg-slate-950/60 border-t border-slate-800/80 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
+                    <button type="button" onclick="sendQuickClassroomChat('🙋 Need help on this step!')" class="px-2 py-0.5 bg-slate-800 hover:bg-indigo-600 text-slate-300 hover:text-white rounded-full text-[10px] font-semibold whitespace-nowrap transition-all cursor-pointer">🙋 Need help</button>
+                    <button type="button" onclick="sendQuickClassroomChat('💡 I found the answer!')" class="px-2 py-0.5 bg-slate-800 hover:bg-amber-600 text-slate-300 hover:text-white rounded-full text-[10px] font-semibold whitespace-nowrap transition-all cursor-pointer">💡 Got answer</button>
+                    <button type="button" onclick="sendQuickClassroomChat('👏 Great job! Well done!')" class="px-2 py-0.5 bg-slate-800 hover:bg-emerald-600 text-slate-300 hover:text-white rounded-full text-[10px] font-semibold whitespace-nowrap transition-all cursor-pointer">👏 Great job</button>
+                    <button type="button" onclick="sendQuickClassroomChat('🔍 Please explain again')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded-full text-[10px] font-semibold whitespace-nowrap transition-all cursor-pointer">🔍 Explain again</button>
+                </div>
+
+                <!-- Chat Input Form -->
+                <form id="classroom-chat-form" onsubmit="handleSendClassroomChat(event)" class="p-2 bg-slate-950 border-t border-slate-800 flex items-center gap-1.5 shrink-0">
+                    <input type="text" id="classroom-chat-input" placeholder="Type a message..." maxlength="300" autocomplete="off" class="flex-1 bg-slate-900 text-white text-xs px-3 py-2 rounded-xl border border-slate-700 focus:border-indigo-500 focus:outline-none">
+                    <button type="submit" class="w-8 h-8 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white flex items-center justify-center transition-all cursor-pointer shrink-0 active:scale-95">
+                        <i class="fas fa-paper-plane text-xs"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Tab 2: Synchronized Emoji Reaction Grid -->
+            <div id="classroom-reactions-view" class="hidden bg-slate-900/90 p-3 rounded-2xl border border-slate-800 shadow-sm flex flex-col gap-2 shrink-0">
+                <div class="flex items-center justify-between">
+                    <span class="text-[11px] font-extrabold text-indigo-300 uppercase tracking-wider flex items-center gap-1.5">
+                        <span>✨</span> Broadcast Reaction to Room
+                    </span>
+                    <span class="text-[10px] text-slate-500 font-medium">Synced in real time</span>
+                </div>
+                
+                <!-- Emoji Reaction Grid -->
+                <div class="grid grid-cols-6 sm:grid-cols-8 gap-1.5 pt-0.5">
+                    <button type="button" onclick="sendAgoraReaction('👏')" title="Clap / Well Done" class="h-9 rounded-xl bg-slate-800/90 hover:bg-indigo-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">👏</button>
+                    <button type="button" onclick="sendAgoraReaction('💡')" title="Eureka! Got It" class="h-9 rounded-xl bg-slate-800/90 hover:bg-amber-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">💡</button>
+                    <button type="button" onclick="sendAgoraReaction('🙋‍♂️')" title="Raise Hand" class="h-9 rounded-xl bg-slate-800/90 hover:bg-blue-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🙋‍♂️</button>
+                    <button type="button" onclick="sendAgoraReaction('💯')" title="100% Perfect" class="h-9 rounded-xl bg-slate-800/90 hover:bg-emerald-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">💯</button>
+                    <button type="button" onclick="sendAgoraReaction('⭐')" title="Gold Star" class="h-9 rounded-xl bg-slate-800/90 hover:bg-yellow-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">⭐</button>
+                    <button type="button" onclick="sendAgoraReaction('🔥')" title="Fire / Awesome!" class="h-9 rounded-xl bg-slate-800/90 hover:bg-orange-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🔥</button>
+                    <button type="button" onclick="sendAgoraReaction('🎉')" title="Celebration" class="h-9 rounded-xl bg-slate-800/90 hover:bg-purple-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🎉</button>
+                    <button type="button" onclick="sendAgoraReaction('👍')" title="Thumbs Up" class="h-9 rounded-xl bg-slate-800/90 hover:bg-blue-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">👍</button>
+                    
+                    <button type="button" onclick="sendAgoraReaction('❤️')" title="Love Math" class="h-9 rounded-xl bg-slate-800/90 hover:bg-rose-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">❤️</button>
+                    <button type="button" onclick="sendAgoraReaction('🧠')" title="Smart Thinking" class="h-9 rounded-xl bg-slate-800/90 hover:bg-pink-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🧠</button>
+                    <button type="button" onclick="sendAgoraReaction('🎯')" title="Bullseye" class="h-9 rounded-xl bg-slate-800/90 hover:bg-red-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🎯</button>
+                    <button type="button" onclick="sendAgoraReaction('🚀')" title="Super Fast" class="h-9 rounded-xl bg-slate-800/90 hover:bg-cyan-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🚀</button>
+                    <button type="button" onclick="sendAgoraReaction('🥳')" title="Party Time" class="h-9 rounded-xl bg-slate-800/90 hover:bg-indigo-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🥳</button>
+                    <button type="button" onclick="sendAgoraReaction('🏆')" title="Champion Trophy" class="h-9 rounded-xl bg-slate-800/90 hover:bg-yellow-500 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🏆</button>
+                    <button type="button" onclick="sendAgoraReaction('❓')" title="Need Help" class="h-9 rounded-xl bg-slate-800/90 hover:bg-rose-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">❓</button>
+                    <button type="button" onclick="sendAgoraReaction('🤔')" title="Thinking Hard" class="h-9 rounded-xl bg-slate-800/90 hover:bg-slate-700 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🤔</button>
+                    <button type="button" onclick="sendAgoraReaction('🤩')" title="Amazed" class="h-9 rounded-xl bg-slate-800/90 hover:bg-amber-500 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🤩</button>
+                    <button type="button" onclick="sendAgoraReaction('🙌')" title="High Five" class="h-9 rounded-xl bg-slate-800/90 hover:bg-emerald-500 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🙌</button>
+                    <button type="button" onclick="sendAgoraReaction('⚡')" title="Charged Up" class="h-9 rounded-xl bg-slate-800/90 hover:bg-yellow-400 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">⚡</button>
+                    <button type="button" onclick="sendAgoraReaction('✨')" title="Brilliant" class="h-9 rounded-xl bg-slate-800/90 hover:bg-indigo-500 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">✨</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Video Control Bar (Clean, High-Contrast Action Buttons) -->
+        <div class="p-3.5 bg-slate-950 border-t border-slate-800 shrink-0">
+            <div class="flex items-center justify-around gap-2">
+                
+                <!-- Mic Mute / Unmute Button -->
+                <button type="button" id="agora-mic-btn" onclick="toggleAgoraAudio()" title="Mute / Unmute Microphone" class="flex flex-col items-center gap-1 text-slate-300 hover:text-white cursor-pointer group">
+                    <div id="agora-mic-icon-box" class="w-11 h-11 rounded-full bg-slate-800 group-hover:bg-slate-700 flex items-center justify-center text-sm transition-all shadow-md active:scale-95">
+                        <i id="agora-mic-icon" class="fas fa-microphone"></i>
+                    </div>
+                    <span id="agora-mic-lbl" class="text-[10px] font-semibold" data-i18n="muteMic">Mic</span>
+                </button>
+
+                <!-- Camera On / Off Button -->
+                <button type="button" id="agora-camera-btn" onclick="toggleAgoraVideo()" title="Turn Camera On / Off" class="flex flex-col items-center gap-1 text-slate-300 hover:text-white cursor-pointer group">
+                    <div id="agora-camera-icon-box" class="w-11 h-11 rounded-full bg-slate-800 group-hover:bg-slate-700 flex items-center justify-center text-sm transition-all shadow-md active:scale-95">
+                        <i id="agora-camera-icon" class="fas fa-video"></i>
+                    </div>
+                    <span id="agora-camera-lbl" class="text-[10px] font-semibold" data-i18n="cameraOn">Camera</span>
+                </button>
+
+                <!-- Screen Share Button -->
+                <button type="button" id="agora-screen-btn" onclick="toggleAgoraScreenShare()" title="Share Screen" class="flex flex-col items-center gap-1 text-slate-300 hover:text-white cursor-pointer group">
+                    <div id="agora-screen-icon-box" class="w-11 h-11 rounded-full bg-slate-800 group-hover:bg-slate-700 flex items-center justify-center text-sm transition-all shadow-md active:scale-95">
+                        <i id="agora-screen-icon" class="fas fa-desktop"></i>
+                    </div>
+                    <span id="agora-screen-lbl" class="text-[10px] font-semibold" data-i18n="screenShare">Share</span>
+                </button>
+
+                <!-- Switch Camera Button (Mobile) -->
+                <button type="button" id="agora-flip-btn" onclick="switchAgoraCamera()" title="Switch Camera" class="flex flex-col items-center gap-1 text-slate-300 hover:text-white cursor-pointer group">
+                    <div class="w-11 h-11 rounded-full bg-slate-800 group-hover:bg-slate-700 flex items-center justify-center text-sm transition-all shadow-md active:scale-95">
+                        <i class="fas fa-camera-rotate"></i>
+                    </div>
+                    <span class="text-[10px] font-semibold">Flip</span>
+                </button>
+
+                <!-- Join / Leave Call Button -->
+                <button type="button" id="agora-call-btn" onclick="toggleAgoraCallState()" class="flex flex-col items-center gap-1 text-white cursor-pointer group">
+                    <div id="agora-call-icon-box" class="w-11 h-11 rounded-full bg-emerald-600 hover:bg-emerald-500 flex items-center justify-center text-sm transition-all shadow-md active:scale-95">
+                        <i id="agora-call-icon" class="fas fa-phone"></i>
+                    </div>
+                    <span id="agora-call-lbl" class="text-[10px] font-bold text-emerald-400" data-i18n="joinClassroom">Join</span>
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Floating Live Tutor PiP Bubble (Shown when Minimized) -->
+    <div id="agora-floating-pip" class="fixed bottom-20 right-5 z-[175] hidden bg-slate-900 border-2 border-indigo-500 rounded-2xl shadow-2xl overflow-hidden w-44 sm:w-52 aspect-4/3 flex flex-col select-none cursor-pointer group transition-transform hover:scale-105" onclick="restoreLiveTutorSidebar()">
+        <div id="agora-pip-video-stream" class="w-full h-full bg-slate-950 relative">
+            <div class="absolute inset-0 flex items-center justify-center text-indigo-400">
+                <i class="fas fa-video text-2xl animate-pulse"></i>
+            </div>
+            <div class="absolute top-1.5 left-1.5 bg-slate-900/90 px-1.5 py-0.5 rounded text-[9px] font-bold text-white flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> Live Call
+            </div>
+            <div class="absolute bottom-1.5 right-1.5 bg-indigo-600 hover:bg-indigo-500 text-white w-6 h-6 rounded-lg flex items-center justify-center text-[10px] shadow-md">
+                <i class="fas fa-expand-alt"></i>
+            </div>
+        </div>
+    </div>
+
     <!-- Confetti Canvas -->
     <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-[150]"></canvas>
 
@@ -2655,6 +2923,22 @@
         // --- Translation Engine ---
         const translations = {
             en: {
+                liveTutorBtn: "Live Tutor / Join Classroom",
+                liveTutorSidebarTitle: "Live 1-on-1 Classroom",
+                liveTutorSidebarSub: "Interactive math practice with live video",
+                roomChannel: "Room:",
+                waitingForTutor: "Waiting for Tutor to join...",
+                shareWhatsApp: "Invite on WhatsApp",
+                teacherTutor: "Teacher / Tutor",
+                youStudent: "You (Student)",
+                muteMic: "Mute",
+                unmuteMic: "Unmute",
+                cameraOn: "Camera",
+                cameraOff: "Cam Off",
+                screenShare: "Share",
+                joinClassroom: "Join",
+                leaveCall: "Leave",
+
                 voiceTutorBtn: "AI Voice Tutor",
                 voiceTutorModalTitle: "🎙️ EduMatrix Master - AI Voice Tutor",
                 voiceTutorModalSub: "Interactive Audio Guide & Application Workflow for Students, Teachers & Parents",
@@ -2955,8 +3239,29 @@
                 aiChatPlaceholder: "Ask a question about math or EduMatrix...",
                 aiSendBtn: "Send",
                 aiClearBtn: "Clear Chat",
-            },
+                            aiQuickSuggestionsLabel: "Quick:",
+                aiAssistantTyping: "Assistant is typing...",
+                aiRoleStudent: "Student",
+                aiRoleTeacher: "Teacher",
+                aiRoleParent: "Parent",
+},
             ta: {
+                liveTutorBtn: "நேரலை ஆசிரியர் / வகுப்பறை",
+                liveTutorSidebarTitle: "நேரலை 1-on-1 வகுப்பறை",
+                liveTutorSidebarSub: "நேரலை வீடியோவுடன் கணிதப் பயிற்சி",
+                roomChannel: "அறை:",
+                waitingForTutor: "ஆசிரியர் இணைய காத்திருக்கிறது...",
+                shareWhatsApp: "வாட்ஸ்அப்பில் அழைக்கவும்",
+                teacherTutor: "ஆசிரியர் / வழிகாட்டி",
+                youStudent: "நீங்கள் (மாணவர்)",
+                muteMic: "மைக் அணை",
+                unmuteMic: "மைக் இயக்கு",
+                cameraOn: "கேமரா",
+                cameraOff: "கேமரா அணை",
+                screenShare: "பகிர்",
+                joinClassroom: "இணையவும்",
+                leaveCall: "வெளியேறு",
+
                 voiceTutorBtn: "AI குரல் ஆசிரியர்",
                 voiceTutorModalTitle: "🎙️ எடுமேட்ரிக்ஸ் மாஸ்டர் - AI குரல் ஆசிரியர்",
                 voiceTutorModalSub: "மாணவர்கள், ஆசிரியர்கள் மற்றும் பெற்றோர்களுக்கான குரல் வழிகாட்டி மற்றும் பயன்பாட்டு செயல்முறை",
@@ -3248,8 +3553,36 @@
                 closeWindow: "சாளரத்தை மூடு",
                 syncCurrentQuizQuestionsBtn: "தற்போதைய வினாடி வினாவை இறக்குமதி செய்",
                 noQuestionsToSync: "இன்னும் வினாக்கள் உருவாக்கப்படவில்லை! மேலே எண்களைத் தேர்ந்தெடுக்கவும்.",
-            },
+                            aiChatbotBtn: "உதவி உதவியாளர்",
+                aiBotFabText: "உதவி & சாட்",
+                aiChatbotTitle: "EduMatrix உதவி உதவியாளர்",
+                aiChatbotSub: "ஆன்லைன் • கணிதம் அல்லது பயன்பாட்டு அம்சங்களைப் பற்றி கேளுங்கள்",
+                aiChatPlaceholder: "கணிதம் அல்லது EduMatrix பற்றி கேளுங்கள்...",
+                aiSendBtn: "அனுப்பு",
+                aiClearBtn: "அரட்டையை அழிக்கவும்",
+                aiQuickSuggestionsLabel: "விரைவு:",
+                aiAssistantTyping: "EduBot பதிலளிக்கிறது...",
+                aiRoleStudent: "மாணவர்",
+                aiRoleTeacher: "ஆசிரியர்",
+                aiRoleParent: "பெற்றோர்",
+},
             ml: {
+                liveTutorBtn: "ലൈവ് ട്യൂട്ടർ / ക്ലാസ്സ്റൂം",
+                liveTutorSidebarTitle: "ലൈവ് 1-on-1 ക്ലാസ്സ്റൂം",
+                liveTutorSidebarSub: "ലൈവ് വീഡിയോയുമായി ഗണിത പരിശീലനം",
+                roomChannel: "റൂം:",
+                waitingForTutor: "ട്യൂട്ടർ ചേരാൻ കാത്തിരിക്കുന്നു...",
+                shareWhatsApp: "വാട്‌സ്ആപ്പിൽ ക്ഷണിക്കുക",
+                teacherTutor: "അധ്യാപകൻ / ട്യൂട്ടർ",
+                youStudent: "നിങ്ങൾ (വിദ്യാർത്ഥി)",
+                muteMic: "മ്യൂട്ട്",
+                unmuteMic: "അൺമ്യൂട്ട്",
+                cameraOn: "ക്യാമറ",
+                cameraOff: "ക്യാമറ ഓഫ്",
+                screenShare: "ഷെയർ",
+                joinClassroom: "ചേരുക",
+                leaveCall: "വിടുക",
+
                 voiceTutorBtn: "AI വോയ്‌സ് ട്യൂട്ടർ",
                 voiceTutorModalTitle: "🎙️ എഡ്യൂമാട്രിക്സ് മാസ്റ്റർ - AI വോയ്‌സ് ട്യൂട്ടർ",
                 voiceTutorModalSub: "വിദ്യാർത്ഥികൾ, അധ്യാപകർ, രക്ഷിതാക്കൾ എന്നിവർക്കായുള്ള ഓഡിയോ ഗൈഡ്",
@@ -3541,8 +3874,36 @@
                 sendFeedbackWhatsappBtn: "വാട്ട്‌സ്ആപ്പ് വഴി അഭിപ്രായം അയക്കുക",
                 syncCurrentQuizQuestionsBtn: "നിലവിലെ ക്വിസ് ഇറക്കുമതി ചെയ്യുക",
                 noQuestionsToSync: "ചോദ്യങ്ങളൊന്നും സൃഷ്ടിച്ചിട്ടില്ല! ആദ്യം മുകളിൽ നമ്പറുകൾ തിരഞ്ഞെടുക്കുക.",
-            },
+                            aiChatbotBtn: "സഹായി",
+                aiBotFabText: "സഹായവും ചാറ്റും",
+                aiChatbotTitle: "EduMatrix AI സഹായി",
+                aiChatbotSub: "ഓൺലൈൻ • ഗണിതമോ ആപ്പ് ഫീച്ചറുകളോ ചോദിക്കുക",
+                aiChatPlaceholder: "ഗണിതത്തെക്കുറിച്ചോ EduMatrix നെക്കുറിച്ചോ ചോദിക്കുക...",
+                aiSendBtn: "അയക്കുക",
+                aiClearBtn: "ചാറ്റ് മായ്‌ക്കുക",
+                aiQuickSuggestionsLabel: "വേഗത്തിൽ:",
+                aiAssistantTyping: "സഹായി ടൈപ്പ് ചെയ്യുന്നു...",
+                aiRoleStudent: "വിദ്യാർത്ഥി",
+                aiRoleTeacher: "അധ്യാപകൻ",
+                aiRoleParent: "രക്ഷിതാവ്",
+},
             te: {
+                liveTutorBtn: "లైవ్ ట్యూటర్ / క్లాస్‌రూమ్",
+                liveTutorSidebarTitle: "లైవ్ 1-on-1 క్లాస్‌రూమ్",
+                liveTutorSidebarSub: "లైవ్ వీడియోతో గణిత సాధన",
+                roomChannel: "గది:",
+                waitingForTutor: "ట్యూటర్ చేరడానికి వేచి ఉంది...",
+                shareWhatsApp: "వాట్సాప్‌లో ఆహ్వానించండి",
+                teacherTutor: "ఉపాధ్యాయుడు / ట్యూటర్",
+                youStudent: "మీరు (విద్యార్థి)",
+                muteMic: "మ్యూట్",
+                unmuteMic: "అన్‌మ్యూట్",
+                cameraOn: "కెమెరా",
+                cameraOff: "కెమెరా ఆఫ్",
+                screenShare: "స్క్రీన్ షేర్",
+                joinClassroom: "చేరండి",
+                leaveCall: "నిష్క్రమించు",
+
                 voiceTutorBtn: "AI వాయిస్ ట్యూటర్",
                 voiceTutorModalTitle: "🎙️ ఎడ్యుమాట్రిక్స్ మాస్టర్ - AI వాయిస్ ట్యూటర్",
                 voiceTutorModalSub: "విద్యార్థులు, ఉపాధ్యాయులు మరియు తల్లిదండ్రుల కోసం ఆడియో గైడ్",
@@ -3834,8 +4195,36 @@
                 sendFeedbackWhatsappBtn: "వాట్సాప్ ద్వారా అభిప్రాయం పంపండి",
                 syncCurrentQuizQuestionsBtn: "ప్రస్తుత క్విజ్‌ను దిగుమతి చేయండి",
                 noQuestionsToSync: "ఇంకా ప్రశ్నలు సృష్టించబడలేదు! ముందుగా పైన సంఖ్యలను ఎంచుకోండి.",
-            },
+                            aiChatbotBtn: "సహాయకుడు",
+                aiBotFabText: "సహాయం & చాట్",
+                aiChatbotTitle: "EduMatrix AI సహాయకుడు",
+                aiChatbotSub: "ఆన్‌లైన్ • గణితం లేదా యాప్ ఫీచర్ల గురించి అడగండి",
+                aiChatPlaceholder: "గణితం లేదా EduMatrix గురించి ఏదైనా అడగండి...",
+                aiSendBtn: "పంపండి",
+                aiClearBtn: "చాట్ క్లియర్ చేయండి",
+                aiQuickSuggestionsLabel: "శీఘ్రం:",
+                aiAssistantTyping: "సహాయకుడు టైప్ చేస్తున్నాడు...",
+                aiRoleStudent: "విద్యార్థి",
+                aiRoleTeacher: "ఉపాధ్యాయుడు",
+                aiRoleParent: "తల్లిదండ్రులు",
+},
             kn: {
+                liveTutorBtn: "ಲೈವ್ ಟ್ಯೂಟರ್ / ತರಗತಿಗೆ ಸೇರಿ",
+                liveTutorSidebarTitle: "ಲೈವ್ 1-on-1 ತರಗತಿ",
+                liveTutorSidebarSub: "ಲೈವ್ ವೀಡಿಯೊದೊಂದಿಗೆ ಗಣಿತ ಅಭ್ಯಾಸ",
+                roomChannel: "ಕೊಠಡಿ:",
+                waitingForTutor: "ಟ್ಯೂಟರ್ ಸೇರ್ಪಡೆಗೆ ಕಾಯಲಾಗುತ್ತಿದೆ...",
+                shareWhatsApp: "ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಆಹ್ವಾನಿಸಿ",
+                teacherTutor: "ಶಿಕ್ಷಕ / ಬೋಧಕ",
+                youStudent: "ನೀವು (ವಿದ್ಯಾರ್ಥಿ)",
+                muteMic: "ಮ್ಯೂಟ್",
+                unmuteMic: "ಅನ್‌ಮ್ಯೂಟ್",
+                cameraOn: "ಕ್ಯಾಮೆರಾ",
+                cameraOff: "ಕ್ಯಾಮೆರಾ ಆಫ್",
+                screenShare: "ಹಂಚಿಕೊಳ್ಳಿ",
+                joinClassroom: "ಸೇರಿ",
+                leaveCall: "ತೊರೆಯಿರಿ",
+
                 voiceTutorBtn: "AI ವಾಯ್ಸ್ ಟ್ಯೂಟರ್",
                 voiceTutorModalTitle: "🎙️ ಎಡುಮ್ಯಾಟ್ರಿಕ್ಸ್ ಮಾಸ್ಟರ್ - AI ವಾಯ್ಸ್ ಟ್ಯೂಟರ್",
                 voiceTutorModalSub: "ವಿದ್ಯಾರ್ಥಿಗಳು, ಶಿಕ್ಷಕರು ಮತ್ತು ಪೋಷಕರಿಗಾಗಿ ಧ್ವನಿ ಮಾರ್ಗದರ್ಶಿ",
@@ -4127,8 +4516,36 @@
                 sendFeedbackWhatsappBtn: "ವಾಟ್ಸಾಪ್ ಮೂಲಕ ಅಭಿಪ್ರಾಯ ಕಳುಹಿಸಿ",
                 syncCurrentQuizQuestionsBtn: "ಪ್ರಸ್ತುತ ರಸಪ್ರಶ್ನೆ ಆಮದು ಮಾಡಿ",
                 noQuestionsToSync: "ಇನ್ನೂ ಪ್ರಶ್ನೆಗಳನ್ನು ರಚಿಸಲಾಗಿಲ್ಲ! ಮೊದಲು ಮೇಲೆ ಸಂಖ್ಯೆಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
-            },
+                            aiChatbotBtn: "ಸಹಾಯಕ",
+                aiBotFabText: "ಸಹಾಯ ಮತ್ತು ಚಾಟ್",
+                aiChatbotTitle: "EduMatrix AI ಸಹಾಯಕ",
+                aiChatbotSub: "ಆನ್‌ಲೈನ್ • ಗಣಿತ ಅಥವಾ ಅಪ್ಲಿಕೇಶನ್ ವೈಶಿಷ್ಟ್ಯಗಳ ಬಗ್ಗೆ ಕೇಳಿ",
+                aiChatPlaceholder: "ಗಣಿತ ಅಥವಾ EduMatrix ಬಗ್ಗೆ ಪ್ರಶ್ನೆ ಕೇಳಿ...",
+                aiSendBtn: "ಕಳುಹಿಸಿ",
+                aiClearBtn: "ಚಾಟ್ ತೆರವುಗೊಳಿಸಿ",
+                aiQuickSuggestionsLabel: "ತ್ವರಿತ:",
+                aiAssistantTyping: "ಸಹಾಯಕ ಟೈಪ್ ಮಾಡುತ್ತಿದ್ದಾರೆ...",
+                aiRoleStudent: "ವಿದ್ಯಾರ್ಥಿ",
+                aiRoleTeacher: "ಶಿಕ್ಷಕ",
+                aiRoleParent: "ಪೋಷಕ",
+},
             hi: {
+                liveTutorBtn: "लाइव ट्यूटर / कक्षा में जुड़ें",
+                liveTutorSidebarTitle: "लाइव 1-on-1 कक्षा",
+                liveTutorSidebarSub: "लाइव वीडियो के साथ गणित अभ्यास",
+                roomChannel: "कमरा:",
+                waitingForTutor: "ट्यूटर के जुड़ने की प्रतीक्षा...",
+                shareWhatsApp: "व्हाट्सएप पर आमंत्रित करें",
+                teacherTutor: "शिक्षक / ट्यूटर",
+                youStudent: "आप (छात्र)",
+                muteMic: "म्यूट",
+                unmuteMic: "अनम्यूट",
+                cameraOn: "कैमरा",
+                cameraOff: "कैमरा बंद",
+                screenShare: "स्क्रीन शेयर",
+                joinClassroom: "जुड़ें",
+                leaveCall: "छोड़ें",
+
                 voiceTutorBtn: "AI वॉयस ट्यूटर",
                 voiceTutorModalTitle: "🎙️ EduMatrix Master - AI वॉयस ट्यूटर",
                 voiceTutorModalSub: "छात्रों, शिक्षकों और अभिभावकों के लिए इंटरैक्टिव ऑडियो गाइड और ऐप कार्यप्रणाली",
@@ -4420,8 +4837,36 @@
                 sendFeedbackWhatsappBtn: "WhatsApp द्वारा प्रतिक्रिया भेजें",
                 syncCurrentQuizQuestionsBtn: "वर्तमान क्विज़ आयात करें",
                 noQuestionsToSync: "अभी कोई प्रश्न उत्पन्न नहीं हुआ है! पहले ऊपर संख्याएं चुनें।",
-            },
+                            aiChatbotBtn: "सहायक",
+                aiBotFabText: "मदद और चैट",
+                aiChatbotTitle: "EduMatrix AI सहायक",
+                aiChatbotSub: "ऑनलाइन • गणित या ऐप सुविधाओं के बारे में पूछें",
+                aiChatPlaceholder: "गणित या EduMatrix के बारे में कोई प्रश्न पूछें...",
+                aiSendBtn: "भेजें",
+                aiClearBtn: "चैट साफ़ करें",
+                aiQuickSuggestionsLabel: "त्वरित:",
+                aiAssistantTyping: "सहायक टाइप कर रहा है...",
+                aiRoleStudent: "छात्र",
+                aiRoleTeacher: "शिक्षक",
+                aiRoleParent: "अभिभावक",
+},
             zh: {
+                liveTutorBtn: "在线辅导 / 进入课堂",
+                liveTutorSidebarTitle: "在线一对一课堂",
+                liveTutorSidebarSub: "边连线老师边练习数学题",
+                roomChannel: "房间号:",
+                waitingForTutor: "等待辅导老师加入...",
+                shareWhatsApp: "微信/WhatsApp 邀请",
+                teacherTutor: "教师 / 辅导员",
+                youStudent: "你 (学生)",
+                muteMic: "静音",
+                unmuteMic: "开麦",
+                cameraOn: "摄像头",
+                cameraOff: "关摄像头",
+                screenShare: "共享屏幕",
+                joinClassroom: "加入连线",
+                leaveCall: "挂断",
+
                 voiceTutorBtn: "AI 语音导师",
                 voiceTutorModalTitle: "🎙️ EduMatrix Master - AI 语音导师",
                 voiceTutorModalSub: "面向学生、教师和家长的互动语音指南与应用使用流程",
@@ -4713,8 +5158,36 @@
                 sendFeedbackWhatsappBtn: "通过 WhatsApp 发送反馈",
                 syncCurrentQuizQuestionsBtn: "导入当前测验",
                 noQuestionsToSync: "尚未生成问题！请先在上方选择数字。",
-            },
+                            aiChatbotBtn: "AI 助手",
+                aiBotFabText: "帮助与聊天",
+                aiChatbotTitle: "EduMatrix AI 助手",
+                aiChatbotSub: "在线 • 询问关于数学练习或应用功能的任何问题",
+                aiChatPlaceholder: "询问有关数学或 EduMatrix 的问题...",
+                aiSendBtn: "发送",
+                aiClearBtn: "清空聊天",
+                aiQuickSuggestionsLabel: "快捷提问:",
+                aiAssistantTyping: "助手正在输入...",
+                aiRoleStudent: "学生",
+                aiRoleTeacher: "教师",
+                aiRoleParent: "家长",
+},
             ar: {
+                liveTutorBtn: "معلم مباشر / انضم للفصل",
+                liveTutorSidebarTitle: "فصل دراسي مباشر 1-on-1",
+                liveTutorSidebarSub: "تدريب رياضيات تفاعلي مع مكالمة فيديو",
+                roomChannel: "الغرفة:",
+                waitingForTutor: "في انتظار انضمام المعلم...",
+                shareWhatsApp: "دعوة عبر واتساب",
+                teacherTutor: "المعلم / المشرف",
+                youStudent: "أنت (الطالب)",
+                muteMic: "كتم",
+                unmuteMic: "تشغيل الميكروفون",
+                cameraOn: "كاميرا",
+                cameraOff: "إيقاف الكاميرا",
+                screenShare: "مشاركة الشاشة",
+                joinClassroom: "انضمام",
+                leaveCall: "مغادرة",
+
                 voiceTutorBtn: "معلم الصوت الذكي",
                 voiceTutorModalTitle: "🎙️ EduMatrix Master - معلم الصوت الذكي",
                 voiceTutorModalSub: "دليل صوتی تفاعلي وسير العمل في التطبيق للطلاب والمعلمين وأولياء الأمور",
@@ -5006,8 +5479,36 @@
                 sendFeedbackWhatsappBtn: "إرسال الملاحظات عبر واتساب",
                 syncCurrentQuizQuestionsBtn: "استيراد الاختبار الحالي",
                 noQuestionsToSync: "لم يتم إنشاء أسئلة بعد! اختر الأرقام أعلاه أولاً.",
-            },
+                            aiChatbotBtn: "مساعد الذكاء الاصطناعي",
+                aiBotFabText: "مساعدة ومحادثة",
+                aiChatbotTitle: "مساعد EduMatrix الذكي",
+                aiChatbotSub: "متصل • اسأل عن الرياضيات أو ميزات التطبيق",
+                aiChatPlaceholder: "اسأل عن الرياضيات أو ميزات EduMatrix...",
+                aiSendBtn: "إرسال",
+                aiClearBtn: "مسح المحادثة",
+                aiQuickSuggestionsLabel: "سريع:",
+                aiAssistantTyping: "المساعد يكتب الآن...",
+                aiRoleStudent: "طالب",
+                aiRoleTeacher: "معلم",
+                aiRoleParent: "ولي أمر",
+},
             fr: {
+                liveTutorBtn: "Tuteur en Direct / Rejoindre",
+                liveTutorSidebarTitle: "Classe 1-sur-1 en Direct",
+                liveTutorSidebarSub: "Exercices de maths avec vidéo en direct",
+                roomChannel: "Salle :",
+                waitingForTutor: "En attente du tuteur...",
+                shareWhatsApp: "Inviter sur WhatsApp",
+                teacherTutor: "Professeur / Tuteur",
+                youStudent: "Vous (Élève)",
+                muteMic: "Muet",
+                unmuteMic: "Micro On",
+                cameraOn: "Caméra",
+                cameraOff: "Cam Off",
+                screenShare: "Partager",
+                joinClassroom: "Rejoindre",
+                leaveCall: "Quitter",
+
                 voiceTutorBtn: "Tuteur Vocal IA",
                 voiceTutorModalTitle: "🎙️ EduMatrix Master - Tuteur Vocal IA",
                 voiceTutorModalSub: "Guide vocal interactif et fonctionnement de l'application pour élèves, enseignants et parents",
@@ -5299,8 +5800,36 @@
                 sendFeedbackWhatsappBtn: "Envoyer vos commentaires via WhatsApp",
                 syncCurrentQuizQuestionsBtn: "Importer le quiz actuel",
                 noQuestionsToSync: "Aucune question générée ! Sélectionnez d’abord des chiffres ci-dessus.",
-            },
+                            aiChatbotBtn: "Assistant IA",
+                aiBotFabText: "Aide & Chat",
+                aiChatbotTitle: "Assistant d'aide EduMatrix",
+                aiChatbotSub: "En ligne • Posez vos questions sur les maths ou l'application",
+                aiChatPlaceholder: "Posez une question sur les maths ou EduMatrix...",
+                aiSendBtn: "Envoyer",
+                aiClearBtn: "Effacer le chat",
+                aiQuickSuggestionsLabel: "Suggestions :",
+                aiAssistantTyping: "L'assistant écrit...",
+                aiRoleStudent: "Élève",
+                aiRoleTeacher: "Enseignant",
+                aiRoleParent: "Parent",
+},
             es: {
+                liveTutorBtn: "Tutor en Vivo / Aula",
+                liveTutorSidebarTitle: "Aula 1 a 1 en Vivo",
+                liveTutorSidebarSub: "Práctica de matemáticas con videollamada",
+                roomChannel: "Sala:",
+                waitingForTutor: "Esperando al tutor...",
+                shareWhatsApp: "Invitar por WhatsApp",
+                teacherTutor: "Profesor / Tutor",
+                youStudent: "Tú (Estudiante)",
+                muteMic: "Silenciar",
+                unmuteMic: "Activar Mic",
+                cameraOn: "Cámara",
+                cameraOff: "Apagar Cam",
+                screenShare: "Compartir",
+                joinClassroom: "Unirse",
+                leaveCall: "Salir",
+
                 voiceTutorBtn: "Tutor de Voz IA",
                 voiceTutorModalTitle: "🎙️ EduMatrix Master - Tutor de Voz IA",
                 voiceTutorModalSub: "Guía de audio interactiva y flujo de trabajo para estudiantes, profesores y padres",
@@ -5592,8 +6121,36 @@
                 sendFeedbackWhatsappBtn: "Enviar comentarios por WhatsApp",
                 syncCurrentQuizQuestionsBtn: "Importar cuestionario actual",
                 noQuestionsToSync: "¡No se han generado preguntas! Seleccione números arriba primero.",
-            },
+                            aiChatbotBtn: "Asistente IA",
+                aiBotFabText: "Ayuda y Chat",
+                aiChatbotTitle: "Asistente EduMatrix",
+                aiChatbotSub: "En línea • Haz preguntas sobre matemáticas o la app",
+                aiChatPlaceholder: "Pregunta sobre matemáticas o EduMatrix...",
+                aiSendBtn: "Enviar",
+                aiClearBtn: "Borrar chat",
+                aiQuickSuggestionsLabel: "Rápido:",
+                aiAssistantTyping: "El asistente está escribiendo...",
+                aiRoleStudent: "Estudiante",
+                aiRoleTeacher: "Profesor",
+                aiRoleParent: "Padre",
+},
             ru: {
+                liveTutorBtn: "Онлайн репетитор / Класс",
+                liveTutorSidebarTitle: "Онлайн урок 1-на-1",
+                liveTutorSidebarSub: "Практика математики с видеосвязью",
+                roomChannel: "Комната:",
+                waitingForTutor: "Ожидание подключения репетитора...",
+                shareWhatsApp: "Пригласить в WhatsApp",
+                teacherTutor: "Учитель / Репетитор",
+                youStudent: "Вы (Ученик)",
+                muteMic: "Микрофон выкл",
+                unmuteMic: "Микрофон вкл",
+                cameraOn: "Камера",
+                cameraOff: "Камера выкл",
+                screenShare: "Экран",
+                joinClassroom: "Войти",
+                leaveCall: "Выйти",
+
                 voiceTutorBtn: "Голосовой ИИ-репетитор",
                 voiceTutorModalTitle: "🎙️ EduMatrix Master - Голосовой ИИ-репетитор",
                 voiceTutorModalSub: "Интерактивное аудиоруководство и порядок работы для учащихся, учителей и родителей",
@@ -5885,8 +6442,36 @@
                 sendFeedbackWhatsappBtn: "Отправить отзыв через WhatsApp",
                 syncCurrentQuizQuestionsBtn: "Импортировать текущий викторину",
                 noQuestionsToSync: "Вопросы ещё не созданы! Сначала выберите числа выше.",
-            },
+                            aiChatbotBtn: "AI Помощник",
+                aiBotFabText: "Помощь и чат",
+                aiChatbotTitle: "EduMatrix AI Помощник",
+                aiChatbotSub: "В сети • Спросите о математике или функциях приложения",
+                aiChatPlaceholder: "Задайте вопрос по математике или EduMatrix...",
+                aiSendBtn: "Отправить",
+                aiClearBtn: "Очистить чат",
+                aiQuickSuggestionsLabel: "Быстро:",
+                aiAssistantTyping: "Ассистент печатает...",
+                aiRoleStudent: "Ученик",
+                aiRoleTeacher: "Учитель",
+                aiRoleParent: "Родитель",
+},
             nl: {
+                liveTutorBtn: "Live Bijles / Klaslokaal",
+                liveTutorSidebarTitle: "Live 1-op-1 Klaslokaal",
+                liveTutorSidebarSub: "Wiskunde oefenen met live videoverbinding",
+                roomChannel: "Kamer:",
+                waitingForTutor: "Wachten op bijlesdocent...",
+                shareWhatsApp: "Uitnodigen via WhatsApp",
+                teacherTutor: "Docent / Tutor",
+                youStudent: "Jij (Leerling)",
+                muteMic: "Dempen",
+                unmuteMic: "Dempen opheffen",
+                cameraOn: "Camera",
+                cameraOff: "Camera uit",
+                screenShare: "Delen",
+                joinClassroom: "Deelnemen",
+                leaveCall: "Verlaten",
+
                 voiceTutorBtn: "AI Spraaktutor",
                 voiceTutorModalTitle: "🎙️ EduMatrix Master - AI Spraaktutor",
                 voiceTutorModalSub: "Interactieve audiogids en app-uitleg voor leerlingen, leraren en ouders",
@@ -6178,8 +6763,36 @@
                 sendFeedbackWhatsappBtn: "Stuur feedback via WhatsApp",
                 syncCurrentQuizQuestionsBtn: "Huidige quiz importeren",
                 noQuestionsToSync: "Nog geen vragen gegenereerd! Selecteer eerst cijfers hierboven.",
-            },
+                            aiChatbotBtn: "AI Assistent",
+                aiBotFabText: "Hulp & Chat",
+                aiChatbotTitle: "EduMatrix AI Assistent",
+                aiChatbotSub: "Online • Stel een vraag over wiskunde of functies",
+                aiChatPlaceholder: "Stel een vraag over wiskunde of EduMatrix...",
+                aiSendBtn: "Versturen",
+                aiClearBtn: "Chat wissen",
+                aiQuickSuggestionsLabel: "Snel:",
+                aiAssistantTyping: "Assistent typt...",
+                aiRoleStudent: "Leerling",
+                aiRoleTeacher: "Leraar",
+                aiRoleParent: "Ouder",
+},
             pt: {
+                liveTutorBtn: "Tutor ao Vivo / Sala de Aula",
+                liveTutorSidebarTitle: "Sala 1 para 1 ao Vivo",
+                liveTutorSidebarSub: "Prática de matemática com videochamada",
+                roomChannel: "Sala:",
+                waitingForTutor: "Aguardando o tutor entrar...",
+                shareWhatsApp: "Convidar no WhatsApp",
+                teacherTutor: "Professor / Tutor",
+                youStudent: "Você (Aluno)",
+                muteMic: "Mudo",
+                unmuteMic: "Desmutar",
+                cameraOn: "Câmera",
+                cameraOff: "Câm Desligada",
+                screenShare: "Compartilhar",
+                joinClassroom: "Entrar",
+                leaveCall: "Sair",
+
                 voiceTutorBtn: "Tutor de Voz IA",
                 voiceTutorModalTitle: "🎙️ EduMatrix Master - Tutor de Voz IA",
                 voiceTutorModalSub: "Guia de áudio interativo e fluxo de trabalho para alunos, professores e pais",
@@ -6471,8 +7084,36 @@
                 sendFeedbackWhatsappBtn: "Enviar feedback via WhatsApp",
                 syncCurrentQuizQuestionsBtn: "Importar questionário atual",
                 noQuestionsToSync: "Nenhuma pergunta gerada! Selecione os números acima primeiro.",
-            },
+                            aiChatbotBtn: "Assistente IA",
+                aiBotFabText: "Ajuda & Chat",
+                aiChatbotTitle: "Assistente EduMatrix",
+                aiChatbotSub: "Online • Pergunte sobre matemática ou recursos",
+                aiChatPlaceholder: "Faça uma pergunta sobre matemática ou EduMatrix...",
+                aiSendBtn: "Enviar",
+                aiClearBtn: "Limpar chat",
+                aiQuickSuggestionsLabel: "Rápido:",
+                aiAssistantTyping: "Assistente digitando...",
+                aiRoleStudent: "Estudante",
+                aiRoleTeacher: "Professor",
+                aiRoleParent: "Responsável",
+},
             ms: {
+                liveTutorBtn: "Tutor Langsung / Masuk Kelas",
+                liveTutorSidebarTitle: "Bilik Darjah 1-lawan-1 Langsung",
+                liveTutorSidebarSub: "Latihan matematik bersama panggilan video",
+                roomChannel: "Bilik:",
+                waitingForTutor: "Menunggu tutor menyertai...",
+                shareWhatsApp: "Jemput di WhatsApp",
+                teacherTutor: "Guru / Tutor",
+                youStudent: "Anda (Murid)",
+                muteMic: "Bisu",
+                unmuteMic: "Buka Mikrofon",
+                cameraOn: "Kamera",
+                cameraOff: "Tutup Kamera",
+                screenShare: "Kongsi Skrin",
+                joinClassroom: "Sertai",
+                leaveCall: "Keluar",
+
                 voiceTutorBtn: "Tutor Suara AI",
                 voiceTutorModalTitle: "🎙️ EduMatrix Master - Tutor Suara AI",
                 voiceTutorModalSub: "Panduan Audio Interaktif & Alur Kerja Aplikasi untuk Murid, Guru & Ibu Bapa",
@@ -6764,8 +7405,36 @@
                 sendFeedbackWhatsappBtn: "Hantar Maklum Balas melalui WhatsApp",
                 syncCurrentQuizQuestionsBtn: "Import Kuiz Semasa",
                 noQuestionsToSync: "Tiada soalan dijana lagi! Pilih nombor di atas terlebih dahulu.",
-            },
+                            aiChatbotBtn: "Pembantu AI",
+                aiBotFabText: "Bantuan & Sembang",
+                aiChatbotTitle: "Pembantu EduMatrix",
+                aiChatbotSub: "Dalam talian • Tanya apa sahaja tentang matematik atau aplikasi",
+                aiChatPlaceholder: "Tanya soalan mengenai matematik atau EduMatrix...",
+                aiSendBtn: "Hantar",
+                aiClearBtn: "Kosongkan sembang",
+                aiQuickSuggestionsLabel: "Pantas:",
+                aiAssistantTyping: "Pembantu sedang menaip...",
+                aiRoleStudent: "Pelajar",
+                aiRoleTeacher: "Guru",
+                aiRoleParent: "Ibu Bapa",
+},
             ja: {
+                liveTutorBtn: "ライブ個別指導 / 教室参加",
+                liveTutorSidebarTitle: "ライブ 1対1 オンライン教室",
+                liveTutorSidebarSub: "ビデオ通話しながら算数問題を練習",
+                roomChannel: "ルーム:",
+                waitingForTutor: "講師の参加を待っています...",
+                shareWhatsApp: "WhatsAppで招待",
+                teacherTutor: "先生 / 講師",
+                youStudent: "あなた (生徒)",
+                muteMic: "ミュート",
+                unmuteMic: "ミュート解除",
+                cameraOn: "カメラ",
+                cameraOff: "カメラOFF",
+                screenShare: "画面共有",
+                joinClassroom: "参加",
+                leaveCall: "退出",
+
                 voiceTutorBtn: "AI音声チューター",
                 voiceTutorModalTitle: "🎙️ EduMatrix Master - AI音声チューター",
                 voiceTutorModalSub: "生徒、先生、保護者のための対話型音声ガイドとアプリの使い方",
@@ -7059,7 +7728,19 @@
                 sendFeedbackWhatsappBtn: "WhatsAppでフィードバックを送信",
                 syncCurrentQuizQuestionsBtn: "現在のクイズをインポート",
                 noQuestionsToSync: "問題がまだ作成されていません。まず上の数字を選択してください。",
-            },
+                            aiChatbotBtn: "AIアシスタント",
+                aiBotFabText: "ヘルプ＆チャット",
+                aiChatbotTitle: "EduMatrix AIアシスタント",
+                aiChatbotSub: "オンライン • 算数やアプリの機能について質問してください",
+                aiChatPlaceholder: "算数やEduMatrixについて質問する...",
+                aiSendBtn: "送信",
+                aiClearBtn: "チャットを消去",
+                aiQuickSuggestionsLabel: "クイック:",
+                aiAssistantTyping: "アシスタントが入力中...",
+                aiRoleStudent: "生徒",
+                aiRoleTeacher: "先生",
+                aiRoleParent: "保護者",
+},
         };
 
         const excelTranslations = {
@@ -7665,6 +8346,13 @@
                 const key = el.getAttribute('data-i18n-placeholder');
                 if (translations[lang] && translations[lang][key]) {
                     el.placeholder = translations[lang][key];
+                }
+            });
+
+            rootElement.querySelectorAll('[data-i18n-title]').forEach(el => {
+                const key = el.getAttribute('data-i18n-title');
+                if (translations[lang] && translations[lang][key]) {
+                    el.title = translations[lang][key];
                 }
             });
 
@@ -8625,8 +9313,13 @@
             if (teacherShareLangSelect) teacherShareLangSelect.value = lang;
             const modalShareLangSelect = document.getElementById('modal-share-quiz-language');
             if (modalShareLangSelect) modalShareLangSelect.value = lang;
+            const aiChatLangSelect = document.getElementById('ai-chat-lang-selector');
+            if (aiChatLangSelect) aiChatLangSelect.value = lang;
 
             applyTranslations(document);
+            if (typeof updateAiChatbotLanguage === 'function') {
+                updateAiChatbotLanguage(lang);
+            }
             if (typeof loadBrandingFromStorage === 'function') loadBrandingFromStorage();
             updateAboutModalLanguage(lang);
 
@@ -13100,25 +13793,175 @@
         // --- AI Chatbot Assistant Logic ---
         let aiChatHistory = [];
 
-        function openAiChatbotModal() {
-            const modal = document.getElementById('ai-chatbot-modal');
-            if (!modal) return;
-            
+        function updateAiChatbotLanguage(lang) {
+            if (!lang) lang = typeof currentLang !== 'undefined' ? currentLang : 'en';
+
+            // 1. Sync header language selector
+            const aiChatLangSelect = document.getElementById('ai-chat-lang-selector');
+            if (aiChatLangSelect) {
+                aiChatLangSelect.value = lang;
+            }
+
+            // 2. Sync Role tag with localized string
             const roleTag = document.getElementById('ai-chat-role-tag');
             if (roleTag) {
                 const activeRole = typeof currentRole !== 'undefined' ? currentRole : 'student';
-                roleTag.textContent = activeRole.toUpperCase();
+                const roleKey = activeRole === 'teacher' ? 'aiRoleTeacher' : (activeRole === 'parent' ? 'aiRoleParent' : 'aiRoleStudent');
+                const translatedRole = (translations[lang] && translations[lang][roleKey]) ? translations[lang][roleKey] : activeRole.toUpperCase();
+                roleTag.textContent = translatedRole.toUpperCase();
             }
 
-            if (typeof applyTranslations === 'function') {
+            // 3. Apply translations to chatbot modal elements
+            const modal = document.getElementById('ai-chatbot-modal');
+            if (modal && typeof applyTranslations === 'function') {
                 applyTranslations(modal);
             }
+
+            // 4. Render localized quick suggestion chips
+            renderAiChatQuickSuggestions(lang);
+
+            // 5. If history only contains the initial welcome greeting, update it to the new language
+            if (aiChatHistory.length === 1 && aiChatHistory[0].role === 'model') {
+                aiChatHistory[0].content = getWelcomeMessageForLang(lang);
+                renderAiChatMessages();
+            }
+        }
+
+        function renderAiChatQuickSuggestions(lang) {
+            const chipsContainer = document.getElementById('ai-chat-quick-chips');
+            if (!chipsContainer) return;
+
+            if (!lang) lang = typeof currentLang !== 'undefined' ? currentLang : 'en';
+            const role = typeof currentRole !== 'undefined' ? currentRole : 'student';
+
+            const suggestionMap = {
+                en: [
+                    "🔢 12 × 12 = ?",
+                    "📄 How to print worksheets?",
+                    "📲 How to share on WhatsApp?",
+                    "🏆 How to check my score?",
+                    "✨ Quick math tricks"
+                ],
+                ta: [
+                    "🔢 12 × 12 = ?",
+                    "📄 பணித்தாளை அச்சிடுவது எப்படி?",
+                    "📲 வாட்ஸ்அப்பில் பகிர்வது எப்படி?",
+                    "🏆 மதிப்பெண் பார்ப்பது எப்படி?",
+                    "✨ கணித குறுக்குவழிகள்"
+                ],
+                hi: [
+                    "🔢 12 × 12 = ?",
+                    "📄 वर्कशीट कैसे प्रिंट करें?",
+                    "📲 व्हाट्सएप पर कैसे शेयर करें?",
+                    "🏆 स्कोर कैसे चेक करें?",
+                    "✨ गणित शॉर्टकट ट्रिक्स"
+                ],
+                ml: [
+                    "🔢 12 × 12 = ?",
+                    "📄 വർക്ക്‌ഷീറ്റ് എങ്ങനെ പ്രിന്റ് ചെയ്യാം?",
+                    "📲 വാട്ട്‌സ്ആപ്പിൽ എങ്ങനെ പങ്കിടാം?",
+                    "🏆 സ്കോർ എങ്ങനെ പരിശോധിക്കാം?",
+                    "✨ എളുപ്പ വഴികൾ"
+                ],
+                te: [
+                    "🔢 12 × 12 = ?",
+                    "📄 వర్క్‌షీట్‌ను ఎలా ప్రింట్ చేయాలి?",
+                    "📲 వాట్సాప్‌లో ఎలా షేర్ చేయాలి?",
+                    "🏆 స్కోరు ఎలా చూడాలి?",
+                    "✨ సులభ గణిత చిట్కాలు"
+                ],
+                kn: [
+                    "🔢 12 × 12 = ?",
+                    "📄 ವರ್ಕ್‌ಶೀಟ್ ಪ್ರಿಂಟ್ ಮಾಡುವುದು ಹೇಗೆ?",
+                    "📲 ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳುವುದು ಹೇಗೆ?",
+                    "🏆 ಸ್ಕೋರ್ ಪರಿಶೀಲಿಸುವುದು ಹೇಗೆ?",
+                    "✨ ಗಣಿತ ತಂತ್ರಗಳು"
+                ],
+                zh: [
+                    "🔢 12 × 12 = ?",
+                    "📄 如何打印练习题？",
+                    "📲 如何分享到微信/WhatsApp？",
+                    "🏆 如何查看测试成绩？",
+                    "✨ 速算小技巧"
+                ],
+                ar: [
+                    "🔢 12 × 12 = ?",
+                    "📄 كيف أطبع أوراق العمل؟",
+                    "📲 كيف أشارك عبر واتساب؟",
+                    "🏆 كيف أتحقق من نتيجتي؟",
+                    "✨ حيل الرياضيات السريعة"
+                ],
+                fr: [
+                    "🔢 12 × 12 = ?",
+                    "📄 Comment imprimer une fiche ?",
+                    "📲 Comment partager sur WhatsApp ?",
+                    "🏆 Comment voir mon score ?",
+                    "✨ Astuces de calcul mental"
+                ],
+                es: [
+                    "🔢 12 × 12 = ?",
+                    "📄 ¿Cómo imprimir hojas de práctica?",
+                    "📲 ¿Cómo compartir por WhatsApp?",
+                    "🏆 ¿Cómo ver mi puntuación?",
+                    "✨ Trucos rápidos de matemáticas"
+                ],
+                ru: [
+                    "🔢 12 × 12 = ?",
+                    "📄 Как распечатать рабочий лист?",
+                    "📲 Как поделиться через WhatsApp?",
+                    "🏆 Как узнать свою оценку?",
+                    "✨ Математические лайфхаки"
+                ],
+                nl: [
+                    "🔢 12 × 12 = ?",
+                    "📄 Hoe print ik een werkblad?",
+                    "📲 Hoe delen via WhatsApp?",
+                    "🏆 Hoe bekijk ik mijn score?",
+                    "✨ Snelle rekentrucs"
+                ],
+                pt: [
+                    "🔢 12 × 12 = ?",
+                    "📄 Como imprimir fichas de exercícios?",
+                    "📲 Como compartilhar no WhatsApp?",
+                    "🏆 Como ver minha pontuação?",
+                    "✨ Truques de cálculo rápido"
+                ],
+                ms: [
+                    "🔢 12 × 12 = ?",
+                    "📄 Cara cetak lembaran kerja?",
+                    "📲 Cara kongsi di WhatsApp?",
+                    "🏆 Cara semak markah saya?",
+                    "✨ Helah matematik pantas"
+                ],
+                ja: [
+                    "🔢 12 × 12 = ?",
+                    "📄 ワークシートの印刷方法は？",
+                    "📲 WhatsAppでの共有方法は？",
+                    "🏆 スコアの確認方法は？",
+                    "✨ 計算の裏技"
+                ]
+            };
+
+            const suggestions = suggestionMap[lang] || suggestionMap.en;
+
+            chipsContainer.innerHTML = suggestions.map(text => {
+                // Escape attribute string
+                const safeText = text.replace(/"/g, '&quot;');
+                return `<button type="button" onclick="sendAiChatMessage('${safeText}')" class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium bg-white hover:bg-indigo-50 text-indigo-700 hover:text-indigo-900 border border-slate-200 hover:border-indigo-300 shadow-2xs transition-all active:scale-95 shrink-0 cursor-pointer">${text}</button>`;
+            }).join('');
+        }
+
+        function openAiChatbotModal() {
+            const modal = document.getElementById('ai-chatbot-modal');
+            if (!modal) return;
+
+            const userLang = typeof currentLang !== 'undefined' ? currentLang : 'en';
+            updateAiChatbotLanguage(userLang);
 
             modal.classList.remove('hidden');
             modal.classList.add('flex');
 
             if (aiChatHistory.length === 0) {
-                const userLang = typeof currentLang !== 'undefined' ? currentLang : 'en';
                 const welcomeMsg = getWelcomeMessageForLang(userLang);
                 aiChatHistory.push({ role: 'model', content: welcomeMsg, time: getCurrentTimeString() });
                 renderAiChatMessages();
@@ -13147,20 +13990,20 @@
 
         function getWelcomeMessageForLang(lang) {
             const welcomeMap = {
-                ta: "வணக்கம்! நான் EduBot, எடுமேட்ரிக்ஸ் மாஸ்டரின் AI உதவியாளர். கணிதப் பயிற்சி, தாள்கள் அச்சிடுதல் அல்லது அம்சங்கள் பற்றி என்ன வேண்டுமானாலும் கேட்கலாம்!",
-                hi: "नमस्ते! मैं EduBot हूँ, EduMatrix Master का AI सहायक। गणित अभ्यास, वर्कशीट प्रिंटिंग या सुविधाओं के बारे में कुछ भी पूछें!",
-                ml: "നമസ്കാരം! ഞാൻ EduBot ആണ്, EduMatrix Master-ന്റെ AI സഹായി. ഗണിത പരിശീലനം, വർക്ക്‌ഷീറ്റ് പ്രിന്റിംഗ് എന്നിവയെക്കുറിച്ച് എന്തും ചോദിക്കാം!",
-                te: "నమస్కారం! నేను EduBot ని, EduMatrix Master యొక్క AI సహాయకుడిని. గణిత సాధన, వర్క్‌షീట్ ప్రింటింగ్ లేదా ఫీచర్ల గురించి ఏదైనా అడగండి!",
-                kn: "ನಮಸ್ಕಾರ! ನಾನು EduBot, EduMatrix Master ನ AI ಸಹಾಯಕ. ಗಣಿತ ತರಬೇತಿ, ವರ್ಕ್‌ಶೀಟ್ ಪ್ರಿಂಟಿಂಗ್ ಕುರಿತು ಏನನ್ನಾದರೂ ಕೇಳಿ!",
-                zh: "你好！我是 EduBot，EduMatrix Master 的 AI 助手。关于数学练习、工作表打印或应用程序功能，随时向我提问！",
-                es: "¡Hola! Soy EduBot, el asistente de IA de EduMatrix Master. Pregúntame cualquier cosa sobre práctica de matemáticas, impresión de hojas de trabajo o funciones.",
-                fr: "Bonjour ! Je suis EduBot, l'assistant IA d'EduMatrix Master. Posez-moi toutes vos questions sur les exercices de maths, l'impression de fiches ou les fonctionnalités !",
-                ar: "مرحباً! أنا EduBot، مساعد الذكاء الاصطناعي لـ EduMatrix Master. اسألني أي شيء عن تمارين الرياضيات، طباعة أوراق العمل، أو الميزات!",
-                ru: "Здравствуйте! Я EduBot, AI-помощник EduMatrix Master. Спрашивайте меня о математических упражнениях, печати рабочих листов или функциях приложения!",
-                nl: "Hallo! Ik ben EduBot, de AI-assistent van EduMatrix Master. Vraag me alles over wiskundeoefeningen, werkbladen afdrukken of functies!",
-                pt: "Olá! Sou o EduBot, o assistente de IA do EduMatrix Master. Pergunte-me qualquer coisa sobre prática de matemática, impressão de folhas de trabalho ou recursos!",
-                ms: "Helo! Saya EduBot, pembantu AI EduMatrix Master. Tanya saya apa sahaja tentang latihan matematik, mencetak lembaran kerja atau ciri-ciri aplikasi!",
-                ja: "こんにちは！EduMatrix MasterのAIアシスタントEduBotです。算数の練習、ワークシートの印刷、機能について何でも聞いてください！"
+                ta: "வணக்கம்! 👋 நான் EduBot, எடுமேட்ரிக்ஸ் மாஸ்டரின் AI உதவியாளர். கணிதப் பயிற்சி, தாள்கள் அச்சிடுதல், வாட்ஸ்அப்பில் பகிர்தல் அல்லது அம்சங்கள் பற்றி என்ன வேண்டுமானாலும் கேட்கலாம்!",
+                hi: "नमस्ते! 👋 मैं EduBot हूँ, EduMatrix Master का AI सहायक। गणित अभ्यास, वर्कशीट प्रिंटिंग, व्हाट्सएप शेयरिंग या सुविधाओं के बारे में कुछ भी पूछें!",
+                ml: "നമസ്കാരം! 👋 ഞാൻ EduBot ആണ്, EduMatrix Master-ന്റെ AI സഹായി. ഗണിത പരിശീലനം, വർക്ക്‌ഷീറ്റ് പ്രിന്റിംഗ്, വാട്ട്‌സ്ആപ്പ് ഷെയറിംഗ് എന്നിവയെക്കുറിച്ച് എന്തും ചോദിക്കാം!",
+                te: "నమస్కారం! 👋 నేను EduBot ని, EduMatrix Master యొక్క AI సహాయకుడిని. గణిత సాధన, వర్క్‌షీట్ ప్రింటింగ్, వాట్సాప్ షేరింగ్ లేదా ఫీచర్ల గురించి ఏదైనా అడగండి!",
+                kn: "ನಮಸ್ಕಾರ! 👋 ನಾನು EduBot, EduMatrix Master ನ AI ಸಹಾಯಕ. ಗಣಿತ ತರಬೇತಿ, ವರ್ಕ್‌ಶೀಟ್ ಪ್ರಿಂಟಿಂಗ್, ವಾಟ್ಸಾಪ್ ಹಂಚಿಕೆ ಕುರಿತು ಏನನ್ನಾದರೂ ಕೇಳಿ!",
+                zh: "你好！👋 我是 EduBot，EduMatrix Master 的 AI 智能助手。关于数学口算、工作表打印、微信/WhatsApp 分享或任何功能，随时向我提问！",
+                es: "¡Hola! 👋 Soy EduBot, el asistente de IA de EduMatrix Master. Pregúntame cualquier cosa sobre práctica de matemáticas, impresión de hojas de trabajo o funciones.",
+                fr: "Bonjour ! 👋 Je suis EduBot, l'assistant IA d'EduMatrix Master. Posez-moi toutes vos questions sur les exercices de maths, l'impression de fiches ou les fonctionnalités !",
+                ar: "مرحباً! 👋 أنا EduBot، مساعد الذكاء الاصطناعي لـ EduMatrix Master. اسألني أي شيء عن تمارين الرياضيات، طباعة أوراق العمل، أو الميزات!",
+                ru: "Здравствуйте! 👋 Я EduBot, AI-помощник EduMatrix Master. Спрашивайте меня о математических упражнениях, печати рабочих листов или функциях приложения!",
+                nl: "Hallo! 👋 Ik ben EduBot, de AI-assistent van EduMatrix Master. Vraag me alles over wiskundeoefeningen, werkbladen afdrukken of functies!",
+                pt: "Olá! 👋 Sou o EduBot, o assistente de IA do EduMatrix Master. Pergunte-me qualquer coisa sobre prática de matemática, impressão de folhas de trabalho ou recursos!",
+                ms: "Helo! 👋 Saya EduBot, pembantu AI EduMatrix Master. Tanya saya apa sahaja tentang latihan matematik, mencetak lembaran kerja atau ciri-ciri aplikasi!",
+                ja: "こんにちは！👋 EduMatrix MasterのAIアシスタントEduBotです。算数の練習、ワークシートの印刷、機能について何でも聞いてください！"
             };
             return welcomeMap[lang] || "Hello! 👋 I am EduBot, your AI Assistant for EduMatrix Master. Ask me anything about math practice, printing worksheets, teacher/parent features, or math problem-solving!";
         }
@@ -13178,7 +14021,7 @@
 
                 if (!isUser) {
                     const avatar = document.createElement('div');
-                    avatar.className = 'w-7 h-7 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center text-xs shrink-0 border border-indigo-200 font-semibold';
+                    avatar.className = 'w-7 h-7 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center text-xs shrink-0 border border-indigo-200 font-semibold shadow-2xs';
                     avatar.innerHTML = '<i class="fas fa-graduation-cap"></i>';
                     msgWrapper.appendChild(avatar);
                 }
@@ -13205,7 +14048,7 @@
 
                 if (isUser) {
                     const avatar = document.createElement('div');
-                    avatar.className = 'w-7 h-7 rounded-lg bg-slate-200 text-slate-600 flex items-center justify-center text-xs shrink-0 border border-slate-300 font-semibold';
+                    avatar.className = 'w-7 h-7 rounded-lg bg-slate-200 text-slate-600 flex items-center justify-center text-xs shrink-0 border border-slate-300 font-semibold shadow-2xs';
                     avatar.innerHTML = '<i class="fas fa-user"></i>';
                     msgWrapper.appendChild(avatar);
                 }
@@ -13252,7 +14095,7 @@
 
             try {
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 12000); // 12 sec timeout for mobile networks
+                const timeoutId = setTimeout(() => controller.abort(), 12000); // 12 sec timeout
 
                 const response = await fetch('/api/chat', {
                     method: 'POST',
@@ -13292,8 +14135,8 @@
         function getSmartClientFallbackReply(userText, role, lang) {
             const query = (userText || '').toLowerCase().trim();
 
-            // Simple math problem evaluator
-            const mathMatch = query.match(/(\d+)\s*([\+\-\*\/x×÷])\s*(\d+)/);
+            // Math problem evaluator
+            const mathMatch = query.match(/(\d+)\s*([\+\-\*/x×÷])\s*(\d+)/);
             if (mathMatch) {
                 const num1 = parseFloat(mathMatch[1]);
                 const op = mathMatch[2];
@@ -13306,42 +14149,58 @@
                 else if (op === '/' || op === '÷') { result = num2 !== 0 ? num1 / num2 : NaN; opSymbol = '÷'; }
 
                 if (!isNaN(result)) {
+                    if (lang === 'ta') {
+                        return `🔢 **கணிதத் தீர்வு:**\n\n${num1} ${opSymbol} ${num2} = **${result}**\n\nசிறப்பான பயிற்சி! உங்கள் வேகத்தை சோதிக்க வினாடி வினாவைத் தொடங்கவும்! 🚀`;
+                    } else if (lang === 'hi') {
+                        return `🔢 **गणित हल:**\n\n${num1} ${opSymbol} ${num2} = **${result}**\n\nशानदार अभ्यास! अपनी गति का परीक्षण करने के लिए ऊपर क्विज़ शुरू करें! 🚀`;
+                    } else if (lang === 'ml') {
+                        return `🔢 **ഗണിത പരിഹാരം:**\n\n${num1} ${opSymbol} ${num2} = **${result}**\n\nമികച്ച പരിശീലനം! ക്വിസ് ആരംഭിച്ച് കൂടുതൽ പരിശീലിക്കുക! 🚀`;
+                    } else if (lang === 'te') {
+                        return `🔢 **గణిత పరిష్కారం:**\n\n${num1} ${opSymbol} ${num2} = **${result}**\n\nచక్కటి సాధన! పై క్విజ్ ద్వారా మీ వేగాన్ని పరీక్షించుకోండి! 🚀`;
+                    } else if (lang === 'kn') {
+                        return `🔢 **ಗಣಿತ ಪರಿಹಾರ:**\n\n${num1} ${opSymbol} ${num2} = **${result}**\n\nಉತ್ತಮ ಅಭ್ಯಾಸ! ರಸಪ್ರಶ್ನೆ ಪ್ರಾರಂಭಿಸಿ ನಿಮ್ಮ ವೇಗವನ್ನು ಪರೀಕ್ಷಿಸಿ! 🚀`;
+                    }
                     return `🔢 **Math Solution:**\n\n${num1} ${opSymbol} ${num2} = **${result}**\n\nGreat job practicing! You can test your speed on full practice quizzes using the navigation bar above! 🚀`;
                 }
             }
 
-            // Greetings
-            if (query.includes('hi') || query.includes('hello') || query.includes('hey') || query.includes('வணக்கம்') || query.includes('नमस्ते')) {
-                if (role === 'teacher') {
-                    return `👋 **Welcome Teacher!** I am **EduBot**, your AI Assistant for EduMatrix Master.\n\nI can help you with:\n- 📝 Generating printable worksheets with answer keys\n- 📲 Sharing quiz assignments directly via WhatsApp\n- 🏫 Customizing school branding & class rosters\n\nHow can I help your classroom today?`;
-                } else if (role === 'parent') {
-                    return `👋 **Hello Parent!** I am **EduBot**, your child's math learning companion.\n\nI can assist with:\n- 📊 Reviewing math practice scores and reports\n- 📄 Creating home practice worksheets\n- ✍️ Signature report cards\n\nWhat would you like to check today?`;
-                } else {
-                    return `👋 **Hello Math Champion!** I am **EduBot**, your math assistant.\n\nAsk me any math question or ask how to use EduMatrix Master! 🌟`;
+            // Localized fallback responses
+            if (lang === 'ta') {
+                if (query.includes('worksheet') || query.includes('பணித்தாள்') || query.includes('print') || query.includes('அச்சு')) {
+                    return `📄 **EduMatrix-ல் பணித்தாள்களை அச்சிடுவது எப்படி:**\n\n1. முகப்புப் பக்கத்தில் உங்கள் **வகுப்பு (Standard)** மற்றும் கணிதச் செயல்பாட்டைத் தேர்ந்தெடுக்கவும்.\n2. **"பணித்தாள் பார்வை (Worksheet View)"** பொத்தானைக் கிளிக் செய்யவும்.\n3. பள்ளிப் பெயர், வினாக்களின் எண்ணிக்கை ஆகியவற்றைத் தனிப்பயனாக்கவும்.\n4. **"Print / Save as PDF"** கிளிக் செய்து உடனடியாக அச்சிடலாம் அல்லது PDF வடிவில் பதிவிறக்கலாம்! 🖨️`;
                 }
+                if (query.includes('whatsapp') || query.includes('வாட்ஸ்அப்') || query.includes('பகிர்')) {
+                    return `📲 **வினாடி வினாவை வாட்ஸ்அப்பில் பகிர்வது எப்படி:**\n\n1. ஆசிரியர் அல்லது பெற்றோர் பயன்முறையில் பச்சை நிற **"வினாடி வினாவைப் பகிர்க"** பொத்தானைத் தட்டவும்.\n2. மாணவர்களுக்கான வினாடி வினா விவரங்களுடன் வாட்ஸ்அப் செய்தி தானாக உருவாகும்.\n3. அதை உங்கள் வாட்ஸ்அப் குழுவுக்கு உடனடியாக அனுப்பலாம்! 🎯`;
+                }
+                if (query.includes('score') || query.includes('மதிப்பெண்') || query.includes('சான்றிதழ்')) {
+                    return `📊 **மதிப்பெண் மற்றும் முன்னேற்ற அறிக்கையை அறிவது:**\n\n- வினாடி வினா முடிந்ததும் **"எனது மதிப்பெண்ணை சரிபார்க்கவும்!"** என்பதைக் கிளிக் செய்யவும்.\n- முழுமையான செயல்திறன் அறிக்கையைப் பார்க்க **"முழு அறிக்கையைப் பார்க்கவும்"** என்பதை அழுத்தவும்! 🏆`;
+                }
+                return `🤖 **EduBot AI உதவியாளர் - எடுமேட்ரிக்ஸ் மாஸ்டர்**\n\nநான் உங்களுக்கு உதவத் தயாராக உள்ளேன்!\n- 🧮 **கணித கணக்குகளுக்கு தீர்வு:** "12 x 15" போன்ற எந்தக் கணக்கையும் கேட்கலாம்.\n- 📄 **பணித்தாள் அச்சிட:** "பணித்தாள் அச்சிடுவது எப்படி" என்று கேளுங்கள்.\n- 📲 **வாட்ஸ்அப் பகிர்வு:** "வாட்ஸ்அப்பில் எப்படி பகிர்வது" என்று கேளுங்கள்.`;
             }
 
-            // Worksheets / Printing
+            if (lang === 'hi') {
+                if (query.includes('worksheet') || query.includes('वर्कशीट') || query.includes('print') || query.includes('प्रिंट')) {
+                    return `📄 **EduMatrix में वर्कशीट कैसे प्रिंट करें:**\n\n1. मुख्य पृष्ठ पर अपनी **कक्षा (Grade)** और गणितीय संक्रिया चुनें।\n2. **"वर्कशीट व्यू (Worksheet View)"** टैब पर क्लिक करें।\n3. स्कूल का नाम और प्रश्नों की संख्या अनुकूलित करें।\n4. **"Print / Save as PDF"** पर क्लिक करें और तुरंत प्रिंट करें या PDF डाउनलोड करें! 🖨️`;
+                }
+                if (query.includes('whatsapp') || query.includes('व्हाट्सएप') || query.includes('शेयर')) {
+                    return `📲 **व्हाट्सएप पर क्विज़ कैसे शेयर करें:**\n\n1. शिक्षक या अभिभावक मोड में हरे रंग के **"क्विज़ शेयर करें"** बटन पर क्लिक करें।\n2. असाइनमेंट विवरण के साथ एक संदेश स्वचालित रूप से तैयार हो जाएगा।\n3. इसे अपने व्हाट्सएप ग्रुप में भेजें! 🎯`;
+                }
+                return `🤖 **EduBot AI सहायक - EduMatrix Master**\n\nमैं आपकी सहायता के लिए तैयार हूँ!\n- 🧮 **गणित हल:** "25 x 4" जैसे किसी भी सवाल का हल पूछें।\n- 📄 **वर्कशीट प्रिंट:** "वर्कशीट कैसे प्रिंट करें" पूछें।\n- 📲 **व्हाट्सएप शेयर:** "व्हाट्सएप पर कैसे शेयर करें" पूछें।`;
+            }
+
+            // English & Global General Fallback
             if (query.includes('worksheet') || query.includes('print') || query.includes('pdf') || query.includes('download')) {
                 return `📄 **How to Print Worksheets in EduMatrix Master:**\n\n1. Choose your **Grade / Standard** and math operation on the main page.\n2. Click the **Worksheet View** tab or press **"Generate Printable Worksheet"**.\n3. Customize questions, school headers, and answer key options.\n4. Click **"Print / Save as PDF"** to print or download instantly! 🖨️`;
             }
 
-            // WhatsApp / Sharing
             if (query.includes('whatsapp') || query.includes('share') || query.includes('send') || query.includes('code')) {
                 return `📲 **How to Share Quizzes via WhatsApp:**\n\n1. In **Teacher** or **Parent** mode, click the green **"Share Quiz"** button.\n2. A customized WhatsApp message with assignment details will generate automatically.\n3. Send it to your student or parent group on WhatsApp! 🎯`;
             }
 
-            // Scores / Progress
             if (query.includes('score') || query.includes('progress') || query.includes('report') || query.includes('badge')) {
                 return `📊 **Checking Scores & Performance:**\n\n- After taking a quiz, click **"Check My Score!"** to see your grade, time spent, and breakdown.\n- Click **"View Full Report Card"** to generate a printable performance certificate! 🏆`;
             }
 
-            // Languages / Standards
-            if (query.includes('language') || query.includes('grade') || query.includes('standard') || query.includes('tamil') || query.includes('hindi')) {
-                return `🌐 **Language & Grade Settings:**\n\n- **Languages:** Use the language selector at the top right to switch between 15 global languages.\n- **Grades:** Select **1st to 8th Standard** on the top grade bar to auto-adjust quiz difficulty!`;
-            }
-
-            // Default fallback
             return `🤖 **EduBot AI Assistant - EduMatrix Master**\n\nI'm ready to assist you! Here are key things you can ask or do:\n- 🧮 **Solve Math Problems:** Type any calculation like "what is 12 x 12".\n- 📄 **Print Worksheets:** Ask "how to print worksheets".\n- 📲 **Share on WhatsApp:** Ask "how to share on WhatsApp".\n- 🎯 **Practice Math:** Select Addition, Subtraction, Multiplication, or Division on the top bar!`;
         }
 
@@ -17319,6 +18178,909 @@ ${messageText}`;
             stopVoiceTutorExplanation();
             playVoiceTutorSection(0);
         }
-    </script>
+    
+
+                // =========================================================================
+        // --- Real Agora WebRTC & Real-Time Classroom Chat Sync Engine ---
+        // =========================================================================
+        let agoraRtcClient = null;
+        let agoraLocalAudioTrack = null;
+        let agoraLocalVideoTrack = null;
+        let agoraScreenTrack = null;
+        let agoraIsAudioMuted = false;
+        let agoraIsVideoMuted = false;
+        let agoraIsScreenSharing = false;
+        let agoraIsCallActive = false;
+        let agoraIsPiPActive = false;
+        let agoraAppId = '';
+        let agoraRemoteUsers = {};
+        let agoraCurrentCameraId = null;
+        let agoraAvailableCameras = [];
+
+        // Real-Time WebSocket Connection for Live Chat and Emoji Reaction Broadcasts
+        let classroomWs = null;
+        let classroomWsReconnectTimer = null;
+        let classroomCurrentRoom = 'Math-Classroom-1';
+        let classroomChatMessagesList = [];
+
+        // Initialize Agora Configuration from Backend / Secrets on startup
+        async function initAgoraConfig() {
+            try {
+                const res = await fetch('/api/agora/config');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && data.appId) {
+                        agoraAppId = data.appId.trim();
+                    }
+                }
+            } catch (err) {
+                console.warn('Agora config fetch notice:', err);
+            }
+
+            // Check local storage override if any
+            try {
+                const savedAppId = localStorage.getItem('edumatrix_agora_appid');
+                if (savedAppId && savedAppId.trim()) {
+                    agoraAppId = savedAppId.trim();
+                }
+            } catch (e) {}
+
+            // Pre-connect WebSocket for the default/selected room
+            const roomInput = document.getElementById('agora-room-input');
+            if (roomInput && roomInput.value.trim()) {
+                classroomCurrentRoom = roomInput.value.trim();
+            }
+            connectClassroomWebSocket(classroomCurrentRoom);
+        }
+
+        // Connect or reconnect WebSocket for Room
+        function connectClassroomWebSocket(roomName) {
+            if (!roomName) roomName = 'Math-Classroom-1';
+            classroomCurrentRoom = roomName.trim();
+
+            if (classroomWs && (classroomWs.readyState === WebSocket.OPEN || classroomWs.readyState === WebSocket.CONNECTING)) {
+                // If already open, just send room join event
+                try {
+                    classroomWs.send(JSON.stringify({
+                        type: 'join',
+                        room: classroomCurrentRoom,
+                        senderName: getUserDisplayName(),
+                        role: typeof currentRole !== 'undefined' ? currentRole : 'student'
+                    }));
+                } catch(e) {}
+                return;
+            }
+
+            try {
+                const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+                const wsUrl = `${protocol}//${window.location.host}/ws/classroom`;
+                classroomWs = new WebSocket(wsUrl);
+
+                classroomWs.onopen = () => {
+                    console.log('[Classroom WS] Connected to live room:', classroomCurrentRoom);
+                    classroomWs.send(JSON.stringify({
+                        type: 'join',
+                        room: classroomCurrentRoom,
+                        senderName: getUserDisplayName(),
+                        role: typeof currentRole !== 'undefined' ? currentRole : 'student'
+                    }));
+                };
+
+                classroomWs.onmessage = (event) => {
+                    try {
+                        const data = JSON.parse(event.data);
+                        handleClassroomWsMessage(data);
+                    } catch (e) {
+                        console.warn('[Classroom WS] Parse error:', e);
+                    }
+                };
+
+                classroomWs.onclose = () => {
+                    console.log('[Classroom WS] Disconnected. Reconnecting in 3s...');
+                    clearTimeout(classroomWsReconnectTimer);
+                    classroomWsReconnectTimer = setTimeout(() => {
+                        connectClassroomWebSocket(classroomCurrentRoom);
+                    }, 3000);
+                };
+
+                classroomWs.onerror = (err) => {
+                    console.warn('[Classroom WS] Error:', err);
+                };
+            } catch (e) {
+                console.warn('[Classroom WS] Connection failed:', e);
+            }
+        }
+
+        function getUserDisplayName() {
+            if (typeof currentRole !== 'undefined') {
+                if (currentRole === 'teacher') return 'Teacher ' + (document.getElementById('teacher-name-input')?.value || 'Tutor');
+                if (currentRole === 'parent') return 'Parent ' + (document.getElementById('parent-name-input')?.value || 'Guardian');
+                return 'Student ' + (document.getElementById('student-name-input')?.value || 'Math Learner');
+            }
+            return 'Learner';
+        }
+
+        // Handle Incoming WebSocket Events (Chat, Reactions, Systems)
+        function handleClassroomWsMessage(data) {
+            if (!data) return;
+
+            if (data.type === 'system') {
+                // Update participant count
+                if (data.participantCount !== undefined) {
+                    updateClassroomParticipantCount(data.participantCount);
+                }
+                appendClassroomSystemMessage(data.text);
+            } else if (data.type === 'chat') {
+                appendClassroomChatMessage(data);
+            } else if (data.type === 'reaction') {
+                triggerAgoraReactionAnimation(data.emoji, data.senderName);
+            } else if (data.type === 'math-sync') {
+                if (data.questionText) {
+                    appendClassroomSystemMessage(`📌 ${data.senderName} shared sum: "${data.questionText}"`);
+                }
+            }
+        }
+
+        function updateClassroomParticipantCount(count) {
+            const container = document.getElementById('classroom-participant-count');
+            const numEl = document.getElementById('classroom-participant-count-num');
+            if (container && numEl) {
+                numEl.textContent = count;
+                container.classList.remove('hidden');
+            }
+        }
+
+        function switchClassroomTab(tabName) {
+            const chatView = document.getElementById('classroom-chat-view');
+            const reactionsView = document.getElementById('classroom-reactions-view');
+            const chatTabBtn = document.getElementById('tab-btn-classroom-chat');
+            const reactionsTabBtn = document.getElementById('tab-btn-classroom-reactions');
+
+            if (tabName === 'chat') {
+                if (chatView) chatView.classList.remove('hidden');
+                if (reactionsView) reactionsView.classList.add('hidden');
+                if (chatTabBtn) chatTabBtn.className = 'flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 bg-indigo-600 text-white shadow-xs cursor-pointer';
+                if (reactionsTabBtn) reactionsTabBtn.className = 'flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 text-slate-400 hover:text-white cursor-pointer';
+                
+                // Clear unread badge
+                const badge = document.getElementById('classroom-chat-badge');
+                if (badge) badge.classList.add('hidden');
+            } else {
+                if (chatView) chatView.classList.add('hidden');
+                if (reactionsView) reactionsView.classList.remove('hidden');
+                if (chatTabBtn) chatTabBtn.className = 'flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 text-slate-400 hover:text-white cursor-pointer';
+                if (reactionsTabBtn) reactionsTabBtn.className = 'flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 bg-indigo-600 text-white shadow-xs cursor-pointer';
+            }
+        }
+
+        function onClassroomRoomChanged() {
+            const roomInput = document.getElementById('agora-room-input');
+            const newRoom = (roomInput && roomInput.value.trim()) ? roomInput.value.trim() : 'Math-Classroom-1';
+            
+            if (newRoom !== classroomCurrentRoom) {
+                classroomCurrentRoom = newRoom;
+                connectClassroomWebSocket(classroomCurrentRoom);
+                if (agoraIsCallActive) {
+                    if (typeof showCustomToast === 'function') {
+                        showCustomToast(`Switched classroom room to "${newRoom}". Rejoining call...`, 'info');
+                    }
+                    toggleAgoraCallState().then(() => toggleAgoraCallState());
+                }
+            }
+        }
+
+        // Send Live Text Chat Message
+        function handleSendClassroomChat(e) {
+            if (e) e.preventDefault();
+            const input = document.getElementById('classroom-chat-input');
+            if (!input || !input.value.trim()) return;
+
+            const text = input.value.trim();
+            input.value = '';
+
+            const senderName = getUserDisplayName();
+            const role = typeof currentRole !== 'undefined' ? currentRole : 'student';
+
+            if (classroomWs && classroomWs.readyState === WebSocket.OPEN) {
+                classroomWs.send(JSON.stringify({
+                    type: 'chat',
+                    room: classroomCurrentRoom,
+                    senderName,
+                    role,
+                    text
+                }));
+            } else {
+                // Local echo fallback if offline
+                appendClassroomChatMessage({
+                    senderName,
+                    role,
+                    text,
+                    timestamp: Date.now()
+                });
+            }
+        }
+
+        function sendQuickClassroomChat(msg) {
+            const input = document.getElementById('classroom-chat-input');
+            if (input) {
+                input.value = msg;
+                handleSendClassroomChat();
+            }
+        }
+
+        function appendClassroomChatMessage(data) {
+            const container = document.getElementById('classroom-chat-messages');
+            if (!container) return;
+
+            const isMe = data.senderName === getUserDisplayName();
+            const roleColor = data.role === 'teacher' ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30' : (data.role === 'parent' ? 'bg-amber-500/20 text-amber-300 border-amber-500/30' : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30');
+
+            const timeStr = new Date(data.timestamp || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            const bubble = document.createElement('div');
+            bubble.className = `flex flex-col ${isMe ? 'items-end' : 'items-start'} gap-1 max-w-[85%] ${isMe ? 'ml-auto' : 'mr-auto'}`;
+
+            bubble.innerHTML = `
+                <div class="flex items-center gap-1.5 text-[10px] text-slate-400">
+                    <span class="font-bold ${isMe ? 'text-indigo-400' : 'text-slate-300'}">${data.senderName}</span>
+                    <span class="px-1.5 py-0.2 rounded-md border text-[9px] font-semibold ${roleColor}">${data.role || 'user'}</span>
+                    <span>${timeStr}</span>
+                </div>
+                <div class="px-3 py-2 rounded-2xl text-xs leading-relaxed ${isMe ? 'bg-indigo-600 text-white rounded-tr-xs' : 'bg-slate-800 text-slate-100 rounded-tl-xs border border-slate-700/60'} shadow-sm break-words">
+                    ${data.text}
+                </div>
+            `;
+
+            container.appendChild(bubble);
+            container.scrollTop = container.scrollHeight;
+
+            // If user is currently on reactions tab and message is not from me, show badge
+            const chatView = document.getElementById('classroom-chat-view');
+            if (chatView && chatView.classList.contains('hidden') && !isMe) {
+                const badge = document.getElementById('classroom-chat-badge');
+                if (badge) {
+                    badge.classList.remove('hidden');
+                    const count = parseInt(badge.textContent || '0') + 1;
+                    badge.textContent = count;
+                }
+            }
+        }
+
+        function appendClassroomSystemMessage(text) {
+            const container = document.getElementById('classroom-chat-messages');
+            if (!container || !text) return;
+
+            const notice = document.createElement('div');
+            notice.className = 'text-center py-1';
+            notice.innerHTML = `<span class="px-2.5 py-0.5 rounded-full bg-slate-800/80 border border-slate-700/60 text-[10px] text-slate-400 font-medium">${text}</span>`;
+            container.appendChild(notice);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Toggle Live Tutor Sidebar / Split View
+        function toggleLiveTutorSidebar() {
+            const panel = document.getElementById('live-tutor-panel');
+            const floatingPip = document.getElementById('agora-floating-pip');
+
+            if (!panel) return;
+
+            if (panel.classList.contains('hidden') || panel.classList.contains('translate-x-full')) {
+                // Open panel
+                panel.classList.remove('hidden');
+                setTimeout(() => panel.classList.remove('translate-x-full'), 10);
+                if (floatingPip) floatingPip.classList.add('hidden');
+                agoraIsPiPActive = false;
+
+                // Sync current active math question
+                syncActiveMathQuestionToCall();
+                
+                // Add right margin on desktop split-screen so math quiz board remains 100% visible
+                document.body.classList.add('lg:pr-[490px]');
+                document.body.classList.add('transition-all');
+                document.body.classList.add('duration-300');
+            } else {
+                // Close panel
+                panel.classList.add('translate-x-full');
+                setTimeout(() => panel.classList.add('hidden'), 300);
+                document.body.classList.remove('lg:pr-[490px]');
+
+                // If call is active, minimize to floating PiP so student can keep talking while doing math
+                if (agoraIsCallActive && floatingPip) {
+                    floatingPip.classList.remove('hidden');
+                    agoraIsPiPActive = true;
+                }
+            }
+        }
+
+        function toggleLiveTutorPiP() {
+            const panel = document.getElementById('live-tutor-panel');
+            const floatingPip = document.getElementById('agora-floating-pip');
+            if (!panel) return;
+
+            panel.classList.add('translate-x-full');
+            setTimeout(() => panel.classList.add('hidden'), 300);
+            document.body.classList.remove('lg:pr-[490px]');
+
+            if (floatingPip) {
+                floatingPip.classList.remove('hidden');
+                agoraIsPiPActive = true;
+            }
+        }
+
+        function restoreLiveTutorSidebar() {
+            const panel = document.getElementById('live-tutor-panel');
+            const floatingPip = document.getElementById('agora-floating-pip');
+            if (floatingPip) floatingPip.classList.add('hidden');
+            agoraIsPiPActive = false;
+
+            if (panel) {
+                panel.classList.remove('hidden');
+                setTimeout(() => panel.classList.remove('translate-x-full'), 10);
+                document.body.classList.add('lg:pr-[490px]');
+                syncActiveMathQuestionToCall();
+            }
+        }
+
+        // Toggle Agora Call State (Join / Leave)
+        async function toggleAgoraCallState() {
+            if (agoraIsCallActive) {
+                await leaveAgoraClassroom();
+            } else {
+                await joinAgoraClassroom();
+            }
+        }
+
+        // Join Agora Live Classroom Video Call (Direct Real WebRTC)
+        async function joinAgoraClassroom() {
+            const roomInput = document.getElementById('agora-room-input');
+            const channelName = (roomInput && roomInput.value.trim()) ? roomInput.value.trim() : 'Math-Classroom-1';
+            classroomCurrentRoom = channelName;
+
+            // Check AgoraRTC library availability
+            const AgoraSDK = window.AgoraRTC || (typeof AgoraRTC !== 'undefined' ? AgoraRTC : null);
+
+            if (!AgoraSDK) {
+                if (typeof showCustomToast === 'function') {
+                    showCustomToast('Agora RTC Web SDK is initializing. Please wait a moment...', 'info');
+                }
+                return;
+            }
+
+            if (!agoraAppId || agoraAppId.trim().length < 5) {
+                try {
+                    const res = await fetch('/api/agora/config');
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data && data.appId) {
+                            agoraAppId = data.appId.trim();
+                        }
+                    }
+                } catch(e) {}
+            }
+
+            if (!agoraAppId || agoraAppId.trim().length < 5) {
+                if (typeof showCustomToast === 'function') {
+                    showCustomToast('Agora App ID not found. Please verify AGORA_APP_ID environment variable.', 'warning');
+                }
+                return;
+            }
+
+            updateAgoraStatus('Connecting WebRTC...', 'connecting');
+
+            try {
+                // 1. Create client instance
+                agoraRtcClient = AgoraSDK.createClient({ mode: 'rtc', codec: 'vp8' });
+
+                // 2. Set up remote user event handlers
+                agoraRtcClient.on('user-published', async (user, mediaType) => {
+                    try {
+                        await agoraRtcClient.subscribe(user, mediaType);
+                        agoraRemoteUsers[user.uid] = user;
+
+                        if (mediaType === 'video') {
+                            const remoteContainer = document.getElementById('agora-remote-video');
+                            const placeholder = document.getElementById('agora-remote-placeholder');
+                            if (placeholder) placeholder.classList.add('hidden');
+                            if (remoteContainer) {
+                                remoteContainer.innerHTML = '';
+                                user.videoTrack.play(remoteContainer);
+                            }
+                            updateAgoraStatus('Live with Partner', 'connected');
+                            const remoteNameTag = document.getElementById('agora-remote-name-tag');
+                            if (remoteNameTag) {
+                                remoteNameTag.textContent = `Peer (UID: ${user.uid})`;
+                            }
+                            if (typeof showCustomToast === 'function') {
+                                showCustomToast('Partner connected to the live video session!', 'success');
+                            }
+                        }
+
+                        if (mediaType === 'audio') {
+                            user.audioTrack.play();
+                        }
+                    } catch(subErr) {
+                        console.error('[Agora] Subscribe error:', subErr);
+                    }
+                });
+
+                agoraRtcClient.on('user-unpublished', (user, mediaType) => {
+                    if (mediaType === 'video') {
+                        const placeholder = document.getElementById('agora-remote-placeholder');
+                        if (placeholder && Object.keys(agoraRemoteUsers).length <= 1) {
+                            placeholder.classList.remove('hidden');
+                        }
+                    }
+                });
+
+                agoraRtcClient.on('user-left', (user) => {
+                    delete agoraRemoteUsers[user.uid];
+                    const placeholder = document.getElementById('agora-remote-placeholder');
+                    if (placeholder && Object.keys(agoraRemoteUsers).length === 0) {
+                        placeholder.classList.remove('hidden');
+                        const remoteNameTag = document.getElementById('agora-remote-name-tag');
+                        if (remoteNameTag) remoteNameTag.textContent = 'Classroom Stream';
+                    }
+                    updateAgoraStatus('In Room (Waiting)', 'in-room');
+                    if (typeof showCustomToast === 'function') {
+                        showCustomToast('Participant left the video call', 'info');
+                    }
+                });
+
+                // 3. Create Local Camera & Mic Tracks
+                try {
+                    [agoraLocalAudioTrack, agoraLocalVideoTrack] = await AgoraSDK.createMicrophoneAndCameraTracks(
+                        { encoderConfig: 'speech_standard' },
+                        { encoderConfig: { width: 640, height: 480, frameRate: 24, bitrateMax: 600 } }
+                    );
+
+                    // Play local video in picture-in-picture box
+                    const localContainer = document.getElementById('agora-local-video');
+                    if (localContainer && agoraLocalVideoTrack) {
+                        localContainer.innerHTML = '';
+                        agoraLocalVideoTrack.play(localContainer);
+                    }
+                } catch(mediaErr) {
+                    console.warn('[Agora] Camera/Mic permission issue, trying mic only:', mediaErr);
+                    try {
+                        agoraLocalAudioTrack = await AgoraSDK.createMicrophoneAudioTrack();
+                    } catch(e) {
+                        console.warn('[Agora] Audio track failed:', e);
+                    }
+                }
+
+                // 4. Join Agora channel
+                const uid = await agoraRtcClient.join(agoraAppId, channelName, null, null);
+                console.log('[Agora WebRTC] Joined channel successfully with UID:', uid);
+
+                // 5. Publish local tracks
+                const tracksToPublish = [];
+                if (agoraLocalAudioTrack) tracksToPublish.push(agoraLocalAudioTrack);
+                if (agoraLocalVideoTrack) tracksToPublish.push(agoraLocalVideoTrack);
+
+                if (tracksToPublish.length > 0) {
+                    await agoraRtcClient.publish(tracksToPublish);
+                }
+
+                agoraIsCallActive = true;
+                updateAgoraCallControlsUI(true);
+                updateAgoraStatus(Object.keys(agoraRemoteUsers).length > 0 ? 'Live with Partner' : 'In Room (Live)', 'in-room');
+                
+                // Connect WebSocket room
+                connectClassroomWebSocket(channelName);
+
+                if (typeof showCustomToast === 'function') {
+                    showCustomToast(`Joined Live Classroom "${channelName}"!`, 'success');
+                }
+
+                // Enumerate cameras for mobile switching
+                try {
+                    agoraAvailableCameras = await AgoraSDK.getCameras();
+                } catch(e) {}
+
+            } catch (err) {
+                console.error('[Agora] Real Join error:', err);
+                updateAgoraStatus('Connection Error', 'ready');
+                if (typeof showCustomToast === 'function') {
+                    showCustomToast(`Agora WebRTC Error: ${err.message || 'Check camera/mic permissions'}`, 'error');
+                }
+            }
+        }
+
+        // Leave Agora Classroom
+        async function leaveAgoraClassroom() {
+            try {
+                if (agoraLocalAudioTrack) {
+                    agoraLocalAudioTrack.stop();
+                    agoraLocalAudioTrack.close();
+                    agoraLocalAudioTrack = null;
+                }
+                if (agoraLocalVideoTrack) {
+                    agoraLocalVideoTrack.stop();
+                    agoraLocalVideoTrack.close();
+                    agoraLocalVideoTrack = null;
+                }
+                if (agoraScreenTrack) {
+                    agoraScreenTrack.stop();
+                    agoraScreenTrack.close();
+                    agoraScreenTrack = null;
+                }
+                if (agoraRtcClient) {
+                    await agoraRtcClient.leave();
+                    agoraRtcClient = null;
+                }
+            } catch (err) {
+                console.warn('[Agora] Leave call error:', err);
+            }
+
+            agoraIsCallActive = false;
+            agoraRemoteUsers = {};
+            
+            const localContainer = document.getElementById('agora-local-video');
+            if (localContainer) localContainer.innerHTML = '';
+            const remoteContainer = document.getElementById('agora-remote-video');
+            if (remoteContainer) remoteContainer.innerHTML = '';
+            const placeholder = document.getElementById('agora-remote-placeholder');
+            if (placeholder) placeholder.classList.remove('hidden');
+
+            updateAgoraCallControlsUI(false);
+            updateAgoraStatus('Ready', 'ready');
+            if (typeof showCustomToast === 'function') {
+                showCustomToast('Left live video classroom.', 'info');
+            }
+        }
+
+        // Toggle Audio Mute
+        async function toggleAgoraAudio() {
+            if (!agoraIsCallActive) return;
+            agoraIsAudioMuted = !agoraIsAudioMuted;
+
+            if (agoraLocalAudioTrack) {
+                await agoraLocalAudioTrack.setEnabled(!agoraIsAudioMuted);
+            }
+
+            const micIconBox = document.getElementById('agora-mic-icon-box');
+            const micIcon = document.getElementById('agora-mic-icon');
+            const micLbl = document.getElementById('agora-mic-lbl');
+            const micBadge = document.getElementById('agora-local-mic-badge');
+
+            if (agoraIsAudioMuted) {
+                if (micIconBox) { micIconBox.className = 'w-11 h-11 rounded-full bg-rose-600 flex items-center justify-center text-sm shadow-md'; }
+                if (micIcon) micIcon.className = 'fas fa-microphone-slash text-white';
+                if (micLbl) micLbl.textContent = 'Unmute';
+                if (micBadge) micBadge.classList.remove('hidden');
+                if (typeof showCustomToast === 'function') showCustomToast('Microphone Muted', 'info');
+            } else {
+                if (micIconBox) { micIconBox.className = 'w-11 h-11 rounded-full bg-slate-800 flex items-center justify-center text-sm shadow-md'; }
+                if (micIcon) micIcon.className = 'fas fa-microphone text-slate-300';
+                if (micLbl) micLbl.textContent = 'Mic';
+                if (micBadge) micBadge.classList.add('hidden');
+                if (typeof showCustomToast === 'function') showCustomToast('Microphone Unmuted', 'success');
+            }
+        }
+
+        // Toggle Video Camera
+        async function toggleAgoraVideo() {
+            if (!agoraIsCallActive) return;
+            agoraIsVideoMuted = !agoraIsVideoMuted;
+
+            if (agoraLocalVideoTrack) {
+                await agoraLocalVideoTrack.setEnabled(!agoraIsVideoMuted);
+            }
+
+            const camIconBox = document.getElementById('agora-camera-icon-box');
+            const camIcon = document.getElementById('agora-camera-icon');
+            const camLbl = document.getElementById('agora-camera-lbl');
+            const camAvatar = document.getElementById('agora-local-avatar');
+
+            if (agoraIsVideoMuted) {
+                if (camIconBox) { camIconBox.className = 'w-11 h-11 rounded-full bg-rose-600 flex items-center justify-center text-sm shadow-md'; }
+                if (camIcon) camIcon.className = 'fas fa-video-slash text-white';
+                if (camLbl) camLbl.textContent = 'Cam Off';
+                if (camAvatar) camAvatar.classList.remove('hidden');
+            } else {
+                if (camIconBox) { camIconBox.className = 'w-11 h-11 rounded-full bg-slate-800 flex items-center justify-center text-sm shadow-md'; }
+                if (camIcon) camIcon.className = 'fas fa-video text-slate-300';
+                if (camLbl) camLbl.textContent = 'Camera';
+                if (camAvatar) camAvatar.classList.add('hidden');
+            }
+        }
+
+        // Toggle Screen Share
+        async function toggleAgoraScreenShare() {
+            const AgoraSDK = window.AgoraRTC || (typeof AgoraRTC !== 'undefined' ? AgoraRTC : null);
+            if (!agoraIsCallActive || !agoraRtcClient || !AgoraSDK) {
+                if (typeof showCustomToast === 'function') showCustomToast('Join the video call first to share screen', 'info');
+                return;
+            }
+
+            try {
+                if (!agoraIsScreenSharing) {
+                    agoraScreenTrack = await AgoraSDK.createScreenVideoTrack();
+                    if (agoraLocalVideoTrack) {
+                        await agoraRtcClient.unpublish(agoraLocalVideoTrack);
+                    }
+                    await agoraRtcClient.publish(agoraScreenTrack);
+                    agoraIsScreenSharing = true;
+
+                    const screenIconBox = document.getElementById('agora-screen-icon-box');
+                    if (screenIconBox) screenIconBox.className = 'w-11 h-11 rounded-full bg-indigo-600 flex items-center justify-center text-sm shadow-md';
+                    if (typeof showCustomToast === 'function') showCustomToast('Screen sharing started!', 'success');
+
+                    agoraScreenTrack.on('track-ended', async () => {
+                        await toggleAgoraScreenShare();
+                    });
+                } else {
+                    if (agoraScreenTrack) {
+                        await agoraRtcClient.unpublish(agoraScreenTrack);
+                        agoraScreenTrack.stop();
+                        agoraScreenTrack.close();
+                        agoraScreenTrack = null;
+                    }
+                    if (agoraLocalVideoTrack) {
+                        await agoraRtcClient.publish(agoraLocalVideoTrack);
+                    }
+                    agoraIsScreenSharing = false;
+                    const screenIconBox = document.getElementById('agora-screen-icon-box');
+                    if (screenIconBox) screenIconBox.className = 'w-11 h-11 rounded-full bg-slate-800 flex items-center justify-center text-sm shadow-md';
+                    if (typeof showCustomToast === 'function') showCustomToast('Stopped screen sharing', 'info');
+                }
+            } catch (err) {
+                console.warn('Screen share cancelled or failed:', err);
+            }
+        }
+
+        // Switch Mobile Front / Rear Camera
+        async function switchAgoraCamera() {
+            if (!agoraLocalVideoTrack || !agoraAvailableCameras || agoraAvailableCameras.length <= 1) {
+                if (typeof showCustomToast === 'function') showCustomToast('Camera toggled', 'info');
+                return;
+            }
+            try {
+                const currentIdx = agoraAvailableCameras.findIndex(c => c.deviceId === agoraCurrentCameraId);
+                const nextIdx = (currentIdx + 1) % agoraAvailableCameras.length;
+                agoraCurrentCameraId = agoraAvailableCameras[nextIdx].deviceId;
+                await agoraLocalVideoTrack.setDevice(agoraCurrentCameraId);
+                if (typeof showCustomToast === 'function') {
+                    showCustomToast(`Switched to ${agoraAvailableCameras[nextIdx].label || 'Camera'}`, 'success');
+                }
+            } catch(err) {
+                console.warn('Camera switch notice:', err);
+            }
+        }
+
+        // Send Animated Reaction Emoji and Broadcast via WebSocket
+        function sendAgoraReaction(emoji) {
+            // 1. Render local animation
+            triggerAgoraReactionAnimation(emoji, 'You');
+
+            // 2. Broadcast to everyone in the room via WebSocket
+            if (classroomWs && classroomWs.readyState === WebSocket.OPEN) {
+                classroomWs.send(JSON.stringify({
+                    type: 'reaction',
+                    room: classroomCurrentRoom,
+                    senderName: getUserDisplayName(),
+                    emoji
+                }));
+            }
+        }
+
+        // Trigger Floating Animated Reaction
+        function triggerAgoraReactionAnimation(emoji, senderLabel) {
+            const container = document.getElementById('agora-reactions-container');
+            if (!container) return;
+
+            // Spawn floating bubble with sender tag
+            for (let i = 0; i < 2; i++) {
+                const bubble = document.createElement('div');
+                const isMain = i === 0;
+                bubble.className = isMain 
+                    ? 'flex flex-col items-center pointer-events-none drop-shadow-2xl z-30 select-none' 
+                    : 'pointer-events-none drop-shadow-lg opacity-80 z-20 select-none';
+                
+                if (isMain && senderLabel && senderLabel !== 'You') {
+                    bubble.innerHTML = `
+                        <span class="px-2 py-0.5 rounded-full bg-slate-900/90 text-indigo-300 text-[10px] font-extrabold border border-indigo-500/40 mb-1 whitespace-nowrap shadow-md">${senderLabel}</span>
+                        <span class="text-4xl sm:text-5xl">${emoji}</span>
+                    `;
+                } else {
+                    bubble.innerHTML = `<span class="${isMain ? 'text-4xl sm:text-5xl' : 'text-2xl sm:text-3xl'}">${emoji}</span>`;
+                }
+
+                bubble.style.position = 'absolute';
+                const randomX = Math.floor(15 + Math.random() * 70);
+                bubble.style.left = isMain ? `${randomX}%` : `${randomX + (Math.random() * 10 - 5)}%`;
+                bubble.style.bottom = isMain ? '15%' : '25%';
+                bubble.style.transition = 'all 0.9s cubic-bezier(0.25, 1, 0.5, 1)';
+
+                container.appendChild(bubble);
+
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        const riseAmount = isMain ? -160 - Math.random() * 60 : -120 - Math.random() * 40;
+                        const driftAmount = (Math.random() - 0.5) * 60;
+                        const rotateDeg = (Math.random() - 0.5) * 40;
+                        bubble.style.transform = `translate(${driftAmount}px, ${riseAmount}px) scale(${isMain ? 1.4 : 1.1}) rotate(${rotateDeg}deg)`;
+                        bubble.style.opacity = '0';
+                    }, 20 + i * 80);
+                });
+
+                setTimeout(() => {
+                    if (bubble.parentNode) bubble.parentNode.removeChild(bubble);
+                }, 1100);
+            }
+
+            // Quick audio haptic chirp if available
+            try {
+                if (window.AudioContext || window.webkitAudioContext) {
+                    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5
+                    osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.1); // A5
+                    gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.13);
+                }
+            } catch(e) {}
+        }
+
+        // Sync Active Quiz Problem into Video Call Bar
+        function syncActiveMathQuestionToCall() {
+            const activeQuestionCard = document.querySelector('.question-card:not(.hidden), [id^="card_"]');
+            let qText = '';
+            if (activeQuestionCard) {
+                const textNodes = activeQuestionCard.innerText.split('\n').filter(t => t.trim().length > 0);
+                if (textNodes.length > 0) {
+                    qText = textNodes.slice(0, 2).join(' ');
+                }
+            }
+
+            if (!qText) {
+                const currentOp = typeof currentOperation !== 'undefined' ? currentOperation : 'Math Practice';
+                const currentStd = typeof currentStandard !== 'undefined' ? currentStandard : '';
+                qText = `${currentOp} • ${currentStd || 'Interactive Mode'}`;
+            }
+
+            // Broadcast to room members if changed
+            if (classroomWs && classroomWs.readyState === WebSocket.OPEN && qText) {
+                classroomWs.send(JSON.stringify({
+                    type: 'math-sync',
+                    room: classroomCurrentRoom,
+                    senderName: getUserDisplayName(),
+                    questionText: qText
+                }));
+            }
+        }
+
+        // Update Call Controls (Join vs Leave State)
+        function updateAgoraCallControlsUI(isInCall) {
+            const callIconBox = document.getElementById('agora-call-icon-box');
+            const callIcon = document.getElementById('agora-call-icon');
+            const callLbl = document.getElementById('agora-call-lbl');
+
+            if (isInCall) {
+                if (callIconBox) callIconBox.className = 'w-11 h-11 rounded-full bg-rose-600 hover:bg-rose-500 flex items-center justify-center text-sm shadow-md active:scale-95';
+                if (callIcon) callIcon.className = 'fas fa-phone-slash text-white';
+                if (callLbl) {
+                    callLbl.textContent = 'Leave';
+                    callLbl.className = 'text-[10px] font-bold text-rose-400';
+                }
+            } else {
+                if (callIconBox) callIconBox.className = 'w-11 h-11 rounded-full bg-emerald-600 hover:bg-emerald-500 flex items-center justify-center text-sm shadow-md active:scale-95';
+                if (callIcon) callIcon.className = 'fas fa-phone text-white';
+                if (callLbl) {
+                    callLbl.textContent = 'Join';
+                    callLbl.className = 'text-[10px] font-bold text-emerald-400';
+                }
+            }
+        }
+
+        // Update Agora Status Badge
+        function updateAgoraStatus(text, state) {
+            const badge = document.getElementById('agora-status-badge');
+            const textEl = document.getElementById('agora-status-text');
+            if (!badge || !textEl) return;
+
+            textEl.textContent = text;
+
+            if (state === 'connected') {
+                badge.className = 'px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-1';
+            } else if (state === 'in-room') {
+                badge.className = 'px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-500/20 text-blue-300 border border-blue-500/40 flex items-center gap-1';
+            } else if (state === 'connecting') {
+                badge.className = 'px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1';
+            } else {
+                badge.className = 'px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-slate-700 text-slate-300 border border-slate-600 flex items-center gap-1';
+            }
+        }
+
+        // Copy Live Classroom Invite Link
+        function copyLiveClassroomLink() {
+            const roomInput = document.getElementById('agora-room-input');
+            const room = (roomInput && roomInput.value.trim()) ? roomInput.value.trim() : 'Math-Classroom-1';
+            const url = new URL(window.location.href);
+            url.searchParams.set('liveRoom', room);
+
+            navigator.clipboard.writeText(url.toString()).then(() => {
+                const lbl = document.getElementById('agora-copy-lbl');
+                if (lbl) {
+                    lbl.textContent = 'Copied!';
+                    setTimeout(() => lbl.textContent = 'Copy Link', 2000);
+                }
+                if (typeof showCustomToast === 'function') {
+                    showCustomToast(`Classroom link copied! Sharing room: ${room}`, 'success');
+                }
+            }).catch(() => {
+                if (typeof showCustomToast === 'function') {
+                    showCustomToast(`Room ID: ${room}`, 'info');
+                }
+            });
+        }
+
+        // Share Live Classroom via WhatsApp
+        function shareLiveClassroomWhatsApp() {
+            const roomInput = document.getElementById('agora-room-input');
+            const room = (roomInput && roomInput.value.trim()) ? roomInput.value.trim() : 'Math-Classroom-1';
+            const url = new URL(window.location.href);
+            url.searchParams.set('liveRoom', room);
+
+            const activeStd = typeof currentStandard !== 'undefined' ? currentStandard : 'Math';
+            const activeOp = typeof currentOperation !== 'undefined' ? currentOperation : 'Practice';
+
+            const message = `🎓 *EduMatrix Master - Live 1-on-1 Math Classroom* 👨‍🏫\n\nJoin my live tutoring session to practice math problems and collaborate in real time!\n\n📌 *Classroom Room ID:* ${room}\n📚 *Topic:* ${activeOp} (${activeStd})\n\n🔗 *Click to Join Video Call & Classroom Chat Immediately:*\n${url.toString()}`;
+
+            const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+            window.open(waUrl, '_blank');
+        }
+
+        // Check if incoming URL has ?liveRoom= param on page load and auto-join
+        function checkUrlLiveClassroomParam() {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const roomParam = params.get('liveRoom');
+                if (roomParam && roomParam.trim()) {
+                    const cleanRoom = roomParam.trim();
+                    const roomInput = document.getElementById('agora-room-input');
+                    if (roomInput) roomInput.value = cleanRoom;
+                    classroomCurrentRoom = cleanRoom;
+
+                    setTimeout(() => {
+                        // Open live classroom sidebar
+                        const panel = document.getElementById('live-tutor-panel');
+                        if (panel && (panel.classList.contains('hidden') || panel.classList.contains('translate-x-full'))) {
+                            toggleLiveTutorSidebar();
+                        }
+                        
+                        // Auto join room session immediately for the recipient
+                        if (!agoraIsCallActive) {
+                            joinAgoraClassroom();
+                        }
+
+                        if (typeof showCustomToast === 'function') {
+                            showCustomToast(`Auto-joining Live Classroom room: "${cleanRoom}"`, 'success');
+                        }
+                    }, 900);
+                }
+            } catch(e) {
+                console.warn('URL param parse notice:', e);
+            }
+        }
+
+        // Hook up initialization on DOMContentLoaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                initAgoraConfig();
+                checkUrlLiveClassroomParam();
+            });
+        } else {
+            initAgoraConfig();
+            checkUrlLiveClassroomParam();
+        }
+
+</script>
 </body>
 </html>
