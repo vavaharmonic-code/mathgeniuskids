@@ -4,6 +4,10 @@ import path from 'path';
 import { WebSocketServer, WebSocket } from 'ws';
 import { GoogleGenAI } from '@google/genai';
 import { createServer as createViteServer } from 'vite';
+import agoraTokenPkg from 'agora-token';
+
+const agoraToken = (agoraTokenPkg as any)?.default || agoraTokenPkg;
+const { RtcTokenBuilder, RtcRole } = agoraToken;
 
 const app = express();
 const server = http.createServer(app);
@@ -176,11 +180,81 @@ app.get('/api/health', (req, res) => {
 
 // Agora Video Call Configuration Endpoint
 app.get('/api/agora/config', (req, res) => {
-  const appId = process.env.AGORA_APP_ID || '';
+  const appId = (process.env.AGORA_APP_ID || '').trim();
+  const appCertificate = (process.env.AGORA_APP_CERTIFICATE || process.env.AGORA_APP_SECRET || '').trim();
   res.json({
     appId,
-    configured: Boolean(appId && appId.trim().length > 0)
+    hasCertificate: Boolean(appCertificate && appCertificate.length > 0),
+    configured: Boolean(appId && appId.length > 0)
   });
+});
+
+// Agora Dynamic RTC Token Generator Endpoint
+app.get('/api/agora/token', (req, res) => {
+  try {
+    const rawAppId = req.query.appId ? String(req.query.appId).trim() : '';
+    const rawCert = req.query.certificate ? String(req.query.certificate).trim() : '';
+    
+    const appId = rawAppId || (process.env.AGORA_APP_ID || '').trim();
+    const appCertificate = rawCert || (process.env.AGORA_APP_CERTIFICATE || process.env.AGORA_APP_SECRET || '').trim();
+    const channelName = String(req.query.channel || 'Room A').trim();
+    const uidStr = req.query.uid ? String(req.query.uid).trim() : '0';
+    const roleParam = String(req.query.role || 'publisher').toLowerCase();
+
+    if (!appId) {
+      return res.status(400).json({ error: 'Agora App ID is not configured' });
+    }
+
+    if (!appCertificate) {
+      // If no certificate configured, static key or no-token mode is assumed
+      return res.json({
+        token: null,
+        appId,
+        channel: channelName,
+        hasCertificate: false,
+        message: 'No App Certificate configured in backend. Use static key or set AGORA_APP_CERTIFICATE.'
+      });
+    }
+
+    const role = roleParam === 'subscriber' ? RtcRole.SUBSCRIBER : RtcRole.PUBLISHER;
+    const expireTimeInSeconds = 3600 * 24; // 24 hours token expiration
+    const privilegeExpireTime = 3600 * 24;
+
+    let token = '';
+    const numericUid = parseInt(uidStr, 10);
+
+    if (!isNaN(numericUid) && numericUid > 0) {
+      token = RtcTokenBuilder.buildTokenWithUid(
+        appId,
+        appCertificate,
+        channelName,
+        numericUid,
+        role,
+        expireTimeInSeconds,
+        privilegeExpireTime
+      );
+    } else {
+      token = RtcTokenBuilder.buildTokenWithUserAccount(
+        appId,
+        appCertificate,
+        channelName,
+        uidStr || '0',
+        role,
+        expireTimeInSeconds,
+        privilegeExpireTime
+      );
+    }
+
+    return res.json({
+      token,
+      appId,
+      channel: channelName,
+      hasCertificate: true
+    });
+  } catch (err: any) {
+    console.error('[Agora Token Generation Error]:', err);
+    return res.status(500).json({ error: err?.message || 'Failed to generate Agora token' });
+  }
 });
 
 // Helper function for lazy Gemini API client initialization

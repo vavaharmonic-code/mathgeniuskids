@@ -406,6 +406,10 @@
         }
     </style>
 </head>
+
+    <!-- Universal Floating Animated Toast Notification Container -->
+    <div id="universal-toast-container" class="fixed top-5 right-5 z-[9999] flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-3 select-none"></div>
+
 <body class="pt-16 pb-32 text-slate-700 relative bg-gradient-to-br from-violet-50 via-indigo-50 to-blue-50 school-texture min-h-screen selection:bg-violet-200 selection:text-violet-900 transition-all duration-300">
 
     <!-- Sticky Top Bar: Timer, Full Screen & Exit App -->
@@ -498,13 +502,6 @@
                 <button id="voice-tutor-btn" onclick="openVoiceTutorModal()" class="btn-bevel-glass-amber text-white px-4 py-2 rounded-xl font-extrabold text-xs sm:text-sm transition-all duration-200 active:scale-95 flex items-center gap-2 cursor-pointer h-10 shrink-0 group">
                     <i class="fas fa-volume-up text-amber-100 animate-pulse group-hover:scale-110 transition-transform"></i>
                     <span data-i18n="voiceTutorBtn">AI Voice Tutor</span>
-                </button>
-
-                <!-- Live 1-on-1 Tutoring Video Call Button -->
-                <button id="live-tutor-btn" onclick="toggleLiveTutorSidebar()" class="bg-gradient-to-r from-rose-600 via-pink-600 to-rose-700 hover:from-rose-500 hover:to-pink-500 text-white px-4 py-2 rounded-xl font-extrabold text-xs sm:text-sm transition-all duration-200 active:scale-95 flex items-center gap-2 cursor-pointer h-10 shrink-0 border border-rose-400/80 shadow-md group relative overflow-hidden">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                    <i class="fas fa-video text-rose-100 group-hover:scale-110 transition-transform"></i>
-                    <span data-i18n="liveTutorBtn">Live Tutor / Join Classroom</span>
                 </button>
 
                 <!-- User Feedback Button -->
@@ -2671,232 +2668,578 @@
     </div>
 
     
-    <!-- Live 1-on-1 Tutoring Video Call Sidebar / Split-Screen (Agora Powered) -->
-        <!-- Live 1-on-1 Tutoring Video Call Sidebar / Split-Screen (Agora WebRTC + Real-Time Chat Powered) -->
-    <div id="live-tutor-panel" class="fixed top-0 right-0 h-full w-full sm:w-[420px] md:w-[460px] lg:w-[490px] bg-slate-900/98 backdrop-blur-xl z-[165] shadow-2xl flex flex-col border-l border-slate-700/80 text-white transition-all duration-300 transform translate-x-full hidden select-none">
+        <!-- Live Workspace Video Call Modal / Screen (Matching User Reference Image Design) -->
+    <div id="live-tutor-panel" class="fixed inset-0 z-[165] bg-slate-900/60 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-4 lg:p-6 select-none overflow-hidden transition-all duration-300">
         
-        <!-- Panel Header: Clean, Simple & User-Friendly -->
-        <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 px-4 py-3 border-b border-slate-700/80 flex items-center justify-between shrink-0">
-            <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-rose-500 to-pink-500 flex items-center justify-center text-white shadow-xs">
-                    <i class="fas fa-video text-xs"></i>
-                </div>
-                <div>
-                    <div class="flex items-center gap-2">
-                        <h3 class="font-extrabold text-sm text-white tracking-tight" data-i18n="liveTutorSidebarTitle">Live Classroom</h3>
-                        <span id="agora-status-badge" class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-slate-700 text-slate-300 border border-slate-600 flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
-                            <span id="agora-status-text">Ready</span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Header Action Controls (Participants, PiP & Close) -->
-            <div class="flex items-center gap-1.5">
-                <div id="classroom-participant-count" class="hidden px-2 py-0.5 bg-indigo-950/80 border border-indigo-500/40 text-indigo-300 rounded-full text-[10px] font-bold flex items-center gap-1">
-                    <i class="fas fa-users text-[9px]"></i> <span id="classroom-participant-count-num">1</span>
-                </div>
-                <button type="button" onclick="toggleLiveTutorPiP()" id="agora-pip-btn" title="Minimize to Picture-in-Picture" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-all cursor-pointer text-xs">
-                    <i class="fas fa-compress-alt"></i>
-                </button>
-                <button type="button" onclick="toggleLiveTutorSidebar()" title="Close / Hide Video" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-rose-600/80 text-slate-300 hover:text-white flex items-center justify-center transition-all cursor-pointer text-xs">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Room & Invite Bar (Simple, Compact & One-Click) -->
-        <div class="px-4 py-2 bg-slate-800/70 border-b border-slate-700/60 flex items-center justify-between gap-2 shrink-0">
-            <div class="flex items-center gap-2 flex-1 min-w-0">
-                <span class="text-[11px] font-bold text-slate-400">Room:</span>
-                <input type="text" id="agora-room-input" value="Math-Classroom-1" onchange="onClassroomRoomChanged()" placeholder="Room Name" class="bg-slate-900 text-white font-mono text-xs px-2 py-1 rounded-lg border border-slate-700 focus:border-indigo-500 focus:outline-none w-full max-w-[150px]">
-            </div>
-            <div class="flex items-center gap-1.5 shrink-0">
-                <button type="button" onclick="copyLiveClassroomLink()" title="Copy Direct Invite Link" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg text-xs font-semibold flex items-center gap-1 transition-all cursor-pointer">
-                    <i class="fas fa-link text-[10px]"></i> <span id="agora-copy-lbl" class="text-[11px]">Copy Link</span>
-                </button>
-                <button type="button" onclick="shareLiveClassroomWhatsApp()" title="Invite on WhatsApp" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1 transition-all cursor-pointer">
-                    <i class="fab fa-whatsapp text-xs"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Main Scrollable Content Area: Video + Live Chat + Reactions -->
-        <div class="flex-1 p-3.5 flex flex-col gap-3 overflow-y-auto relative bg-slate-950/70">
+        <!-- Main Workspace Container (Light Background with Crisp Cards, Exactly as in Reference Image) -->
+        <div class="w-full h-full max-w-[1600px] max-h-[960px] bg-[#F8FAFC] rounded-3xl shadow-2xl border border-slate-200/80 flex flex-row overflow-hidden text-slate-800 relative">
             
-            <!-- Main Video Screen (Remote Teacher / Peer) -->
-            <div class="relative w-full aspect-4/3 sm:aspect-16/10 bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden shadow-inner flex items-center justify-center group shrink-0">
-                
-                <!-- Remote Video Stream Element -->
-                <div id="agora-remote-video" class="absolute inset-0 w-full h-full object-cover"></div>
-
-                <!-- Remote Placeholder (When No One Else is in Room) -->
-                <div id="agora-remote-placeholder" class="flex flex-col items-center justify-center p-6 text-center z-1">
-                    <div class="relative mb-3">
-                        <div class="w-16 h-16 rounded-full bg-indigo-950/80 border border-indigo-500/40 flex items-center justify-center text-indigo-300 text-2xl shadow-inner">
-                            <i class="fas fa-chalkboard-teacher"></i>
+            <!-- 1. Left Navigation Rail / Sidebar -->
+            <aside class="hidden md:flex flex-col justify-between w-56 lg:w-60 bg-white border-r border-slate-200/90 p-5 shrink-0 select-none">
+                <!-- Logo & Menu -->
+                <div class="flex flex-col gap-6">
+                    <!-- App Brand / Workspace Logo -->
+                    <div class="flex items-center gap-3 px-2">
+                        <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/20">
+                            <i class="fas fa-shapes text-sm"></i>
                         </div>
-                        <span class="absolute -top-1 -right-1 flex h-4 w-4">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-4 w-4 bg-indigo-500 text-[8px] font-bold text-white items-center justify-center">1</span>
-                        </span>
-                    </div>
-                    <h4 class="font-black text-sm text-slate-200 tracking-tight" data-i18n="waitingForTutor">Ready for Classroom</h4>
-                    <p class="text-xs text-slate-400 mt-1 max-w-[260px] leading-relaxed">Click <strong>Join</strong> below or invite your partner with the invite link.</p>
-                </div>
-
-                <!-- Remote Participant Tag Badge -->
-                <div class="absolute top-2.5 left-2.5 z-10 bg-slate-900/80 backdrop-blur-xs px-2.5 py-1 rounded-lg border border-slate-700/60 text-[11px] font-bold flex items-center gap-1.5">
-                    <i class="fas fa-chalkboard-teacher text-indigo-400 text-xs"></i>
-                    <span id="agora-remote-name-tag">Classroom Stream</span>
-                </div>
-
-                <!-- Floating Real-Time Reactions Container -->
-                <div id="agora-reactions-container" class="absolute inset-0 pointer-events-none z-20 flex items-center justify-center overflow-hidden"></div>
-
-                <!-- Local Video Screen (Picture-in-Picture Box in Bottom Right) -->
-                <div id="agora-local-video-box" class="absolute bottom-3 right-3 w-28 sm:w-36 aspect-4/3 rounded-xl bg-slate-900 border-2 border-indigo-500/80 shadow-2xl overflow-hidden z-30 transition-all group/local hover:scale-105">
-                    <div id="agora-local-video" class="w-full h-full object-cover"></div>
-                    
-                    <!-- Local Avatar Fallback (when camera is off) -->
-                    <div id="agora-local-avatar" class="hidden absolute inset-0 w-full h-full bg-slate-800 flex flex-col items-center justify-center text-slate-300">
-                        <i class="fas fa-user text-xl mb-1 text-slate-400"></i>
-                        <span class="text-[9px] font-bold uppercase tracking-wider text-slate-400">Cam Off</span>
+                        <span class="font-black text-base text-slate-900 tracking-tight">Workspace</span>
                     </div>
 
-                    <!-- Local Tag -->
-                    <div class="absolute bottom-1 left-1 bg-slate-950/85 px-1.5 py-0.5 rounded text-[9px] font-bold text-slate-200">
-                        <span id="agora-local-name-tag" data-i18n="youStudent">You</span>
-                    </div>
-                    
-                    <!-- Mic Mute Icon Indicator on Local Stream -->
-                    <div id="agora-local-mic-badge" class="hidden absolute top-1 right-1 bg-rose-600/90 text-white w-4 h-4 rounded-full flex items-center justify-center text-[8px]">
-                        <i class="fas fa-microphone-slash"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Classroom Interaction Tabs (Live Chat & Reaction Emojis) -->
-            <div class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 shrink-0">
-                <button type="button" id="tab-btn-classroom-chat" onclick="switchClassroomTab('chat')" class="flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 bg-indigo-600 text-white shadow-xs cursor-pointer">
-                    <i class="fas fa-comments text-xs"></i> <span>Live Chat</span>
-                    <span id="classroom-chat-badge" class="hidden px-1.5 py-0.2 rounded-full bg-rose-500 text-white text-[9px] font-bold">0</span>
-                </button>
-                <button type="button" id="tab-btn-classroom-reactions" onclick="switchClassroomTab('reactions')" class="flex-1 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 text-slate-400 hover:text-white cursor-pointer">
-                    <span>✨</span> <span>Reactions</span>
-                </button>
-            </div>
-
-            <!-- Tab 1: Real-Time Classroom Live Chat -->
-            <div id="classroom-chat-view" class="flex-1 flex flex-col bg-slate-900/90 rounded-2xl border border-slate-800 shadow-sm overflow-hidden min-h-[220px]">
-                <!-- Chat Messages Feed -->
-                <div id="classroom-chat-messages" class="flex-1 p-3 overflow-y-auto space-y-2 text-xs">
-                    <div class="text-center py-4 text-slate-500 text-[11px] leading-relaxed">
-                        <i class="fas fa-comments text-slate-600 text-lg mb-1 block"></i>
-                        Live chat ready! Send a message or question to your teacher or student.
+                    <!-- Navigation Links -->
+                    <div>
+                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 px-3 block mb-2">MENU</span>
+                        <nav class="flex flex-col gap-1 text-xs font-bold text-slate-600">
+                            <button type="button" onclick="closeLiveTutorModal()" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-colors text-left cursor-pointer">
+                                <i class="fas fa-home text-slate-400 w-4 text-center"></i>
+                                <span>Home</span>
+                            </button>
+                            <button type="button" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-100/80 transition-colors text-left font-extrabold cursor-pointer shadow-xs">
+                                <i class="fas fa-video text-indigo-600 w-4 text-center"></i>
+                                <span>Meetings</span>
+                            </button>
+                            <button type="button" onclick="if(typeof showCustomToast === 'function') showCustomToast('Classroom Calendar Sync Active', 'info')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-colors text-left cursor-pointer">
+                                <i class="fas fa-calendar-alt text-slate-400 w-4 text-center"></i>
+                                <span>Calendar</span>
+                            </button>
+                            <button type="button" onclick="if(typeof showCustomToast === 'function') showCustomToast('Classroom Team: 6 Active Members', 'info')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-colors text-left cursor-pointer">
+                                <i class="fas fa-user-friends text-slate-400 w-4 text-center"></i>
+                                <span>Team</span>
+                            </button>
+                            <button type="button" onclick="if(typeof showCustomToast === 'function') showCustomToast('Shared Worksheets & PDF Files', 'info')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-colors text-left cursor-pointer">
+                                <i class="fas fa-folder text-slate-400 w-4 text-center"></i>
+                                <span>Files</span>
+                            </button>
+                            <button type="button" onclick="if(typeof showCustomToast === 'function') showCustomToast('Live Learning Analytics', 'info')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-colors text-left cursor-pointer">
+                                <i class="fas fa-chart-bar text-slate-400 w-4 text-center"></i>
+                                <span>Analytics</span>
+                            </button>
+                            <button type="button" onclick="openAgoraConfigModal()" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-indigo-50 hover:text-indigo-600 transition-colors text-left cursor-pointer font-bold">
+                                <i class="fas fa-cog text-slate-400 w-4 text-center"></i>
+                                <span>Video Settings</span>
+                            </button>
+                        </nav>
                     </div>
                 </div>
 
-                <!-- Quick Prompt Chips -->
-                <div class="px-2.5 py-1.5 bg-slate-950/60 border-t border-slate-800/80 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0">
-                    <button type="button" onclick="sendQuickClassroomChat('🙋 Need help on this step!')" class="px-2 py-0.5 bg-slate-800 hover:bg-indigo-600 text-slate-300 hover:text-white rounded-full text-[10px] font-semibold whitespace-nowrap transition-all cursor-pointer">🙋 Need help</button>
-                    <button type="button" onclick="sendQuickClassroomChat('💡 I found the answer!')" class="px-2 py-0.5 bg-slate-800 hover:bg-amber-600 text-slate-300 hover:text-white rounded-full text-[10px] font-semibold whitespace-nowrap transition-all cursor-pointer">💡 Got answer</button>
-                    <button type="button" onclick="sendQuickClassroomChat('👏 Great job! Well done!')" class="px-2 py-0.5 bg-slate-800 hover:bg-emerald-600 text-slate-300 hover:text-white rounded-full text-[10px] font-semibold whitespace-nowrap transition-all cursor-pointer">👏 Great job</button>
-                    <button type="button" onclick="sendQuickClassroomChat('🔍 Please explain again')" class="px-2 py-0.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded-full text-[10px] font-semibold whitespace-nowrap transition-all cursor-pointer">🔍 Explain again</button>
-                </div>
-
-                <!-- Chat Input Form -->
-                <form id="classroom-chat-form" onsubmit="handleSendClassroomChat(event)" class="p-2 bg-slate-950 border-t border-slate-800 flex items-center gap-1.5 shrink-0">
-                    <input type="text" id="classroom-chat-input" placeholder="Type a message..." maxlength="300" autocomplete="off" class="flex-1 bg-slate-900 text-white text-xs px-3 py-2 rounded-xl border border-slate-700 focus:border-indigo-500 focus:outline-none">
-                    <button type="submit" class="w-8 h-8 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white flex items-center justify-center transition-all cursor-pointer shrink-0 active:scale-95">
-                        <i class="fas fa-paper-plane text-xs"></i>
+                <!-- Bottom Promo / Upgrade to Pro Card (Matching Reference Image) -->
+                <div class="bg-gradient-to-br from-indigo-50/90 via-purple-50/70 to-indigo-50/50 border border-indigo-100/80 rounded-2xl p-3.5 flex flex-col gap-2">
+                    <div class="flex items-center gap-1.5 text-indigo-600 text-xs font-extrabold">
+                        <i class="fas fa-sparkles"></i>
+                        <span>Upgrade to Pro</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 leading-snug">Unlimited meetings and cloud recordings</p>
+                    <button type="button" onclick="if(typeof showCustomToast === 'function') showCustomToast('Pro Classroom Plan Active', 'success')" class="w-full py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-xl text-xs font-bold shadow-sm transition-all active:scale-95 cursor-pointer mt-1">
+                        Upgrade Now
                     </button>
-                </form>
-            </div>
-
-            <!-- Tab 2: Synchronized Emoji Reaction Grid -->
-            <div id="classroom-reactions-view" class="hidden bg-slate-900/90 p-3 rounded-2xl border border-slate-800 shadow-sm flex flex-col gap-2 shrink-0">
-                <div class="flex items-center justify-between">
-                    <span class="text-[11px] font-extrabold text-indigo-300 uppercase tracking-wider flex items-center gap-1.5">
-                        <span>✨</span> Broadcast Reaction to Room
-                    </span>
-                    <span class="text-[10px] text-slate-500 font-medium">Synced in real time</span>
                 </div>
+            </aside>
+
+            <!-- 2. Middle Main Workspace Section (Header + Video Stage + 2 Insight Cards) -->
+            <main class="flex-1 flex flex-col min-w-0 bg-[#F8FAFC] overflow-y-auto">
                 
-                <!-- Emoji Reaction Grid -->
-                <div class="grid grid-cols-6 sm:grid-cols-8 gap-1.5 pt-0.5">
-                    <button type="button" onclick="sendAgoraReaction('👏')" title="Clap / Well Done" class="h-9 rounded-xl bg-slate-800/90 hover:bg-indigo-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">👏</button>
-                    <button type="button" onclick="sendAgoraReaction('💡')" title="Eureka! Got It" class="h-9 rounded-xl bg-slate-800/90 hover:bg-amber-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">💡</button>
-                    <button type="button" onclick="sendAgoraReaction('🙋‍♂️')" title="Raise Hand" class="h-9 rounded-xl bg-slate-800/90 hover:bg-blue-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🙋‍♂️</button>
-                    <button type="button" onclick="sendAgoraReaction('💯')" title="100% Perfect" class="h-9 rounded-xl bg-slate-800/90 hover:bg-emerald-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">💯</button>
-                    <button type="button" onclick="sendAgoraReaction('⭐')" title="Gold Star" class="h-9 rounded-xl bg-slate-800/90 hover:bg-yellow-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">⭐</button>
-                    <button type="button" onclick="sendAgoraReaction('🔥')" title="Fire / Awesome!" class="h-9 rounded-xl bg-slate-800/90 hover:bg-orange-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🔥</button>
-                    <button type="button" onclick="sendAgoraReaction('🎉')" title="Celebration" class="h-9 rounded-xl bg-slate-800/90 hover:bg-purple-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🎉</button>
-                    <button type="button" onclick="sendAgoraReaction('👍')" title="Thumbs Up" class="h-9 rounded-xl bg-slate-800/90 hover:bg-blue-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">👍</button>
+                <!-- Top Navigation & Header Bar -->
+                <header class="px-5 sm:px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shrink-0 border-b border-slate-200/70 bg-white/70 backdrop-blur-xs">
+                    <!-- Meeting Title & Room Info -->
+                    <div>
+                        <h2 id="workspace-meeting-title" class="font-extrabold text-base sm:text-lg text-slate-900 tracking-tight flex items-center gap-2">
+                            <span>Product Sync — Weekly</span>
+                        </h2>
+                        <p class="text-xs text-slate-400 font-medium flex items-center gap-2 mt-0.5">
+                            <span id="workspace-datetime">Thursday · 09:30 AM</span>
+                            <span>·</span>
+                            <span class="flex items-center gap-1">
+                                <span class="text-slate-400">Room:</span>
+                                <input type="text" id="agora-room-input" value="Room A" onchange="onClassroomRoomChanged()" placeholder="Room Name" class="bg-slate-100 text-slate-800 font-bold px-1.5 py-0.5 rounded-md border border-slate-300/80 focus:border-indigo-500 focus:outline-none w-20 text-xs">
+                            </span>
+                        </p>
+                    </div>
+
+                    <!-- Search Bar & User Action Controls -->
+                    <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+                        <!-- Search Box (Matching Reference Image) -->
+                        <div class="relative hidden lg:block w-52 xl:w-64">
+                            <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                            <input type="text" placeholder="Search meetings, files..." class="w-full pl-9 pr-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs text-slate-700 placeholder-slate-400 focus:bg-white focus:border-indigo-500 focus:outline-none transition-all">
+                        </div>
+
+                        <!-- Video Call Settings Button -->
+                        <button type="button" onclick="openAgoraConfigModal()" title="Video Call & Agora Token Settings" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 text-slate-600 flex items-center justify-center transition-colors cursor-pointer text-xs shadow-2xs">
+                            <i class="fas fa-key"></i>
+                        </button>
+
+                        <!-- Notification Bell with Red Dot -->
+                        <button type="button" onclick="if(typeof showCustomToast === 'function') showCustomToast('No new notifications', 'info')" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center relative transition-colors cursor-pointer text-xs">
+                            <i class="fas fa-bell"></i>
+                            <span class="absolute top-1 right-1 w-2 h-2 bg-rose-500 rounded-full ring-2 ring-white"></span>
+                        </button>
+
+                        <!-- User Profile Initials Pill -->
+                        <div class="w-8 h-8 rounded-full bg-indigo-100 border border-indigo-200 text-indigo-700 font-black text-xs flex items-center justify-center shadow-xs">
+                            <span id="workspace-user-initials">SD</span>
+                        </div>
+
+                        <!-- Primary + New Call Button (Matching Reference Image) -->
+                        <button type="button" id="workspace-new-call-btn" onclick="toggleAgoraCallState()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm shadow-indigo-600/25 transition-all active:scale-95 cursor-pointer shrink-0">
+                            <i class="fas fa-plus text-[10px]"></i> <span id="workspace-call-btn-text">+ New Call</span>
+                        </button>
+
+                        <!-- Share Link & WhatsApp Quick Invite -->
+                        <div class="flex items-center gap-1.5">
+                            <button type="button" onclick="copyLiveClassroomLink()" title="Copy Invite Link" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors cursor-pointer text-xs">
+                                <i class="fas fa-link"></i>
+                            </button>
+                            <button type="button" onclick="shareLiveClassroomWhatsApp()" title="Invite on WhatsApp" class="w-8 h-8 rounded-full bg-emerald-100 hover:bg-emerald-200 text-emerald-700 flex items-center justify-center transition-colors cursor-pointer text-xs">
+                                <i class="fab fa-whatsapp"></i>
+                            </button>
+                        </div>
+
+                        <!-- Minimize / Close Button -->
+                        <button type="button" onclick="closeLiveTutorModal()" title="Back to Math Workspace" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-rose-100 hover:text-rose-600 text-slate-500 flex items-center justify-center transition-colors cursor-pointer text-xs ml-1">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </header>
+
+                <!-- Scrollable Body: Video Stage + Bottom Cards Row -->
+                <div class="p-4 sm:p-5 flex-1 flex flex-col gap-4 overflow-y-auto">
                     
-                    <button type="button" onclick="sendAgoraReaction('❤️')" title="Love Math" class="h-9 rounded-xl bg-slate-800/90 hover:bg-rose-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">❤️</button>
-                    <button type="button" onclick="sendAgoraReaction('🧠')" title="Smart Thinking" class="h-9 rounded-xl bg-slate-800/90 hover:bg-pink-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🧠</button>
-                    <button type="button" onclick="sendAgoraReaction('🎯')" title="Bullseye" class="h-9 rounded-xl bg-slate-800/90 hover:bg-red-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🎯</button>
-                    <button type="button" onclick="sendAgoraReaction('🚀')" title="Super Fast" class="h-9 rounded-xl bg-slate-800/90 hover:bg-cyan-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🚀</button>
-                    <button type="button" onclick="sendAgoraReaction('🥳')" title="Party Time" class="h-9 rounded-xl bg-slate-800/90 hover:bg-indigo-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🥳</button>
-                    <button type="button" onclick="sendAgoraReaction('🏆')" title="Champion Trophy" class="h-9 rounded-xl bg-slate-800/90 hover:bg-yellow-500 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🏆</button>
-                    <button type="button" onclick="sendAgoraReaction('❓')" title="Need Help" class="h-9 rounded-xl bg-slate-800/90 hover:bg-rose-600 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">❓</button>
-                    <button type="button" onclick="sendAgoraReaction('🤔')" title="Thinking Hard" class="h-9 rounded-xl bg-slate-800/90 hover:bg-slate-700 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🤔</button>
-                    <button type="button" onclick="sendAgoraReaction('🤩')" title="Amazed" class="h-9 rounded-xl bg-slate-800/90 hover:bg-amber-500 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🤩</button>
-                    <button type="button" onclick="sendAgoraReaction('🙌')" title="High Five" class="h-9 rounded-xl bg-slate-800/90 hover:bg-emerald-500 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">🙌</button>
-                    <button type="button" onclick="sendAgoraReaction('⚡')" title="Charged Up" class="h-9 rounded-xl bg-slate-800/90 hover:bg-yellow-400 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">⚡</button>
-                    <button type="button" onclick="sendAgoraReaction('✨')" title="Brilliant" class="h-9 rounded-xl bg-slate-800/90 hover:bg-indigo-500 hover:scale-115 transition-all flex items-center justify-center text-lg cursor-pointer active:scale-90 shadow-xs">✨</button>
+                    <!-- Main Video Stage (Dark Slate Container matching reference image) -->
+                    <div class="relative w-full aspect-16/10 min-h-[300px] sm:min-h-[360px] md:min-h-[400px] bg-[#181A27] rounded-3xl overflow-hidden shadow-lg border border-slate-800 flex items-center justify-center group shrink-0">
+                        
+                        <!-- Real Remote WebRTC Video Layer (When peer is sharing video) -->
+                        <div id="agora-remote-video" class="absolute inset-0 w-full h-full object-cover z-0"></div>
+
+                        <!-- Top-Left LIVE Badge (Red Capsule) -->
+                        <div class="absolute top-4 left-4 z-20 flex items-center gap-2">
+                            <div class="px-3 py-1 bg-rose-600 text-white rounded-full text-xs font-black tracking-wide flex items-center gap-1.5 shadow-md">
+                                <span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
+                                <span class="w-2 h-2 rounded-full bg-white -ml-3.5"></span>
+                                <span>LIVE</span>
+                                <span id="workspace-live-timer" class="font-mono ml-0.5">24:16</span>
+                            </div>
+                            <span id="agora-status-badge" class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-slate-800/80 backdrop-blur-xs text-slate-300 border border-slate-700/80 flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                <span id="agora-status-text">Connected</span>
+                            </span>
+                        </div>
+
+                        <!-- Top-Right Video Controls (Grid & Fullscreen) -->
+                        <div class="absolute top-4 right-4 z-20 flex items-center gap-2">
+                            <button type="button" onclick="if(typeof showCustomToast === 'function') showCustomToast('Grid Layout Toggled', 'info')" title="Toggle Grid View" class="w-9 h-9 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center transition-all cursor-pointer text-xs border border-slate-700/60 shadow-sm">
+                                <i class="fas fa-th-large"></i>
+                            </button>
+                            <button type="button" onclick="toggleClassroomFullscreen()" title="Fullscreen Video" class="w-9 h-9 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center transition-all cursor-pointer text-xs border border-slate-700/60 shadow-sm">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                        </div>
+
+                        <!-- Center Remote Avatar Ring & Audio Visualizer (Shown when video track is loading or audio-only) -->
+                        <div id="agora-remote-placeholder" class="flex flex-col items-center justify-center z-10 select-none">
+                            <!-- Concentric Ripple Avatar Rings (Matching Reference Image JM Circle) -->
+                            <div class="relative flex items-center justify-center">
+                                <div class="w-36 h-36 rounded-full border border-indigo-500/20 animate-ping absolute opacity-30"></div>
+                                <div class="w-32 h-32 rounded-full border border-indigo-500/30 bg-indigo-950/40 flex items-center justify-center shadow-inner">
+                                    <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-indigo-600 via-indigo-500 to-blue-500 text-white font-extrabold text-2xl flex items-center justify-center shadow-2xl border-2 border-indigo-400/40">
+                                        <span id="workspace-remote-avatar-initials">JM</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Animated Green Equalizer Speaking Bars (Matching Reference Image) -->
+                            <div class="flex items-center gap-1 mt-4">
+                                <span class="w-1 bg-emerald-400 rounded-full h-3 animate-pulse"></span>
+                                <span class="w-1 bg-emerald-400 rounded-full h-5 animate-pulse" style="animation-delay: 0.15s"></span>
+                                <span class="w-1 bg-emerald-400 rounded-full h-7 animate-pulse" style="animation-delay: 0.3s"></span>
+                                <span class="w-1 bg-emerald-400 rounded-full h-4 animate-pulse" style="animation-delay: 0.45s"></span>
+                                <span class="w-1 bg-emerald-400 rounded-full h-2 animate-pulse" style="animation-delay: 0.6s"></span>
+                            </div>
+                        </div>
+
+                        <!-- Floating Real-Time Reaction Particles Layer -->
+                        <div id="agora-reactions-container" class="absolute inset-0 pointer-events-none z-25 flex items-center justify-center overflow-hidden"></div>
+
+                        <!-- Bottom-Left Speaker Pill Tag (Matching Reference Image "Jordan Miles") -->
+                        <div class="absolute bottom-5 left-5 z-20 bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-slate-700/70 text-xs font-bold text-slate-200 flex items-center gap-2 shadow-lg">
+                            <i class="fas fa-microphone text-emerald-400 text-xs"></i>
+                            <span id="agora-remote-name-tag">Jordan Miles</span>
+                        </div>
+
+                        <!-- Bottom-Right Local Student PiP Tile (Matching Reference Image "SD / You") -->
+                        <div id="agora-local-video-box" class="absolute bottom-5 right-5 z-20 w-28 sm:w-36 aspect-4/3 rounded-2xl bg-slate-900/95 border-2 border-indigo-500/80 shadow-2xl overflow-hidden flex items-center justify-center group/local transition-transform hover:scale-105">
+                            <div id="agora-local-video" class="w-full h-full object-cover"></div>
+                            
+                            <!-- Local Avatar fallback (when cam off) -->
+                            <div id="agora-local-avatar" class="hidden absolute inset-0 w-full h-full bg-slate-800 flex flex-col items-center justify-center text-slate-300">
+                                <div class="w-10 h-10 rounded-full bg-indigo-700 text-white font-bold text-xs flex items-center justify-center mb-1">
+                                    <span id="workspace-local-avatar-initials">SD</span>
+                                </div>
+                                <span class="text-[9px] font-bold uppercase tracking-wider text-slate-400">Cam Off</span>
+                            </div>
+
+                            <!-- "You" Badge in bottom corner -->
+                            <div class="absolute bottom-1 left-1 bg-slate-950/90 px-1.5 py-0.5 rounded text-[9px] font-bold text-slate-300">
+                                You
+                            </div>
+
+                            <!-- Mic Mute Icon Indicator on Local Stream -->
+                            <div id="agora-local-mic-badge" class="hidden absolute top-1 right-1 bg-rose-600 text-white w-4 h-4 rounded-full flex items-center justify-center text-[8px]">
+                                <i class="fas fa-microphone-slash"></i>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Floating Glass Control Bar (Matching Reference Image Controls) -->
+                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-25 bg-slate-900/90 backdrop-blur-md px-4 py-2 rounded-full border border-slate-700/80 shadow-2xl flex items-center gap-2 sm:gap-3">
+                            <!-- Mic Button -->
+                            <button type="button" id="agora-mic-btn" onclick="toggleAgoraAudio()" title="Mute / Unmute Microphone" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center text-sm transition-all cursor-pointer active:scale-95 shadow-xs">
+                                <i id="agora-mic-icon" class="fas fa-microphone"></i>
+                            </button>
+
+                            <!-- Video Cam Button -->
+                            <button type="button" id="agora-camera-btn" onclick="toggleAgoraVideo()" title="Camera On / Off" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center text-sm transition-all cursor-pointer active:scale-95 shadow-xs">
+                                <i id="agora-camera-icon" class="fas fa-video"></i>
+                            </button>
+
+                            <!-- Screen Share Button -->
+                            <button type="button" id="agora-screen-btn" onclick="toggleAgoraScreenShare()" title="Share Screen" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center text-sm transition-all cursor-pointer active:scale-95 shadow-xs">
+                                <i id="agora-screen-icon" class="fas fa-arrow-up-from-bracket"></i>
+                            </button>
+
+                            <!-- End Call / Red Button (Matching Reference Image) -->
+                            <button type="button" id="agora-call-btn" onclick="toggleAgoraCallState()" title="End Call" class="w-11 h-11 rounded-full bg-rose-600 hover:bg-rose-500 text-white flex items-center justify-center text-base transition-all cursor-pointer active:scale-95 shadow-lg shadow-rose-600/30">
+                                <i id="agora-call-icon" class="fas fa-phone-slash"></i>
+                            </button>
+
+                            <!-- Maximize / Fullscreen -->
+                            <button type="button" onclick="toggleClassroomFullscreen()" title="Fullscreen" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center text-sm transition-all cursor-pointer active:scale-95 shadow-xs">
+                                <i class="fas fa-expand"></i>
+                            </button>
+
+                            <!-- Audio / Speaker -->
+                            <button type="button" onclick="if(typeof showCustomToast === 'function') showCustomToast('Audio Output: Speaker (100%)', 'info')" title="Speaker Audio" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center text-sm transition-all cursor-pointer active:scale-95 shadow-xs">
+                                <i class="fas fa-volume-high"></i>
+                            </button>
+
+                            <!-- Reaction Bar Trigger -->
+                            <div class="relative group/react">
+                                <button type="button" title="Send Live Reaction" class="w-10 h-10 rounded-full bg-indigo-600/80 hover:bg-indigo-600 text-white flex items-center justify-center text-sm transition-all cursor-pointer active:scale-95 shadow-xs">
+                                    <span>✨</span>
+                                </button>
+                                <!-- Floating Quick Reactions Popover -->
+                                <div class="absolute bottom-12 left-1/2 -translate-x-1/2 bg-slate-900/95 backdrop-blur-md p-2 rounded-2xl border border-slate-700 shadow-2xl flex items-center gap-1.5 hidden group-hover/react:flex select-none z-30">
+                                    <button type="button" onclick="sendAgoraReaction('👏')" class="w-8 h-8 rounded-xl hover:bg-slate-800 hover:scale-120 transition-transform text-base flex items-center justify-center cursor-pointer">👏</button>
+                                    <button type="button" onclick="sendAgoraReaction('💡')" class="w-8 h-8 rounded-xl hover:bg-slate-800 hover:scale-120 transition-transform text-base flex items-center justify-center cursor-pointer">💡</button>
+                                    <button type="button" onclick="sendAgoraReaction('🙋‍♂️')" class="w-8 h-8 rounded-xl hover:bg-slate-800 hover:scale-120 transition-transform text-base flex items-center justify-center cursor-pointer">🙋‍♂️</button>
+                                    <button type="button" onclick="sendAgoraReaction('💯')" class="w-8 h-8 rounded-xl hover:bg-slate-800 hover:scale-120 transition-transform text-base flex items-center justify-center cursor-pointer">💯</button>
+                                    <button type="button" onclick="sendAgoraReaction('🔥')" class="w-8 h-8 rounded-xl hover:bg-slate-800 hover:scale-120 transition-transform text-base flex items-center justify-center cursor-pointer">🔥</button>
+                                    <button type="button" onclick="sendAgoraReaction('❤️')" class="w-8 h-8 rounded-xl hover:bg-slate-800 hover:scale-120 transition-transform text-base flex items-center justify-center cursor-pointer">❤️</button>
+                                    <button type="button" onclick="sendAgoraReaction('🎉')" class="w-8 h-8 rounded-xl hover:bg-slate-800 hover:scale-120 transition-transform text-base flex items-center justify-center cursor-pointer">🎉</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Two Cards Row (Matching Reference Image) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        
+                        <!-- Left Card: Participants (Count Badge + 2x2 Grid) -->
+                        <div class="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-xs flex flex-col justify-between">
+                            <!-- Card Header -->
+                            <div class="flex items-center justify-between mb-3.5">
+                                <div class="flex items-center gap-2">
+                                    <h3 class="font-extrabold text-sm text-slate-900">Participants</h3>
+                                    <span id="workspace-participant-badge" class="px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600 font-black text-xs">6</span>
+                                </div>
+                                <button type="button" onclick="if(typeof showCustomToast === 'function') showCustomToast('Showing all 6 participants', 'info')" class="text-xs font-bold text-indigo-600 hover:text-indigo-700 cursor-pointer">
+                                    View all
+                                </button>
+                            </div>
+
+                            <!-- 2x2 Participant Cards Grid (Matching Reference Image: SK, AR, MT, CD) -->
+                            <div id="workspace-participants-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                
+                                <!-- Participant 1: Sarah K. (Product Lead / Tutor) -->
+                                <div class="p-3 bg-[#F8FAFC] rounded-2xl border border-slate-100 flex flex-col justify-between gap-2">
+                                    <div class="flex items-center gap-2.5">
+                                        <div class="relative">
+                                            <div class="w-9 h-9 rounded-full bg-amber-100 text-amber-700 font-extrabold text-xs flex items-center justify-center">
+                                                SK
+                                            </div>
+                                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white absolute -bottom-0.5 -right-0.5"></span>
+                                        </div>
+                                        <div class="min-w-0">
+                                            <h4 class="font-extrabold text-xs text-slate-900 truncate">Sarah K.</h4>
+                                            <p class="text-[11px] text-slate-400 font-medium truncate">Product Lead</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 bg-emerald-50 w-fit px-2 py-0.5 rounded-md">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Unmuted
+                                    </div>
+                                </div>
+
+                                <!-- Participant 2: Alex R. (Engineer) -->
+                                <div class="p-3 bg-[#F8FAFC] rounded-2xl border border-slate-100 flex flex-col justify-between gap-2">
+                                    <div class="flex items-center gap-2.5">
+                                        <div class="relative">
+                                            <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-700 font-extrabold text-xs flex items-center justify-center">
+                                                AR
+                                            </div>
+                                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white absolute -bottom-0.5 -right-0.5"></span>
+                                        </div>
+                                        <div class="min-w-0">
+                                            <h4 class="font-extrabold text-xs text-slate-900 truncate">Alex R.</h4>
+                                            <p class="text-[11px] text-slate-400 font-medium truncate">Engineer</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-1.5 text-[10px] font-bold text-rose-500 bg-rose-50 w-fit px-2 py-0.5 rounded-md">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> Muted
+                                    </div>
+                                </div>
+
+                                <!-- Participant 3: Maya T. (Designer) -->
+                                <div class="p-3 bg-[#F8FAFC] rounded-2xl border border-slate-100 flex flex-col justify-between gap-2">
+                                    <div class="flex items-center gap-2.5">
+                                        <div class="relative">
+                                            <div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 font-extrabold text-xs flex items-center justify-center">
+                                                MT
+                                            </div>
+                                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white absolute -bottom-0.5 -right-0.5"></span>
+                                        </div>
+                                        <div class="min-w-0">
+                                            <h4 class="font-extrabold text-xs text-slate-900 truncate">Maya T.</h4>
+                                            <p class="text-[11px] text-slate-400 font-medium truncate">Designer</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 bg-emerald-50 w-fit px-2 py-0.5 rounded-md">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Unmuted
+                                    </div>
+                                </div>
+
+                                <!-- Participant 4: Chris D. (Marketing) -->
+                                <div class="p-3 bg-[#F8FAFC] rounded-2xl border border-slate-100 flex flex-col justify-between gap-2">
+                                    <div class="flex items-center gap-2.5">
+                                        <div class="relative">
+                                            <div class="w-9 h-9 rounded-full bg-purple-100 text-purple-700 font-extrabold text-xs flex items-center justify-center">
+                                                CD
+                                            </div>
+                                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white absolute -bottom-0.5 -right-0.5"></span>
+                                        </div>
+                                        <div class="min-w-0">
+                                            <h4 class="font-extrabold text-xs text-slate-900 truncate">Chris D.</h4>
+                                            <p class="text-[11px] text-slate-400 font-medium truncate">Marketing</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-1.5 text-[10px] font-bold text-rose-500 bg-rose-50 w-fit px-2 py-0.5 rounded-md">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> Muted
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Right Card: Meeting Insights / Progress (Matching Reference Image) -->
+                        <div class="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-xs flex flex-col justify-between">
+                            <h3 class="font-extrabold text-sm text-slate-900 mb-3">Meeting Insights</h3>
+                            
+                            <div class="flex flex-col gap-3.5">
+                                <!-- Metric 1: Agenda Progress (68%) -->
+                                <div>
+                                    <div class="flex items-center justify-between text-xs font-extrabold text-slate-700 mb-1.5">
+                                        <span>Agenda Progress</span>
+                                        <span class="text-indigo-600">68%</span>
+                                    </div>
+                                    <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                                        <div class="h-full bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-full" style="width: 68%"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Metric 2: Tasks Completed (12 / 16) -->
+                                <div>
+                                    <div class="flex items-center justify-between text-xs font-extrabold text-slate-700 mb-1.5">
+                                        <span>Tasks Completed</span>
+                                        <span class="text-emerald-600">12 / 16</span>
+                                    </div>
+                                    <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                                        <div class="h-full bg-emerald-500 rounded-full" style="width: 75%"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Task Completion Breakdown (Design, Development, Review) -->
+                                <div class="pt-1">
+                                    <span class="text-[11px] font-bold text-slate-500 block mb-2">Task Completion</span>
+                                    <div class="flex flex-col gap-2">
+                                        <div class="flex items-center gap-3">
+                                            <span class="text-[11px] font-medium text-slate-500 w-20 truncate">Design</span>
+                                            <div class="flex-1 h-1.5 rounded-full bg-slate-100 overflow-hidden">
+                                                <div class="h-full bg-indigo-600 rounded-full" style="width: 80%"></div>
+                                            </div>
+                                            <span class="text-[10px] font-bold text-slate-400 w-8 text-right">80%</span>
+                                        </div>
+                                        <div class="flex items-center gap-3">
+                                            <span class="text-[11px] font-medium text-slate-500 w-20 truncate">Development</span>
+                                            <div class="flex-1 h-1.5 rounded-full bg-slate-100 overflow-hidden">
+                                                <div class="h-full bg-purple-600 rounded-full" style="width: 55%"></div>
+                                            </div>
+                                            <span class="text-[10px] font-bold text-slate-400 w-8 text-right">55%</span>
+                                        </div>
+                                        <div class="flex items-center gap-3">
+                                            <span class="text-[11px] font-medium text-slate-500 w-20 truncate">Review</span>
+                                            <div class="flex-1 h-1.5 rounded-full bg-slate-100 overflow-hidden">
+                                                <div class="h-full bg-slate-400 rounded-full" style="width: 30%"></div>
+                                            </div>
+                                            <span class="text-[10px] font-bold text-slate-400 w-8 text-right">30%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
-            </div>
 
-        </div>
+            </main>
 
-        <!-- Video Control Bar (Clean, High-Contrast Action Buttons) -->
-        <div class="p-3.5 bg-slate-950 border-t border-slate-800 shrink-0">
-            <div class="flex items-center justify-around gap-2">
-                
-                <!-- Mic Mute / Unmute Button -->
-                <button type="button" id="agora-mic-btn" onclick="toggleAgoraAudio()" title="Mute / Unmute Microphone" class="flex flex-col items-center gap-1 text-slate-300 hover:text-white cursor-pointer group">
-                    <div id="agora-mic-icon-box" class="w-11 h-11 rounded-full bg-slate-800 group-hover:bg-slate-700 flex items-center justify-center text-sm transition-all shadow-md active:scale-95">
-                        <i id="agora-mic-icon" class="fas fa-microphone"></i>
+            <!-- 3. Right Sidebar: Team Chat (Matching Reference Image) -->
+            <aside class="hidden xl:flex flex-col w-80 lg:w-84 bg-white border-l border-slate-200/90 shrink-0 select-none">
+                <!-- Chat Header -->
+                <div class="px-5 py-4 border-b border-slate-200/80 flex items-center justify-between shrink-0">
+                    <div>
+                        <h3 class="font-extrabold text-sm text-slate-900">Team Chat</h3>
+                        <p class="text-[11px] text-slate-400 font-medium flex items-center gap-1.5 mt-0.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            <span id="workspace-chat-active-count">6 members · Active now</span>
+                        </p>
                     </div>
-                    <span id="agora-mic-lbl" class="text-[10px] font-semibold" data-i18n="muteMic">Mic</span>
-                </button>
+                    <button type="button" onclick="switchClassroomTab('reactions')" class="text-xs font-bold text-indigo-600 hover:text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-lg cursor-pointer">
+                        ✨ Reactions
+                    </button>
+                </div>
 
-                <!-- Camera On / Off Button -->
-                <button type="button" id="agora-camera-btn" onclick="toggleAgoraVideo()" title="Turn Camera On / Off" class="flex flex-col items-center gap-1 text-slate-300 hover:text-white cursor-pointer group">
-                    <div id="agora-camera-icon-box" class="w-11 h-11 rounded-full bg-slate-800 group-hover:bg-slate-700 flex items-center justify-center text-sm transition-all shadow-md active:scale-95">
-                        <i id="agora-camera-icon" class="fas fa-video"></i>
+                <!-- Chat Message Feed (Matching Reference Image Messages & Avatars) -->
+                <div id="classroom-chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3.5 text-xs">
+                    
+                    <!-- Date Divider: Today -->
+                    <div class="flex items-center justify-center my-1">
+                        <span class="px-3 py-0.5 rounded-full bg-slate-100 text-slate-400 text-[10px] font-bold">Today</span>
                     </div>
-                    <span id="agora-camera-lbl" class="text-[10px] font-semibold" data-i18n="cameraOn">Camera</span>
-                </button>
 
-                <!-- Screen Share Button -->
-                <button type="button" id="agora-screen-btn" onclick="toggleAgoraScreenShare()" title="Share Screen" class="flex flex-col items-center gap-1 text-slate-300 hover:text-white cursor-pointer group">
-                    <div id="agora-screen-icon-box" class="w-11 h-11 rounded-full bg-slate-800 group-hover:bg-slate-700 flex items-center justify-center text-sm transition-all shadow-md active:scale-95">
-                        <i id="agora-screen-icon" class="fas fa-desktop"></i>
+                    <!-- Message 1: Alex R. (Left) -->
+                    <div class="flex items-start gap-2 max-w-[90%]">
+                        <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">
+                            AR
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <div class="flex items-center gap-1.5 text-[10px] text-slate-400">
+                                <span class="font-bold text-slate-700">Alex R.</span>
+                                <span>10:02</span>
+                            </div>
+                            <div class="px-3 py-2 rounded-2xl rounded-tl-xs bg-[#F1F5F9] text-slate-800 leading-relaxed shadow-xs">
+                                Can everyone see the shared screen?
+                            </div>
+                        </div>
                     </div>
-                    <span id="agora-screen-lbl" class="text-[10px] font-semibold" data-i18n="screenShare">Share</span>
-                </button>
 
-                <!-- Switch Camera Button (Mobile) -->
-                <button type="button" id="agora-flip-btn" onclick="switchAgoraCamera()" title="Switch Camera" class="flex flex-col items-center gap-1 text-slate-300 hover:text-white cursor-pointer group">
-                    <div class="w-11 h-11 rounded-full bg-slate-800 group-hover:bg-slate-700 flex items-center justify-center text-sm transition-all shadow-md active:scale-95">
-                        <i class="fas fa-camera-rotate"></i>
+                    <!-- Message 2: You (Right) -->
+                    <div class="flex flex-col items-end gap-1 max-w-[90%] ml-auto">
+                        <div class="flex items-center gap-1.5 text-[10px] text-slate-400">
+                            <span>10:03</span>
+                            <span class="font-bold text-indigo-600">You</span>
+                        </div>
+                        <div class="px-3 py-2 rounded-2xl rounded-tr-xs bg-indigo-50 border border-indigo-100 text-slate-800 leading-relaxed shadow-xs">
+                            Yes, looks great on my end. Audio is clear too.
+                        </div>
                     </div>
-                    <span class="text-[10px] font-semibold">Flip</span>
-                </button>
 
-                <!-- Join / Leave Call Button -->
-                <button type="button" id="agora-call-btn" onclick="toggleAgoraCallState()" class="flex flex-col items-center gap-1 text-white cursor-pointer group">
-                    <div id="agora-call-icon-box" class="w-11 h-11 rounded-full bg-emerald-600 hover:bg-emerald-500 flex items-center justify-center text-sm transition-all shadow-md active:scale-95">
-                        <i id="agora-call-icon" class="fas fa-phone"></i>
+                    <!-- Message 3: Maya T. (Left) -->
+                    <div class="flex items-start gap-2 max-w-[90%]">
+                        <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">
+                            MT
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <div class="flex items-center gap-1.5 text-[10px] text-slate-400">
+                                <span class="font-bold text-slate-700">Maya T.</span>
+                                <span>10:05</span>
+                            </div>
+                            <div class="px-3 py-2 rounded-2xl rounded-tl-xs bg-[#F1F5F9] text-slate-800 leading-relaxed shadow-xs">
+                                Adding my notes to the task board right now.
+                            </div>
+                        </div>
                     </div>
-                    <span id="agora-call-lbl" class="text-[10px] font-bold text-emerald-400" data-i18n="joinClassroom">Join</span>
-                </button>
 
-            </div>
+                    <!-- Message 4: Chris D. with PDF Attachment (Left) -->
+                    <div class="flex items-start gap-2 max-w-[90%]">
+                        <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">
+                            CD
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <div class="flex items-center gap-1.5 text-[10px] text-slate-400">
+                                <span class="font-bold text-slate-700">Chris D.</span>
+                                <span>10:08</span>
+                            </div>
+                            <div class="p-2.5 rounded-2xl rounded-tl-xs bg-[#F1F5F9] border border-slate-200/70 flex items-center gap-2.5 shadow-xs cursor-pointer hover:bg-slate-200/80 transition-colors">
+                                <div class="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center text-xs">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="font-extrabold text-xs text-slate-800 truncate">Q3_Roadmap.pdf</div>
+                                    <div class="text-[10px] text-slate-400">2.4 MB · PDF</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Message 5: You (Right) -->
+                    <div class="flex flex-col items-end gap-1 max-w-[90%] ml-auto">
+                        <div class="flex items-center gap-1.5 text-[10px] text-slate-400">
+                            <span>10:09</span>
+                            <span class="font-bold text-indigo-600">You</span>
+                        </div>
+                        <div class="px-3 py-2 rounded-2xl rounded-tr-xs bg-indigo-50 border border-indigo-100 text-slate-800 leading-relaxed shadow-xs">
+                            Perfect. Let's review the roadmap next.
+                        </div>
+                    </div>
+
+                    <!-- Message 6: Alex R. (Left) -->
+                    <div class="flex items-start gap-2 max-w-[90%]">
+                        <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">
+                            AR
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <div class="flex items-center gap-1.5 text-[10px] text-slate-400">
+                                <span class="font-bold text-slate-700">Alex R.</span>
+                                <span>10:12</span>
+                            </div>
+                            <div class="px-3 py-2 rounded-2xl rounded-tl-xs bg-[#F1F5F9] text-slate-800 leading-relaxed shadow-xs">
+                                Sounds good. I will share the summary after the call.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Typing Indicator Bubble (Matching MT ••• in Reference Image) -->
+                    <div id="classroom-typing-indicator" class="flex items-center gap-2">
+                        <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 font-bold text-[10px] flex items-center justify-center shrink-0">
+                            MT
+                        </div>
+                        <div class="px-3 py-1.5 rounded-full bg-[#F1F5F9] text-slate-400 flex items-center gap-1 shadow-xs">
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce"></span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style="animation-delay: 0.15s"></span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style="animation-delay: 0.3s"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Chat Input Bar (Matching Reference Image Pill Input + Purple Send Arrow) -->
+                <div class="p-4 border-t border-slate-200/80 bg-white shrink-0">
+                    <form id="classroom-chat-form" onsubmit="handleSendClassroomChat(event)" class="relative flex items-center">
+                        <input type="text" id="classroom-chat-input" placeholder="Type a message..." maxlength="300" autocomplete="off" class="w-full bg-[#F1F5F9] text-slate-800 text-xs pl-4 pr-11 py-3 rounded-full border border-slate-200 focus:bg-white focus:border-indigo-500 focus:outline-none transition-all placeholder-slate-400">
+                        <button type="submit" class="absolute right-1.5 w-8 h-8 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center shadow-md shadow-indigo-600/30 transition-all active:scale-95 cursor-pointer">
+                            <i class="fas fa-paper-plane text-xs"></i>
+                        </button>
+                    </form>
+                </div>
+            </aside>
+
         </div>
 
     </div>
@@ -3244,7 +3587,30 @@
                 aiRoleStudent: "Student",
                 aiRoleTeacher: "Teacher",
                 aiRoleParent: "Parent",
-},
+
+                manageWhatsappTitle: "Add & Manage WhatsApp Numbers",
+                addNewRecipientTitle: "Add New Recipient (Mom, Dad, Teacher)",
+                savedRecipientsListTitle: "Saved Recipients List",
+                shareQuizTitle: "Share Quiz to WhatsApp",
+                shareQuizSub: "Enter mobile number to share this active Math Quiz directly via WhatsApp.",
+                recipientNameLabel: "Recipient Name (Optional):",
+                activeQuizTables: "Active Quiz Tables:",
+                shareNow: "Share Now",
+                analyticsTitle: "Application Usage Analytics & Report",
+                analyticsSub: "Live usage tracking, country statistics, and date-wise practice history",
+                totalUses: "Total App Uses",
+                uniqueUsers: "Unique Sessions",
+                countriesTracked: "Countries Active",
+                todaySessions: "Active Today",
+                countryBreakdown: "Usage Breakdown by Country",
+                dateWiseReport: "Date-Wise Application Usage History",
+                exportAnalyticsExcel: "Export Report (Excel)",
+                dateCol: "Date",
+                usesCol: "App Uses",
+                rolesCol: "Role Usage",
+                countriesCol: "Countries Active",
+                operationsCol: "Math Operations",
+            },
             ta: {
                 liveTutorBtn: "நேரலை ஆசிரியர் / வகுப்பறை",
                 liveTutorSidebarTitle: "நேரலை 1-on-1 வகுப்பறை",
@@ -3565,7 +3931,31 @@
                 aiRoleStudent: "மாணவர்",
                 aiRoleTeacher: "ஆசிரியர்",
                 aiRoleParent: "பெற்றோர்",
-},
+
+                manageWhatsappTitle: "WhatsApp எண்களைச் சேர்க்கவும் மற்றும் நிர்வகிக்கவும்",
+                addNewRecipientTitle: "புதிய பெறுநரைச் சேர்க்கவும் (அம்மா, அப்பா, ஆசிரியர்)",
+                savedRecipientsListTitle: "சேமிக்கப்பட்ட பெறுநர்கள் பட்டியல்",
+                shareQuizTitle: "வினாடி வினாவை WhatsApp-ல் பகிரவும்",
+                shareQuizSub: "இந்த கணித வினாடி வினாவை WhatsApp மூலம் நேரடியாகப் பகிர மொபைல் எண்ணை உள்ளிடவும்.",
+                recipientNameLabel: "பெறுநர் பெயர் (விருப்பத்திற்குரியது):",
+                activeQuizTables: "செயலில் உள்ள வாய்ப்பாடுகள்:",
+                shareNow: "இப்போது பகிரவும்",
+                analyticsTitle: "பயன்பாட்டு பகுப்பாய்வு மற்றும் அறிக்கை",
+                analyticsSub: "நேரலை பயன்பாட்டு கண்காணிப்பு, நாட்டு புள்ளிவிவரங்கள் மற்றும் தேதி வாரியான பயிற்சி வரலாறு",
+                totalUses: "மொத்த பயன்பாடுகள்",
+                uniqueUsers: "தனித்துவமான அமர்வுகள்",
+                countriesTracked: "செயலில் உள்ள நாடுகள்",
+                todaySessions: "இன்று செயலில்",
+                countryBreakdown: "நாட்டு வாரியான பயன்பாடு",
+                dateWiseReport: "தேதி வாரியான பயன்பாட்டு வரலாறு",
+                exportAnalyticsExcel: "அறிக்கையை ஏற்றுமதி செய் (Excel)",
+                dateCol: "தேதி",
+                usesCol: "பயன்பாடுகள்",
+                rolesCol: "பங்கு பயன்பாடு",
+                countriesCol: "செயலில் உள்ள நாடுகள்",
+                operationsCol: "கணித செயல்பாடுகள்",
+                introNote: "குறிப்பு: தினமும் கணிதம் பயிற்சி செய்வது கணக்கீட்டு வேகத்தையும் துல்லியத்தையும் மேம்படுத்துகிறது!",
+            },
             ml: {
                 liveTutorBtn: "ലൈവ് ട്യൂട്ടർ / ക്ലാസ്സ്റൂം",
                 liveTutorSidebarTitle: "ലൈവ് 1-on-1 ക്ലാസ്സ്റൂം",
@@ -3886,7 +4276,31 @@
                 aiRoleStudent: "വിദ്യാർത്ഥി",
                 aiRoleTeacher: "അധ്യാപകൻ",
                 aiRoleParent: "രക്ഷിതാവ്",
-},
+
+                manageWhatsappTitle: "വാട്ട്‌സ്ആപ്പ് നമ്പറുകൾ ചേർക്കുകയും നിയന്ത്രിക്കുകയും ചെയ്യുക",
+                addNewRecipientTitle: "പുതിയ സ്വീകർത്താവിനെ ചേർക്കുക (അമ്മ, അച്ഛൻ, അധ്യാപകൻ)",
+                savedRecipientsListTitle: "സംരക്ഷിച്ച സ്വീകർത്താക്കളുടെ പട്ടിക",
+                shareQuizTitle: "ക്വിസ് വാട്ട്‌സ്ആപ്പിൽ പങ്കിടുക",
+                shareQuizSub: "ഈ സജീവ കണക്ക് ക്വിസ് നേരിട്ട് പങ്കിടാൻ മൊബൈൽ നമ്പർ നൽകുക.",
+                recipientNameLabel: "സ്വീകർത്താവിന്റെ പേര് (ഓപ്ഷണൽ):",
+                activeQuizTables: "സജീവ ക്വിസ് പട്ടികകൾ:",
+                shareNow: "ഇപ്പോൾ പങ്കിടുക",
+                analyticsTitle: "ആപ്ലിക്കേഷൻ ഉപയോഗ വിശകലനവും റിപ്പോർട്ടും",
+                analyticsSub: "തത്സമയ ഉപയോഗ ട്രാക്കിംഗ്, രാജ്യ സ്ഥിതിവിവരക്കണക്കുകൾ, തീയതി തിരിച്ചുള്ള പരിശീലന ചരിത്രം",
+                totalUses: "ആകെ ആപ്പ് ഉപയോഗങ്ങൾ",
+                uniqueUsers: "വ്യതിരിക്ത സെഷനുകൾ",
+                countriesTracked: "സജീവ രാജ്യങ്ങൾ",
+                todaySessions: "ഇന്ന് സജീവം",
+                countryBreakdown: "രാജ്യം തിരിച്ചുള്ള ഉപയോഗം",
+                dateWiseReport: "തീയതി തിരിച്ചുള്ള ആപ്ലിക്കേഷൻ ഉപയോഗ ചരിത്രം",
+                exportAnalyticsExcel: "റിപ്പോർട്ട് എക്‌സ്‌പോർട്ട് ചെയ്യുക (Excel)",
+                dateCol: "തീയതി",
+                usesCol: "ഉപയോഗങ്ങൾ",
+                rolesCol: "റോൾ ഉപയോഗം",
+                countriesCol: "സജീവ രാജ്യങ്ങൾ",
+                operationsCol: "കണക്ക് പ്രവർത്തനങ്ങൾ",
+                introNote: "ശ്രദ്ധിക്കുക: ദിവസവും കണക്ക് പരിശീലിക്കുന്നത് കണക്കുകൂട്ടൽ വേഗതയും കൃത്യതയും മെച്ചപ്പെടുത്തുന്നു!",
+            },
             te: {
                 liveTutorBtn: "లైవ్ ట్యూటర్ / క్లాస్‌రూమ్",
                 liveTutorSidebarTitle: "లైవ్ 1-on-1 క్లాస్‌రూమ్",
@@ -4207,7 +4621,31 @@
                 aiRoleStudent: "విద్యార్థి",
                 aiRoleTeacher: "ఉపాధ్యాయుడు",
                 aiRoleParent: "తల్లిదండ్రులు",
-},
+
+                manageWhatsappTitle: "WhatsApp నంబర్‌లను జోడించండి మరియు నిర్వహించండి",
+                addNewRecipientTitle: "కొత్త గ్రహీతను జోడించండి (అమ్మ, నాన్న, ఉపాధ్యాయుడు)",
+                savedRecipientsListTitle: "భద్రపరిచిన గ్రహీతల జాబితా",
+                shareQuizTitle: "క్విజ్‌ను WhatsAppలో షేర్ చేయండి",
+                shareQuizSub: "ఈ యాక్టివ్ మ్యాథ్ క్విజ్‌ను నేరుగా WhatsApp ద్వారా షేర్ చేయడానికి మొబైల్ నంబర్‌ను నమోదు చేయండి.",
+                recipientNameLabel: "గ్రహీత పేరు (ఐచ్ఛికం):",
+                activeQuizTables: "యాక్టివ్ క్విజ్ పట్టికలు:",
+                shareNow: "ఇప్పుడే షేర్ చేయండి",
+                analyticsTitle: "అప్లికేషన్ వినియోగ విశ్లేషణ మరియు నివేదిక",
+                analyticsSub: "ప్రత్యక్ష వినియోగ ట్రాకింగ్, దేశ గణాంకాలు మరియు తేదీ వారీ ప్రాక్టీస్ చరిత్ర",
+                totalUses: "మొత్తం యాప్ వినియోగాలు",
+                uniqueUsers: "ప్రత్యేక సెషన్‌లు",
+                countriesTracked: "యాక్టివ్ దేశాలు",
+                todaySessions: "ఈరోజు యాక్టివ్",
+                countryBreakdown: "దేశాల వారీగా వినియోగ విభజన",
+                dateWiseReport: "తేదీ వారీ అప్లికేషన్ వినియోగ చరిత్ర",
+                exportAnalyticsExcel: "నివేదికను ఎగుమతి చేయండి (Excel)",
+                dateCol: "తేదీ",
+                usesCol: "వినియోగాలు",
+                rolesCol: "పాత్ర వినియోగం",
+                countriesCol: "యాక్టివ్ దేశాలు",
+                operationsCol: "గణిత ఆపరేషన్లు",
+                introNote: "గమనిక: రోజూ గణితాన్ని ప్రాక్టీస్ చేయడం వల్ల గణన వేగం మరియు ఖచ్చితత్వం పెరుగుతుంది!",
+            },
             kn: {
                 liveTutorBtn: "ಲೈವ್ ಟ್ಯೂಟರ್ / ತರಗತಿಗೆ ಸೇರಿ",
                 liveTutorSidebarTitle: "ಲೈವ್ 1-on-1 ತರಗತಿ",
@@ -4528,7 +4966,31 @@
                 aiRoleStudent: "ವಿದ್ಯಾರ್ಥಿ",
                 aiRoleTeacher: "ಶಿಕ್ಷಕ",
                 aiRoleParent: "ಪೋಷಕ",
-},
+
+                manageWhatsappTitle: "WhatsApp ಸಂಖ್ಯೆಗಳನ್ನು ಸೇರಿಸಿ ಮತ್ತು ನಿರ್ವಹಿಸಿ",
+                addNewRecipientTitle: "ಹೊಸ ಸ್ವೀಕೃತದಾರರನ್ನು ಸೇರಿಸಿ (ಅಮ್ಮ, ಅಪ್ಪ, ಶಿಕ್ಷಕ)",
+                savedRecipientsListTitle: "ಉಳಿಸಲಾದ ಸ್ವೀಕೃತದಾರರ ಪಟ್ಟಿ",
+                shareQuizTitle: "ಕ್ವಿಜ್ ಅನ್ನು WhatsApp ನಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳಿ",
+                shareQuizSub: "ಈ ಸಕ್ರಿಯ ಗಣಿತ ಕ್ವಿಜ್ ಅನ್ನು ನೇರವಾಗಿ WhatsApp ಮೂಲಕ ಹಂಚಿಕೊಳ್ಳಲು ಮೊಬೈಲ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ.",
+                recipientNameLabel: "ಸ್ವೀಕೃತದಾರರ ಹೆಸರು (ಐಚ್ಛಿಕ):",
+                activeQuizTables: "ಸಕ್ರಿಯ ಕ್ವಿಜ್ ಕೋಷ್ಟಕಗಳು:",
+                shareNow: "ಈಗಲೇ ಹಂಚಿಕೊಳ್ಳಿ",
+                analyticsTitle: "ಅಪ್ಲಿಕೇಶನ್ ಬಳಕೆ ವಿಶ್ಲೇಷಣೆ ಮತ್ತು ವರದಿ",
+                analyticsSub: "ಲೈವ್ ಬಳಕೆ ಟ್ರ್ಯಾಕಿಂಗ್, ದೇಶದ ಅಂಕಿಅಂಶಗಳು ಮತ್ತು ದಿನಾಂಕವಾರು ಅಭ್ಯಾಸ ಇತಿಹಾಸ",
+                totalUses: "ಒಟ್ಟು ಅಪ್ಲಿಕೇಶನ್ ಬಳಕೆಗಳು",
+                uniqueUsers: "ವಿಶಿಷ್ಟ ಸೆಷನ್‌ಗಳು",
+                countriesTracked: "ಸಕ್ರಿಯ ದೇಶಗಳು",
+                todaySessions: "ಇಂದು ಸಕ್ರಿಯ",
+                countryBreakdown: "ದೇಶವಾರು ಬಳಕೆ ವಿಂಗಡಣೆ",
+                dateWiseReport: "ದಿನಾಂಕವಾರು ಅಪ್ಲಿಕೇಶನ್ ಬಳಕೆ ಇತಿಹಾಸ",
+                exportAnalyticsExcel: "ವರದಿಯನ್ನು ರಫ್ತು ಮಾಡಿ (Excel)",
+                dateCol: "ದಿನಾಂಕ",
+                usesCol: "ಬಳಕೆಗಳು",
+                rolesCol: "ಪಾತ್ರ ಬಳಕೆ",
+                countriesCol: "ಸಕ್ರಿಯ ದೇಶಗಳು",
+                operationsCol: "ಗಣಿತ ಕಾರ್ಯಾಚರಣೆಗಳು",
+                introNote: "ಸೂಚನೆ: ಪ್ರತಿದಿನ ಗಣಿತವನ್ನು ಅಭ್ಯಾಸ ಮಾಡುವುದರಿಂದ ಲೆಕ್ಕಾಚಾರದ ವೇಗ ಮತ್ತು ನಿಖರತೆ ಸುಧಾರಿಸುತ್ತದೆ!",
+            },
             hi: {
                 liveTutorBtn: "लाइव ट्यूटर / कक्षा में जुड़ें",
                 liveTutorSidebarTitle: "लाइव 1-on-1 कक्षा",
@@ -4849,7 +5311,31 @@
                 aiRoleStudent: "छात्र",
                 aiRoleTeacher: "शिक्षक",
                 aiRoleParent: "अभिभावक",
-},
+
+                manageWhatsappTitle: "व्हाट्सएप नंबर जोड़ें और प्रबंधित करें",
+                addNewRecipientTitle: "नया प्राप्तकर्ता जोड़ें (माँ, पिताजी, शिक्षक)",
+                savedRecipientsListTitle: "सहेजे गए प्राप्तकर्ताओं की सूची",
+                shareQuizTitle: "क्विज़ व्हाट्सएप पर साझा करें",
+                shareQuizSub: "इस सक्रिय गणित क्विज़ को सीधे व्हाट्सएप के माध्यम से साझा करने के लिए मोबाइल नंबर दर्ज करें।",
+                recipientNameLabel: "प्राप्तकर्ता का नाम (वैकल्पिक):",
+                activeQuizTables: "सक्रिय क्विज़ पहाड़े:",
+                shareNow: "अभी साझा करें",
+                analyticsTitle: "एप्लिकेशन उपयोग विश्लेषण और रिपोर्ट",
+                analyticsSub: "लाइव उपयोग ट्रैकिंग, देश के आँकड़े और दिनांक-वार अभ्यास इतिहास",
+                totalUses: "कुल ऐप उपयोग",
+                uniqueUsers: "अद्वितीय सत्र",
+                countriesTracked: "सक्रिय देश",
+                todaySessions: "आज सक्रिय",
+                countryBreakdown: "देश के अनुसार उपयोग विवरण",
+                dateWiseReport: "दिनांक-वार एप्लिकेशन उपयोग इतिहास",
+                exportAnalyticsExcel: "रिपोर्ट निर्यात करें (Excel)",
+                dateCol: "तारीख",
+                usesCol: "उपयोग",
+                rolesCol: "भूमिका उपयोग",
+                countriesCol: "सक्रिय देश",
+                operationsCol: "गणित संक्रियाएं",
+                introNote: "नोट: प्रतिदिन गणित का अभ्यास करने से गणना की गति और सटीकता में सुधार होता है!",
+            },
             zh: {
                 liveTutorBtn: "在线辅导 / 进入课堂",
                 liveTutorSidebarTitle: "在线一对一课堂",
@@ -5170,7 +5656,31 @@
                 aiRoleStudent: "学生",
                 aiRoleTeacher: "教师",
                 aiRoleParent: "家长",
-},
+
+                manageWhatsappTitle: "添加并管理 WhatsApp 号码",
+                addNewRecipientTitle: "添加新收件人（妈妈、爸爸、老师）",
+                savedRecipientsListTitle: "已保存的收件人列表",
+                shareQuizTitle: "将测验分享到 WhatsApp",
+                shareQuizSub: "输入手机号码即可直接通过 WhatsApp 分享此活跃的数学测验。",
+                recipientNameLabel: "收件人姓名（可选）：",
+                activeQuizTables: "当前测验数表：",
+                shareNow: "立即分享",
+                analyticsTitle: "应用使用情况分析与报告",
+                analyticsSub: "实时使用跟踪、国家/地区统计和按日练习历史",
+                totalUses: "应用总使用次数",
+                uniqueUsers: "独立会话数",
+                countriesTracked: "活跃国家/地区",
+                todaySessions: "今日活跃",
+                countryBreakdown: "按国家/地区划分的使用情况",
+                dateWiseReport: "按日期的应用使用历史记录",
+                exportAnalyticsExcel: "导出报告 (Excel)",
+                dateCol: "日期",
+                usesCol: "使用次数",
+                rolesCol: "角色使用分布",
+                countriesCol: "活跃国家",
+                operationsCol: "数学运算",
+                introNote: "注意：每天练习数学可以提高计算速度和准确性！",
+            },
             ar: {
                 liveTutorBtn: "معلم مباشر / انضم للفصل",
                 liveTutorSidebarTitle: "فصل دراسي مباشر 1-on-1",
@@ -5491,7 +6001,31 @@
                 aiRoleStudent: "طالب",
                 aiRoleTeacher: "معلم",
                 aiRoleParent: "ولي أمر",
-},
+
+                manageWhatsappTitle: "إضافة وإدارة أرقام واتساب",
+                addNewRecipientTitle: "إضافة مستلم جديد (الأم، الأب، المعلم)",
+                savedRecipientsListTitle: "قائمة المستلمين المحفوظة",
+                shareQuizTitle: "مشاركة الاختبار عبر واتساب",
+                shareQuizSub: "أدخل رقم الهاتف لمشاركة اختبار الرياضيات هذا مباشرة عبر واتساب.",
+                recipientNameLabel: "اسم المستلم (اختياري):",
+                activeQuizTables: "جداول الاختبار النشطة:",
+                shareNow: "شارك الآن",
+                analyticsTitle: "تحليلات استخدام التطبيق والتقرير",
+                analyticsSub: "تتبع الاستخدام المباشر وإحصاءات الدول وسجل التدريب حسب التاريخ",
+                totalUses: "إجمالي استخدامات التطبيق",
+                uniqueUsers: "الجلسات الفريدة",
+                countriesTracked: "الدول النشطة",
+                todaySessions: "نشط اليوم",
+                countryBreakdown: "تفصيل الاستخدام حسب الدولة",
+                dateWiseReport: "سجل استخدام التطبيق حسب التاريخ",
+                exportAnalyticsExcel: "تصدير التقرير (Excel)",
+                dateCol: "التاريخ",
+                usesCol: "الاستخدامات",
+                rolesCol: "استخدام الأدوار",
+                countriesCol: "الدول النشطة",
+                operationsCol: "العمليات الحسابية",
+                introNote: "ملاحظة: التدريب اليومي على الرياضيات يحسن سرعة الحساب والدقة!",
+            },
             fr: {
                 liveTutorBtn: "Tuteur en Direct / Rejoindre",
                 liveTutorSidebarTitle: "Classe 1-sur-1 en Direct",
@@ -5812,7 +6346,31 @@
                 aiRoleStudent: "Élève",
                 aiRoleTeacher: "Enseignant",
                 aiRoleParent: "Parent",
-},
+
+                manageWhatsappTitle: "Ajouter et gérer les numéros WhatsApp",
+                addNewRecipientTitle: "Ajouter un nouveau destinataire (Maman, Papa, Enseignant)",
+                savedRecipientsListTitle: "Liste des destinataires enregistrés",
+                shareQuizTitle: "Partager le quiz sur WhatsApp",
+                shareQuizSub: "Entrez le numéro pour partager ce quiz de maths directement via WhatsApp.",
+                recipientNameLabel: "Nom du destinataire (facultatif) :",
+                activeQuizTables: "Tables de quiz actives :",
+                shareNow: "Partager maintenant",
+                analyticsTitle: "Analytique d'utilisation de l'application et rapport",
+                analyticsSub: "Suivi en direct de l'utilisation, statistiques par pays et historique d'entraînement par date",
+                totalUses: "Utilisations totales de l'app",
+                uniqueUsers: "Sessions uniques",
+                countriesTracked: "Pays actifs",
+                todaySessions: "Actifs aujourd'hui",
+                countryBreakdown: "Répartition de l'utilisation par pays",
+                dateWiseReport: "Historique d'utilisation de l'application par date",
+                exportAnalyticsExcel: "Exporter le rapport (Excel)",
+                dateCol: "Date",
+                usesCol: "Utilisations",
+                rolesCol: "Utilisation par rôle",
+                countriesCol: "Pays actifs",
+                operationsCol: "Opérations mathématiques",
+                introNote: "Remarque : Pratiquer les maths quotidiennement améliore la vitesse et la précision !",
+            },
             es: {
                 liveTutorBtn: "Tutor en Vivo / Aula",
                 liveTutorSidebarTitle: "Aula 1 a 1 en Vivo",
@@ -6133,7 +6691,31 @@
                 aiRoleStudent: "Estudiante",
                 aiRoleTeacher: "Profesor",
                 aiRoleParent: "Padre",
-},
+
+                manageWhatsappTitle: "Agregar y administrar números de WhatsApp",
+                addNewRecipientTitle: "Agregar nuevo destinatario (Mamá, Papá, Profesor)",
+                savedRecipientsListTitle: "Lista de destinatarios guardados",
+                shareQuizTitle: "Compartir cuestionario en WhatsApp",
+                shareQuizSub: "Ingrese el número de móvil para compartir este cuestionario directamente por WhatsApp.",
+                recipientNameLabel: "Nombre del destinatario (opcional):",
+                activeQuizTables: "Tablas de cuestionario activas:",
+                shareNow: "Compartir ahora",
+                analyticsTitle: "Análisis e informe de uso de la aplicación",
+                analyticsSub: "Seguimiento en vivo, estadísticas por país e historial de práctica por fecha",
+                totalUses: "Usos totales de la aplicación",
+                uniqueUsers: "Sesiones únicas",
+                countriesTracked: "Países activos",
+                todaySessions: "Activos hoy",
+                countryBreakdown: "Desglose de uso por país",
+                dateWiseReport: "Historial de uso de la aplicación por fecha",
+                exportAnalyticsExcel: "Exportar informe (Excel)",
+                dateCol: "Fecha",
+                usesCol: "Usos",
+                rolesCol: "Uso por rol",
+                countriesCol: "Países activos",
+                operationsCol: "Operaciones matemáticas",
+                introNote: "Nota: ¡Practicar matemáticas a diario mejora la velocidad y precisión de cálculo!",
+            },
             ru: {
                 liveTutorBtn: "Онлайн репетитор / Класс",
                 liveTutorSidebarTitle: "Онлайн урок 1-на-1",
@@ -6454,7 +7036,31 @@
                 aiRoleStudent: "Ученик",
                 aiRoleTeacher: "Учитель",
                 aiRoleParent: "Родитель",
-},
+
+                manageWhatsappTitle: "Добавить и управлять номерами WhatsApp",
+                addNewRecipientTitle: "Добавить нового получателя (Мама, Папа, Учитель)",
+                savedRecipientsListTitle: "Список сохраненных получателей",
+                shareQuizTitle: "Поделиться викториной в WhatsApp",
+                shareQuizSub: "Введите номер мобильного телефона, чтобы поделиться этой викториной через WhatsApp.",
+                recipientNameLabel: "Имя получателя (необязательно):",
+                activeQuizTables: "Активные таблицы викторины:",
+                shareNow: "Поделиться сейчас",
+                analyticsTitle: "Аналитика использования приложения и отчет",
+                analyticsSub: "Отслеживание использования в реальном времени, статистика по странам и история практики по датам",
+                totalUses: "Всего использований приложения",
+                uniqueUsers: "Уникальные сеансы",
+                countriesTracked: "Активные страны",
+                todaySessions: "Активно сегодня",
+                countryBreakdown: "Распределение использования по странам",
+                dateWiseReport: "История использования приложения по датам",
+                exportAnalyticsExcel: "Экспорт отчета (Excel)",
+                dateCol: "Дата",
+                usesCol: "Использования",
+                rolesCol: "Использование по ролям",
+                countriesCol: "Активные страны",
+                operationsCol: "Математические операции",
+                introNote: "Примечание: Ежедневная практика математики повышает скорость и точность вычислений!",
+            },
             nl: {
                 liveTutorBtn: "Live Bijles / Klaslokaal",
                 liveTutorSidebarTitle: "Live 1-op-1 Klaslokaal",
@@ -6775,7 +7381,31 @@
                 aiRoleStudent: "Leerling",
                 aiRoleTeacher: "Leraar",
                 aiRoleParent: "Ouder",
-},
+
+                manageWhatsappTitle: "WhatsApp-nummers toevoegen en beheren",
+                addNewRecipientTitle: "Nieuwe ontvanger toevoegen (Moeder, Vader, Leraar)",
+                savedRecipientsListTitle: "Lijst met opgeslagen ontvangers",
+                shareQuizTitle: "Quiz delen via WhatsApp",
+                shareQuizSub: "Voer mobiel nummer in om deze quiz direct via WhatsApp te delen.",
+                recipientNameLabel: "Naam ontvanger (optioneel):",
+                activeQuizTables: "Actieve quiztafels:",
+                shareNow: "Nu delen",
+                analyticsTitle: "App-gebruiksstatistieken en rapportage",
+                analyticsSub: "Live gebruiksmonitoring, landenstatistieken en oefengeschiedenis per datum",
+                totalUses: "Totaal aantal app-sessies",
+                uniqueUsers: "Unieke sessies",
+                countriesTracked: "Actieve landen",
+                todaySessions: "Vandaag actief",
+                countryBreakdown: "Gebruiksspecificatie per land",
+                dateWiseReport: "App-gebruiksgeschiedenis per datum",
+                exportAnalyticsExcel: "Rapport exporteren (Excel)",
+                dateCol: "Datum",
+                usesCol: "Sessies",
+                rolesCol: "Rolgebruik",
+                countriesCol: "Actieve landen",
+                operationsCol: "Wiskundige bewerkingen",
+                introNote: "Opmerking: Dagelijks wiskunde oefenen verbetert rekensnelheid en nauwkeurigheid!",
+            },
             pt: {
                 liveTutorBtn: "Tutor ao Vivo / Sala de Aula",
                 liveTutorSidebarTitle: "Sala 1 para 1 ao Vivo",
@@ -7096,7 +7726,31 @@
                 aiRoleStudent: "Estudante",
                 aiRoleTeacher: "Professor",
                 aiRoleParent: "Responsável",
-},
+
+                manageWhatsappTitle: "Adicionar e gerenciar números do WhatsApp",
+                addNewRecipientTitle: "Adicionar novo destinatário (Mãe, Pai, Professor)",
+                savedRecipientsListTitle: "Lista de destinatários salvos",
+                shareQuizTitle: "Compartilhar questionário no WhatsApp",
+                shareQuizSub: "Digite o número de celular para compartilhar este quiz diretamente via WhatsApp.",
+                recipientNameLabel: "Nome do destinatário (opcional):",
+                activeQuizTables: "Tabelas de quiz ativas:",
+                shareNow: "Compartilhar agora",
+                analyticsTitle: "Análise de uso do aplicativo e relatório",
+                analyticsSub: "Rastreamento em tempo real, estatísticas de países e histórico de prática por data",
+                totalUses: "Total de usos do aplicativo",
+                uniqueUsers: "Sessões únicas",
+                countriesTracked: "Países ativos",
+                todaySessions: "Ativos hoje",
+                countryBreakdown: "Distribuição de uso por país",
+                dateWiseReport: "Histórico de uso do aplicativo por data",
+                exportAnalyticsExcel: "Exportar relatório (Excel)",
+                dateCol: "Data",
+                usesCol: "Usos",
+                rolesCol: "Uso por função",
+                countriesCol: "Países ativos",
+                operationsCol: "Operações matemáticas",
+                introNote: "Nota: Praticar matemática diariamente melhora a velocidade e precisão de cálculo!",
+            },
             ms: {
                 liveTutorBtn: "Tutor Langsung / Masuk Kelas",
                 liveTutorSidebarTitle: "Bilik Darjah 1-lawan-1 Langsung",
@@ -7417,7 +8071,31 @@
                 aiRoleStudent: "Pelajar",
                 aiRoleTeacher: "Guru",
                 aiRoleParent: "Ibu Bapa",
-},
+
+                manageWhatsappTitle: "Tambah & Urus Nombor WhatsApp",
+                addNewRecipientTitle: "Tambah Penerima Baharu (Ibu, Bapa, Guru)",
+                savedRecipientsListTitle: "Senarai Penerima Disimpan",
+                shareQuizTitle: "Kongsi Kuiz ke WhatsApp",
+                shareQuizSub: "Masukkan nombor telefon untuk berkongsi kuiz matematik ini terus melalui WhatsApp.",
+                recipientNameLabel: "Nama Penerima (Pilihan):",
+                activeQuizTables: "Sifir Kuiz Aktif:",
+                shareNow: "Kongsi Sekarang",
+                analyticsTitle: "Analisis & Laporan Penggunaan Aplikasi",
+                analyticsSub: "Penjejakan penggunaan langsung, statistik negara, dan sejarah latihan mengikut tarikh",
+                totalUses: "Jumlah Penggunaan Aplikasi",
+                uniqueUsers: "Sesi Unik",
+                countriesTracked: "Negara Aktif",
+                todaySessions: "Aktif Hari Ini",
+                countryBreakdown: "Pecahan Penggunaan Mengikut Negara",
+                dateWiseReport: "Sejarah Penggunaan Aplikasi Mengikut Tarikh",
+                exportAnalyticsExcel: "Eksport Laporan (Excel)",
+                dateCol: "Tarikh",
+                usesCol: "Penggunaan",
+                rolesCol: "Penggunaan Peranan",
+                countriesCol: "Negara Aktif",
+                operationsCol: "Operasi Matematik",
+                introNote: "Nota: Mempraktikkan matematik setiap hari meningkatkan kelajuan dan ketepatan pengiraan!",
+            },
             ja: {
                 liveTutorBtn: "ライブ個別指導 / 教室参加",
                 liveTutorSidebarTitle: "ライブ 1対1 オンライン教室",
@@ -7740,7 +8418,30 @@
                 aiRoleStudent: "生徒",
                 aiRoleTeacher: "先生",
                 aiRoleParent: "保護者",
-},
+
+                manageWhatsappTitle: "WhatsApp番号の追加と管理",
+                addNewRecipientTitle: "新しい受信者を追加（母、父、先生）",
+                savedRecipientsListTitle: "保存された受信者リスト",
+                shareQuizTitle: "クイズをWhatsAppで共有",
+                shareQuizSub: "この数学クイズをWhatsAppで直接共有するには携帯番号を入力してください。",
+                recipientNameLabel: "受信者名（オプション）：",
+                activeQuizTables: "アクティブなクイズ表：",
+                shareNow: "今すぐ共有",
+                analyticsTitle: "アプリ使用状況の分析とレポート",
+                analyticsSub: "リアルタイム利用状況、国別統計、日別の練習履歴",
+                totalUses: "総アプリ利用回数",
+                uniqueUsers: "ユニークセッション数",
+                countriesTracked: "アクティブな国",
+                todaySessions: "本日のアクティブ",
+                countryBreakdown: "国別の利用割合",
+                dateWiseReport: "日付別のアプリ使用履歴",
+                exportAnalyticsExcel: "レポートのエクスポート (Excel)",
+                dateCol: "日付",
+                usesCol: "利用数",
+                rolesCol: "役割別利用",
+                countriesCol: "アクティブ国",
+                operationsCol: "算数演算",
+            },
         };
 
         const excelTranslations = {
@@ -8306,6 +9007,77 @@
             };
             return langMap[lang] || 'en-US';
         }
+
+        
+        // Universal Animated Custom Toast Notification System
+        function showCustomToast(message, type = 'info', duration = 3500) {
+            try {
+                let container = document.getElementById('universal-toast-container');
+                if (!container) {
+                    container = document.createElement('div');
+                    container.id = 'universal-toast-container';
+                    container.className = 'fixed top-5 right-5 z-[9999] flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-3 select-none';
+                    document.body.appendChild(container);
+                }
+
+                const toast = document.createElement('div');
+                toast.className = 'pointer-events-auto flex items-start gap-3 p-3.5 rounded-2xl shadow-xl border backdrop-blur-md transition-all duration-300 transform translate-y-[-10px] opacity-0 text-xs font-semibold';
+                
+                let iconClass = 'fa-info-circle';
+                let styleClasses = 'bg-slate-900/95 text-white border-slate-700 shadow-slate-900/40';
+
+                if (type === 'success') {
+                    iconClass = 'fa-check-circle text-emerald-400';
+                    styleClasses = 'bg-emerald-950/90 text-emerald-100 border-emerald-700/80 shadow-emerald-950/40';
+                } else if (type === 'error') {
+                    iconClass = 'fa-exclamation-circle text-rose-400';
+                    styleClasses = 'bg-rose-950/90 text-rose-100 border-rose-700/80 shadow-rose-950/40';
+                } else if (type === 'warning') {
+                    iconClass = 'fa-exclamation-triangle text-amber-400';
+                    styleClasses = 'bg-amber-950/90 text-amber-100 border-amber-700/80 shadow-amber-950/40';
+                } else {
+                    iconClass = 'fa-info-circle text-indigo-400';
+                    styleClasses = 'bg-slate-900/95 text-slate-100 border-indigo-700/60 shadow-slate-900/40';
+                }
+
+                toast.className += ' ' + styleClasses;
+                toast.innerHTML = `
+                    <i class="fas ${iconClass} text-base shrink-0 mt-0.5"></i>
+                    <div class="flex-1 leading-snug break-words">${message}</div>
+                    <button type="button" class="text-slate-400 hover:text-white shrink-0 ml-1 cursor-pointer">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+
+                const closeBtn = toast.querySelector('button');
+                if (closeBtn) {
+                    closeBtn.onclick = () => {
+                        toast.classList.add('opacity-0', 'translate-y-[-10px]');
+                        setTimeout(() => toast.remove(), 300);
+                    };
+                }
+
+                container.appendChild(toast);
+
+                // Animate entrance
+                requestAnimationFrame(() => {
+                    toast.classList.remove('opacity-0', 'translate-y-[-10px]');
+                    toast.classList.add('opacity-100', 'translate-y-0');
+                });
+
+                // Auto dismiss
+                setTimeout(() => {
+                    if (toast.parentElement) {
+                        toast.classList.add('opacity-0', 'translate-y-[-10px]');
+                        setTimeout(() => toast.remove(), 300);
+                    }
+                }, duration);
+            } catch(e) {
+                console.log('[Toast]', type, message);
+            }
+        }
+        window.showCustomToast = showCustomToast;
+
 
         function applyTranslations(rootElement = document) {
             const lang = currentLang;
@@ -9930,7 +10702,7 @@
         function startVoiceQuizSequence() {
             if (!validateStudentProfile()) return;
             if (currentQuestions.length === 0) {
-                alert("Please select practice numbers above first!");
+                showCustomToast("Please select practice numbers above first!", "warning");
                 return;
             }
 
@@ -10409,7 +11181,7 @@
         function openGestureHUD(qIndex) {
             if (!validateStudentProfile()) return;
             if (currentQuestions.length === 0) {
-                alert("Please select practice numbers above first!");
+                showCustomToast("Please select practice numbers above first!", "warning");
                 return;
             }
 
@@ -11323,7 +12095,7 @@
         function applyAdvanceQuestionsToQuiz() {
             const selected = fetchedAdvanceQuestions.filter(q => q.selected);
             if (selected.length === 0) {
-                alert('⚠️ Please select at least one question to load into the quiz!');
+                showCustomToast("Please select at least one question to load into the quiz!", "warning");
                 return;
             }
 
@@ -11433,7 +12205,7 @@
 
         function showAllAnswers() {
             if (!currentQuestions || currentQuestions.length === 0) {
-                alert("Please select practice numbers or grade above first!");
+                showCustomToast("Please select practice numbers or grade above first!", "warning");
                 return;
             }
             currentQuestions.forEach(q => {
@@ -12206,7 +12978,7 @@
         function processAndApplyLogoFile(file) {
             if (!file) return;
             if (!file.type.startsWith('image/')) {
-                alert('Please select a valid image file (PNG, JPG, WEBP, SVG).');
+                showCustomToast("Please select a valid image file (PNG, JPG, WEBP, SVG).", "warning");
                 return;
             }
 
@@ -12279,7 +13051,7 @@
             if (!urlInput) return;
             const url = urlInput.value.trim();
             if (!url) {
-                alert('Please enter a valid Image URL');
+                showCustomToast("Please enter a valid Image URL", "warning");
                 return;
             }
 
@@ -12461,7 +13233,7 @@
             if (!inputEl) return;
             const num = parseInt(inputEl.value);
             if (isNaN(num) || num < 1) {
-                alert("Please enter a valid positive number!");
+                showCustomToast("Please enter a valid positive number!", "warning");
                 return;
             }
             
@@ -14460,7 +15232,7 @@
             const recipientName = document.getElementById('share-quiz-recipient-name')?.value.trim() || 'Student / Parent';
 
             if (!mobileInput || mobileInput.length < 10) {
-                alert("Please enter a valid 10-digit WhatsApp Mobile Number!");
+                showCustomToast("Please enter a valid 10-digit WhatsApp Mobile Number!", "warning");
                 return;
             }
 
@@ -14711,7 +15483,7 @@
             const messageText = msgInput ? msgInput.value.trim() : '';
 
             if (!messageText) {
-                alert('Please enter your feedback or suggestion message before sending!');
+                showCustomToast("Please enter your feedback or suggestion message before sending!", "warning");
                 if (msgInput) msgInput.focus();
                 return;
             }
@@ -15332,7 +16104,7 @@ ${messageText}`;
         async function exportAnalyticsExcel() {
             loadAnalyticsData();
             if (!analyticsLog || analyticsLog.length === 0) {
-                alert("No analytics records available to export!");
+                showCustomToast("No analytics records available to export!", "info");
                 return;
             }
 
@@ -16082,12 +16854,12 @@ ${messageText}`;
                 
                 const questions = getTeacherOrWorksheetQuestions();
                 if (!questions || questions.length === 0) {
-                    alert("No teacher questions found to export! Please add questions or generate a worksheet first.");
+                    showCustomToast("No teacher questions found to export! Please add questions or generate a worksheet first.", "warning");
                     return;
                 }
 
                 if (typeof ExcelJS === 'undefined') {
-                    alert("Excel export library is loading... Please wait a moment and try again.");
+                    showCustomToast("Excel export library is loading... Please wait a moment and try again.", "info");
                     return;
                 }
 
@@ -16246,7 +17018,7 @@ ${messageText}`;
 
             } catch (e) {
                 console.error("Error exporting questions to Excel:", e);
-                alert("Failed to export Excel file. Please try again.");
+                showCustomToast("Failed to export Excel file. Please try again.", "error");
             }
         }
 
@@ -16316,7 +17088,7 @@ ${messageText}`;
                     document.body.removeChild(pdfContainer);
                 });
             } else {
-                alert("PDF generator library is loading, please try again in a moment.");
+                showCustomToast("PDF generator library is loading, please try again in a moment.", "info");
                 document.body.removeChild(pdfContainer);
             }
         }
@@ -16381,7 +17153,7 @@ ${messageText}`;
             const directStudentUrl = `${baseUrl}?${shareParams.toString()}`;
 
             if (!parentMobile) {
-                alert("Please enter a valid 10-digit Parent WhatsApp mobile number!");
+                showCustomToast("Please enter a valid 10-digit Parent WhatsApp mobile number!", "warning");
                 return;
             }
 
@@ -16655,7 +17427,7 @@ ${messageText}`;
             const mobile = mobileInput ? mobileInput.value.replace(/[^0-9]/g, '') : "";
 
             if (!name || !mobile) {
-                alert("Please enter both contact name and mobile number!");
+                showCustomToast("Please enter both contact name and mobile number!", "warning");
                 return;
             }
 
@@ -16732,7 +17504,7 @@ ${messageText}`;
             const mobileNumber = document.getElementById('wa-mobile-number').value.replace(/[^0-9]/g, '');
 
             if (!mobileNumber) {
-                alert("Please enter a valid mobile number or select a saved contact!");
+                showCustomToast("Please enter a valid mobile number or select a saved contact!", "warning");
                 return;
             }
 
@@ -18094,7 +18866,7 @@ ${messageText}`;
 
         function playVoiceTutorSection(index) {
             if (!('speechSynthesis' in window)) {
-                alert("Speech Synthesis is not supported in this browser.");
+                showCustomToast("Speech Synthesis is not supported in this browser.", "warning");
                 return;
             }
             window.speechSynthesis.cancel();
@@ -18413,37 +19185,44 @@ ${messageText}`;
             if (!container) return;
 
             const isMe = data.senderName === getUserDisplayName();
-            const roleColor = data.role === 'teacher' ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30' : (data.role === 'parent' ? 'bg-amber-500/20 text-amber-300 border-amber-500/30' : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30');
-
+            const initials = (data.senderName || 'U').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'U';
+            
             const timeStr = new Date(data.timestamp || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
             const bubble = document.createElement('div');
-            bubble.className = `flex flex-col ${isMe ? 'items-end' : 'items-start'} gap-1 max-w-[85%] ${isMe ? 'ml-auto' : 'mr-auto'}`;
-
-            bubble.innerHTML = `
-                <div class="flex items-center gap-1.5 text-[10px] text-slate-400">
-                    <span class="font-bold ${isMe ? 'text-indigo-400' : 'text-slate-300'}">${data.senderName}</span>
-                    <span class="px-1.5 py-0.2 rounded-md border text-[9px] font-semibold ${roleColor}">${data.role || 'user'}</span>
-                    <span>${timeStr}</span>
-                </div>
-                <div class="px-3 py-2 rounded-2xl text-xs leading-relaxed ${isMe ? 'bg-indigo-600 text-white rounded-tr-xs' : 'bg-slate-800 text-slate-100 rounded-tl-xs border border-slate-700/60'} shadow-sm break-words">
-                    ${data.text}
-                </div>
-            `;
+            
+            if (isMe) {
+                bubble.className = "flex flex-col items-end gap-1 max-w-[90%] ml-auto animate-fade-in";
+                bubble.innerHTML = `
+                    <div class="flex items-center gap-1.5 text-[10px] text-slate-400">
+                        <span>${timeStr}</span>
+                        <span class="font-bold text-indigo-600">You (${data.senderName})</span>
+                    </div>
+                    <div class="px-3 py-2 rounded-2xl rounded-tr-xs bg-indigo-50 border border-indigo-100 text-slate-800 leading-relaxed shadow-xs break-words text-xs">
+                        ${escapeHtml(data.text)}
+                    </div>
+                `;
+            } else {
+                bubble.className = "flex items-start gap-2 max-w-[90%] animate-fade-in";
+                bubble.innerHTML = `
+                    <div class="w-6 h-6 rounded-full bg-slate-200 text-slate-700 font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                        ${initials}
+                    </div>
+                    <div class="flex flex-col gap-1 min-w-0">
+                        <div class="flex items-center gap-1.5 text-[10px] text-slate-400">
+                            <span class="font-bold text-slate-700 truncate">${escapeHtml(data.senderName)}</span>
+                            <span class="px-1.5 py-0.2 rounded-md bg-slate-100 text-slate-500 text-[9px] font-semibold">${escapeHtml(data.role || 'student')}</span>
+                            <span>${timeStr}</span>
+                        </div>
+                        <div class="px-3 py-2 rounded-2xl rounded-tl-xs bg-[#F1F5F9] border border-slate-100 text-slate-800 leading-relaxed shadow-xs break-words text-xs">
+                            ${escapeHtml(data.text)}
+                        </div>
+                    </div>
+                `;
+            }
 
             container.appendChild(bubble);
             container.scrollTop = container.scrollHeight;
-
-            // If user is currently on reactions tab and message is not from me, show badge
-            const chatView = document.getElementById('classroom-chat-view');
-            if (chatView && chatView.classList.contains('hidden') && !isMe) {
-                const badge = document.getElementById('classroom-chat-badge');
-                if (badge) {
-                    badge.classList.remove('hidden');
-                    const count = parseInt(badge.textContent || '0') + 1;
-                    badge.textContent = count;
-                }
-            }
         }
 
         function appendClassroomSystemMessage(text) {
@@ -18457,37 +19236,86 @@ ${messageText}`;
             container.scrollTop = container.scrollHeight;
         }
 
-        // Toggle Live Tutor Sidebar / Split View
+        // Live Duration Timer
+        let workspaceLiveTimerSeconds = 1456; // Starts at realistic session count or 0
+        let workspaceLiveTimerInterval = null;
+
+        function startWorkspaceLiveTimer() {
+            if (workspaceLiveTimerInterval) clearInterval(workspaceLiveTimerInterval);
+            workspaceLiveTimerInterval = setInterval(() => {
+                workspaceLiveTimerSeconds++;
+                const mins = Math.floor(workspaceLiveTimerSeconds / 60);
+                const secs = workspaceLiveTimerSeconds % 60;
+                const timerEl = document.getElementById('workspace-live-timer');
+                if (timerEl) {
+                    timerEl.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        function updateWorkspaceHeaderMeta() {
+            // Update day and time
+            const now = new Date();
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const dayName = days[now.getDay()];
+            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const metaEl = document.getElementById('workspace-datetime');
+            if (metaEl) {
+                metaEl.textContent = `${dayName} · ${timeStr}`;
+            }
+
+            // Update user initials
+            const studentName = document.getElementById('student-name-input')?.value || 'Student';
+            const initials = studentName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'SD';
+            const userInitialsEl = document.getElementById('workspace-user-initials');
+            if (userInitialsEl) userInitialsEl.textContent = initials;
+            const localInitialsEl = document.getElementById('workspace-local-avatar-initials');
+            if (localInitialsEl) localInitialsEl.textContent = initials;
+        }
+
+        // Toggle Live Tutor Workspace Screen / Modal
         function toggleLiveTutorSidebar() {
             const panel = document.getElementById('live-tutor-panel');
             const floatingPip = document.getElementById('agora-floating-pip');
 
             if (!panel) return;
 
-            if (panel.classList.contains('hidden') || panel.classList.contains('translate-x-full')) {
-                // Open panel
+            if (panel.classList.contains('hidden')) {
+                // Open modal
                 panel.classList.remove('hidden');
-                setTimeout(() => panel.classList.remove('translate-x-full'), 10);
+                updateWorkspaceHeaderMeta();
+                startWorkspaceLiveTimer();
                 if (floatingPip) floatingPip.classList.add('hidden');
                 agoraIsPiPActive = false;
-
-                // Sync current active math question
                 syncActiveMathQuestionToCall();
-                
-                // Add right margin on desktop split-screen so math quiz board remains 100% visible
-                document.body.classList.add('lg:pr-[490px]');
-                document.body.classList.add('transition-all');
-                document.body.classList.add('duration-300');
             } else {
-                // Close panel
-                panel.classList.add('translate-x-full');
-                setTimeout(() => panel.classList.add('hidden'), 300);
-                document.body.classList.remove('lg:pr-[490px]');
+                closeLiveTutorModal();
+            }
+        }
 
-                // If call is active, minimize to floating PiP so student can keep talking while doing math
-                if (agoraIsCallActive && floatingPip) {
-                    floatingPip.classList.remove('hidden');
-                    agoraIsPiPActive = true;
+        function closeLiveTutorModal() {
+            const panel = document.getElementById('live-tutor-panel');
+            const floatingPip = document.getElementById('agora-floating-pip');
+            if (!panel) return;
+
+            panel.classList.add('hidden');
+
+            // If call is active, minimize to floating PiP so student can keep talking while doing math
+            if (agoraIsCallActive && floatingPip) {
+                floatingPip.classList.remove('hidden');
+                agoraIsPiPActive = true;
+            }
+        }
+
+        function toggleClassroomFullscreen() {
+            const panel = document.getElementById('live-tutor-panel');
+            if (!document.fullscreenElement) {
+                if (panel && panel.requestFullscreen) {
+                    panel.requestFullscreen().catch(e => console.warn(e));
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen().catch(e => console.warn(e));
                 }
             }
         }
@@ -18530,6 +19358,70 @@ ${messageText}`;
             }
         }
 
+        // Open / Close Agora Credentials Modal
+        function openAgoraConfigModal() {
+            const modal = document.getElementById('agora-config-modal');
+            const appIdInput = document.getElementById('agora-modal-appid');
+            const certInput = document.getElementById('agora-modal-certificate');
+            const tokenInput = document.getElementById('agora-modal-manualtoken');
+
+            if (appIdInput) appIdInput.value = localStorage.getItem('edumatrix_agora_appid') || agoraAppId || '';
+            if (certInput) certInput.value = localStorage.getItem('edumatrix_agora_certificate') || '';
+            if (tokenInput) tokenInput.value = localStorage.getItem('edumatrix_agora_manual_token') || '';
+
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeAgoraConfigModal() {
+            const modal = document.getElementById('agora-config-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function clearAgoraConfigCredentials() {
+            localStorage.removeItem('edumatrix_agora_appid');
+            localStorage.removeItem('edumatrix_agora_certificate');
+            localStorage.removeItem('edumatrix_agora_manual_token');
+            const appIdInput = document.getElementById('agora-modal-appid');
+            const certInput = document.getElementById('agora-modal-certificate');
+            const tokenInput = document.getElementById('agora-modal-manualtoken');
+            if (appIdInput) appIdInput.value = '';
+            if (certInput) certInput.value = '';
+            if (tokenInput) tokenInput.value = '';
+            initAgoraConfig();
+            if (typeof showCustomToast === 'function') showCustomToast('Reset credentials to backend defaults', 'info');
+        }
+
+        function saveAgoraConfigCredentials() {
+            const appIdInput = document.getElementById('agora-modal-appid');
+            const certInput = document.getElementById('agora-modal-certificate');
+            const tokenInput = document.getElementById('agora-modal-manualtoken');
+
+            if (appIdInput && appIdInput.value.trim()) {
+                localStorage.setItem('edumatrix_agora_appid', appIdInput.value.trim());
+                agoraAppId = appIdInput.value.trim();
+            } else {
+                localStorage.removeItem('edumatrix_agora_appid');
+            }
+
+            if (certInput && certInput.value.trim()) {
+                localStorage.setItem('edumatrix_agora_certificate', certInput.value.trim());
+            } else {
+                localStorage.removeItem('edumatrix_agora_certificate');
+            }
+
+            if (tokenInput && tokenInput.value.trim()) {
+                localStorage.setItem('edumatrix_agora_manual_token', tokenInput.value.trim());
+            } else {
+                localStorage.removeItem('edumatrix_agora_manual_token');
+            }
+
+            closeAgoraConfigModal();
+            if (typeof showCustomToast === 'function') showCustomToast('Saved credentials! Connecting...', 'success');
+            
+            // Retry join
+            joinAgoraClassroom();
+        }
+
         // Join Agora Live Classroom Video Call (Direct Real WebRTC)
         async function joinAgoraClassroom() {
             const roomInput = document.getElementById('agora-room-input');
@@ -18546,6 +19438,12 @@ ${messageText}`;
                 return;
             }
 
+            // Retrieve App ID from memory or localStorage or server
+            const savedAppId = localStorage.getItem('edumatrix_agora_appid');
+            if (savedAppId && savedAppId.trim()) {
+                agoraAppId = savedAppId.trim();
+            }
+
             if (!agoraAppId || agoraAppId.trim().length < 5) {
                 try {
                     const res = await fetch('/api/agora/config');
@@ -18560,8 +19458,9 @@ ${messageText}`;
 
             if (!agoraAppId || agoraAppId.trim().length < 5) {
                 if (typeof showCustomToast === 'function') {
-                    showCustomToast('Agora App ID not found. Please verify AGORA_APP_ID environment variable.', 'warning');
+                    showCustomToast('Please configure your Agora App ID in Video Settings.', 'warning');
                 }
+                openAgoraConfigModal();
                 return;
             }
 
@@ -18626,33 +19525,108 @@ ${messageText}`;
                     }
                 });
 
-                // 3. Create Local Camera & Mic Tracks
+                // 3. Detect Media Devices Safely before requesting tracks to prevent DEVICE_NOT_FOUND errors
+                let hasCamDevice = false;
+                let hasMicDevice = false;
                 try {
-                    [agoraLocalAudioTrack, agoraLocalVideoTrack] = await AgoraSDK.createMicrophoneAndCameraTracks(
-                        { encoderConfig: 'speech_standard' },
-                        { encoderConfig: { width: 640, height: 480, frameRate: 24, bitrateMax: 600 } }
-                    );
-
-                    // Play local video in picture-in-picture box
-                    const localContainer = document.getElementById('agora-local-video');
-                    if (localContainer && agoraLocalVideoTrack) {
-                        localContainer.innerHTML = '';
-                        agoraLocalVideoTrack.play(localContainer);
+                    if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+                        const devices = await navigator.mediaDevices.enumerateDevices();
+                        hasCamDevice = devices.some(d => d.kind === 'videoinput');
+                        hasMicDevice = devices.some(d => d.kind === 'audioinput');
                     }
-                } catch(mediaErr) {
-                    console.warn('[Agora] Camera/Mic permission issue, trying mic only:', mediaErr);
+                } catch(e) {
+                    console.warn('[Agora] Device check warning:', e);
+                }
+
+                agoraLocalAudioTrack = null;
+                agoraLocalVideoTrack = null;
+
+                // Try camera only if physical camera was found
+                if (hasCamDevice) {
                     try {
-                        agoraLocalAudioTrack = await AgoraSDK.createMicrophoneAudioTrack();
-                    } catch(e) {
-                        console.warn('[Agora] Audio track failed:', e);
+                        agoraLocalVideoTrack = await AgoraSDK.createCameraVideoTrack({
+                            encoderConfig: { width: 640, height: 480, frameRate: 24, bitrateMax: 600 }
+                        });
+                        const localContainer = document.getElementById('agora-local-video');
+                        const camAvatar = document.getElementById('agora-local-avatar');
+                        if (localContainer && agoraLocalVideoTrack) {
+                            localContainer.innerHTML = '';
+                            agoraLocalVideoTrack.play(localContainer);
+                        }
+                        if (camAvatar) camAvatar.classList.add('hidden');
+                        agoraIsVideoMuted = false;
+                        const camLbl = document.getElementById('agora-camera-lbl');
+                        if (camLbl) camLbl.textContent = 'Camera';
+                    } catch(videoErr) {
+                        agoraLocalVideoTrack = null;
+                        agoraIsVideoMuted = true;
+                    }
+                } else {
+                    agoraLocalVideoTrack = null;
+                    agoraIsVideoMuted = true;
+                    const camAvatar = document.getElementById('agora-local-avatar');
+                    if (camAvatar) camAvatar.classList.remove('hidden');
+                    const camLbl = document.getElementById('agora-camera-lbl');
+                    if (camLbl) camLbl.textContent = 'Cam Off';
+                }
+
+                // Try microphone only if physical microphone was found
+                if (hasMicDevice) {
+                    try {
+                        agoraLocalAudioTrack = await AgoraSDK.createMicrophoneAudioTrack({
+                            encoderConfig: 'speech_standard'
+                        });
+                        const micBadge = document.getElementById('agora-local-mic-badge');
+                        if (micBadge) micBadge.classList.add('hidden');
+                        agoraIsAudioMuted = false;
+                        const micLbl = document.getElementById('agora-mic-lbl');
+                        if (micLbl) micLbl.textContent = 'Mic On';
+                    } catch(audioErr) {
+                        agoraLocalAudioTrack = null;
+                        agoraIsAudioMuted = true;
+                    }
+                } else {
+                    agoraLocalAudioTrack = null;
+                    agoraIsAudioMuted = true;
+                    const micBadge = document.getElementById('agora-local-mic-badge');
+                    if (micBadge) micBadge.classList.remove('hidden');
+                    const micLbl = document.getElementById('agora-mic-lbl');
+                    if (micLbl) micLbl.textContent = 'Muted';
+                }
+
+                // 4. Request dynamic RTC token with stored certificate or manual token
+                let rtcToken = null;
+                const manualToken = localStorage.getItem('edumatrix_agora_manual_token');
+                const storedCert = localStorage.getItem('edumatrix_agora_certificate') || '';
+
+                if (manualToken && manualToken.trim()) {
+                    rtcToken = manualToken.trim();
+                } else {
+                    try {
+                        let tokenUrl = `/api/agora/token?channel=${encodeURIComponent(channelName)}&uid=0`;
+                        if (storedCert && storedCert.trim()) {
+                            tokenUrl += `&certificate=${encodeURIComponent(storedCert.trim())}`;
+                        }
+                        if (agoraAppId && agoraAppId.trim()) {
+                            tokenUrl += `&appId=${encodeURIComponent(agoraAppId.trim())}`;
+                        }
+                        const tokenRes = await fetch(tokenUrl);
+                        if (tokenRes.ok) {
+                            const tokenData = await tokenRes.json();
+                            if (tokenData && tokenData.token) {
+                                rtcToken = tokenData.token;
+                            }
+                        }
+                    } catch(tokenErr) {
+                        console.warn('[Agora] Token request notice:', tokenErr);
                     }
                 }
 
-                // 4. Join Agora channel
-                const uid = await agoraRtcClient.join(agoraAppId, channelName, null, null);
+                // 5. Join Agora channel
+                const uid = await agoraRtcClient.join(agoraAppId, channelName, rtcToken || null, null);
                 console.log('[Agora WebRTC] Joined channel successfully with UID:', uid);
 
-                // 5. Publish local tracks
+                // 6. Publish available local tracks
                 const tracksToPublish = [];
                 if (agoraLocalAudioTrack) tracksToPublish.push(agoraLocalAudioTrack);
                 if (agoraLocalVideoTrack) tracksToPublish.push(agoraLocalVideoTrack);
@@ -18668,8 +19642,14 @@ ${messageText}`;
                 // Connect WebSocket room
                 connectClassroomWebSocket(channelName);
 
-                if (typeof showCustomToast === 'function') {
-                    showCustomToast(`Joined Live Classroom "${channelName}"!`, 'success');
+                if (tracksToPublish.length === 0) {
+                    if (typeof showCustomToast === 'function') {
+                        showCustomToast(`Joined "${channelName}" in Listen & Watch mode.`, 'info');
+                    }
+                } else {
+                    if (typeof showCustomToast === 'function') {
+                        showCustomToast(`Joined Live Classroom "${channelName}"!`, 'success');
+                    }
                 }
 
                 // Enumerate cameras for mobile switching
@@ -18678,10 +19658,37 @@ ${messageText}`;
                 } catch(e) {}
 
             } catch (err) {
-                console.error('[Agora] Real Join error:', err);
-                updateAgoraStatus('Connection Error', 'ready');
-                if (typeof showCustomToast === 'function') {
-                    showCustomToast(`Agora WebRTC Error: ${err.message || 'Check camera/mic permissions'}`, 'error');
+                console.error('[Agora] Join notice:', err);
+                updateAgoraStatus('Authentication Required', 'ready');
+                const msg = String(err?.message || '');
+
+                if (msg.includes('CAN_NOT_GET_GATEWAY_SERVER') || msg.includes('dynamic use static key') || msg.includes('invalid token') || msg.includes('authorized failed') || err?.code === 'CAN_NOT_GET_GATEWAY_SERVER' || (err && err.flag === 4096)) {
+                    if (typeof showCustomToast === 'function') {
+                        showCustomToast('Your Agora project requires an App Certificate or RTC Token to connect.', 'warning');
+                    }
+                    openAgoraConfigModal();
+                } else {
+                    if (typeof showCustomToast === 'function') {
+                        showCustomToast(`Agora WebRTC: ${err?.message || 'Connection error'}`, 'warning');
+                    }
+                }
+            }
+        }
+
+        // Helper modal/prompt if user needs to enter a temporary testing token
+        function promptForManualAgoraToken(channelName) {
+            const currentToken = localStorage.getItem('edumatrix_agora_manual_token') || '';
+            const userToken = prompt(`Your Agora project has App Certificate enabled.\n\nTo join channel "${channelName}", enter an Agora RTC Token (or set AGORA_APP_CERTIFICATE in backend environment variables):\n\n(Leave empty to clear)`, currentToken);
+            
+            if (userToken !== null) {
+                if (userToken.trim().length > 0) {
+                    localStorage.setItem('edumatrix_agora_manual_token', userToken.trim());
+                    if (typeof showCustomToast === 'function') {
+                        showCustomToast('Saved Agora Token! Retrying call connection...', 'success');
+                    }
+                    joinAgoraClassroom();
+                } else {
+                    localStorage.removeItem('edumatrix_agora_manual_token');
                 }
             }
         }
@@ -18732,10 +19739,20 @@ ${messageText}`;
         // Toggle Audio Mute
         async function toggleAgoraAudio() {
             if (!agoraIsCallActive) return;
+            const AgoraSDK = window.AgoraRTC || (typeof AgoraRTC !== 'undefined' ? AgoraRTC : null);
             agoraIsAudioMuted = !agoraIsAudioMuted;
 
             if (agoraLocalAudioTrack) {
                 await agoraLocalAudioTrack.setEnabled(!agoraIsAudioMuted);
+            } else if (!agoraIsAudioMuted && agoraRtcClient && AgoraSDK) {
+                try {
+                    agoraLocalAudioTrack = await AgoraSDK.createMicrophoneAudioTrack({ encoderConfig: 'speech_standard' });
+                    await agoraRtcClient.publish(agoraLocalAudioTrack);
+                } catch(e) {
+                    console.warn('Microphone acquire notice:', e);
+                    agoraIsAudioMuted = true;
+                    if (typeof showCustomToast === 'function') showCustomToast('No microphone detected or permission denied', 'warning');
+                }
             }
 
             const micIconBox = document.getElementById('agora-mic-icon-box');
@@ -18761,10 +19778,27 @@ ${messageText}`;
         // Toggle Video Camera
         async function toggleAgoraVideo() {
             if (!agoraIsCallActive) return;
+            const AgoraSDK = window.AgoraRTC || (typeof AgoraRTC !== 'undefined' ? AgoraRTC : null);
             agoraIsVideoMuted = !agoraIsVideoMuted;
 
             if (agoraLocalVideoTrack) {
                 await agoraLocalVideoTrack.setEnabled(!agoraIsVideoMuted);
+            } else if (!agoraIsVideoMuted && agoraRtcClient && AgoraSDK) {
+                try {
+                    agoraLocalVideoTrack = await AgoraSDK.createCameraVideoTrack({
+                        encoderConfig: { width: 640, height: 480, frameRate: 24, bitrateMax: 600 }
+                    });
+                    const localContainer = document.getElementById('agora-local-video');
+                    if (localContainer) {
+                        localContainer.innerHTML = '';
+                        agoraLocalVideoTrack.play(localContainer);
+                    }
+                    await agoraRtcClient.publish(agoraLocalVideoTrack);
+                } catch(e) {
+                    console.warn('Camera acquire notice:', e);
+                    agoraIsVideoMuted = true;
+                    if (typeof showCustomToast === 'function') showCustomToast('No camera detected or permission denied', 'warning');
+                }
             }
 
             const camIconBox = document.getElementById('agora-camera-icon-box');
@@ -18962,20 +19996,27 @@ ${messageText}`;
             const callIcon = document.getElementById('agora-call-icon');
             const callLbl = document.getElementById('agora-call-lbl');
 
+            const topCallBtn = document.getElementById('workspace-new-call-btn');
+            const topCallText = document.getElementById('workspace-call-btn-text');
+
             if (isInCall) {
-                if (callIconBox) callIconBox.className = 'w-11 h-11 rounded-full bg-rose-600 hover:bg-rose-500 flex items-center justify-center text-sm shadow-md active:scale-95';
+                if (callIconBox) callIconBox.className = 'w-11 h-11 rounded-full bg-rose-600 hover:bg-rose-500 flex items-center justify-center text-base shadow-lg shadow-rose-600/30 active:scale-95';
                 if (callIcon) callIcon.className = 'fas fa-phone-slash text-white';
                 if (callLbl) {
                     callLbl.textContent = 'Leave';
                     callLbl.className = 'text-[10px] font-bold text-rose-400';
                 }
+                if (topCallBtn) topCallBtn.className = 'px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all active:scale-95 cursor-pointer shrink-0';
+                if (topCallText) topCallText.textContent = 'End Call';
             } else {
-                if (callIconBox) callIconBox.className = 'w-11 h-11 rounded-full bg-emerald-600 hover:bg-emerald-500 flex items-center justify-center text-sm shadow-md active:scale-95';
+                if (callIconBox) callIconBox.className = 'w-11 h-11 rounded-full bg-emerald-600 hover:bg-emerald-500 flex items-center justify-center text-base shadow-lg shadow-emerald-600/30 active:scale-95';
                 if (callIcon) callIcon.className = 'fas fa-phone text-white';
                 if (callLbl) {
                     callLbl.textContent = 'Join';
                     callLbl.className = 'text-[10px] font-bold text-emerald-400';
                 }
+                if (topCallBtn) topCallBtn.className = 'px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm shadow-indigo-600/25 transition-all active:scale-95 cursor-pointer shrink-0';
+                if (topCallText) topCallText.textContent = '+ New Call';
             }
         }
 
